@@ -63,22 +63,6 @@ python WirelessPy.py
 
 *Coming soon.*
 
-## Changelog
-
-### v1.2
-- Fixed various bugs
-
-### v1.1
-- Added Android-to-Android control support
-- Added file transfer (ADB Push/Pull)
-- Added settings file
-- Added screenshot feature
-- Improved existing functions
-- Fixed multiple bugs
-
-### v1.0
-- Initial release :3
-
 ## 🚧 WirelessPy v2 (In Development)
 
 WirelessPy v2 is a complete rewrite of the original WirelessPy, transitioning from a command-line application to a modern web-based platform built with FastAPI.
