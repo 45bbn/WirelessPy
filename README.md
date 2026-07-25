@@ -6,23 +6,25 @@ A CLI-based Android remote control tool built with Python and ADB.
 
 ## Features
 
-- Connect/Disconnect Android devices
-- Open and unlock devices
+- Connect and disconnect Android devices
 - Send Android intents
 - Change display resolution and density
-- Show running applications
+- Unlock the device
+- Toggle the screen on/off
+- Execute custom ADB commands
+- View running applications
 - Transfer files (ADB Push/Pull)
-- Take screenshots
+- Capture screenshots
+- Save configuration using JSON
 - Launch Scrcpy & Sndcpy (Windows only)
-- Save settings using JSON
 
 ## Requirements
 
 - Python 3.10 or newer
 - ADB installed and added to PATH
-- Scrcpy (optional)
-- Sndcpy (optional)
-
+- [Scrcpy](https://github.com/Genymobile/scrcpy) (optional)
+- [Sndcpy](https://github.com/rom1v/sndcpy) (optional)
+- 
 ## Installation
 
 Clone the repository:
@@ -64,18 +66,27 @@ python WirelessPy.py
 
 ### v1.0
 - Initial release
+:3
 
 ## Future
 
-🚧 WirelessPy v2 is currently in development.
+## 🚧 WirelessPy v2 (In Development)
 
-Planned improvements include:
+WirelessPy v2 is a complete rewrite of the original WirelessPy, transitioning from a command-line application to a modern web-based platform built with FastAPI.
 
-- FastAPI web interface
+### Planned Features
+
+- Modern web dashboard
+- Android device management via ADB
+- Authentication and user security
+- SQLite database integration
+- Real-time logging system
+- Basic file explorer
+- REST API
 - Modular architecture
-- Authentication
-- SQLite database
-- Improved UI/UX
+- Modern UI/UX
+
+> WirelessPy v2 serves as the foundation for future versions of the project.
 
 ## License
 
