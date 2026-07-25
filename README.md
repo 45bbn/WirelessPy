@@ -1,11 +1,15 @@
 # WirelessPy
 
 A CLI-based Android remote control tool built with Python and ADB.
+
+WirelessPy simplifies common Android management tasks through ADB, including device control, file transfer, screenshots, and display configuration.
+
 > WirelessPy is my first open-source Python project.
 
 ## Status
 
 WirelessPy v1 is feature-complete and is no longer under active development.
+
 Development continues with **WirelessPy v2**, a complete rewrite featuring a modern web interface built with FastAPI.
 
 ## Features
@@ -91,4 +95,4 @@ WirelessPy v2 is a complete rewrite of the original WirelessPy, transitioning fr
 
 ## License
 
-This project is licensed under the MIT License.
+This project is licensed under the [MIT License](LICENSE).
