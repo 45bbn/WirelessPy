@@ -1,8 +1,12 @@
 # WirelessPy
 
 A CLI-based Android remote control tool built with Python and ADB.
-
 > WirelessPy is my first open-source Python project.
+
+## Status
+
+WirelessPy v1 is feature-complete and is no longer under active development.
+Development continues with **WirelessPy v2**, a complete rewrite featuring a modern web interface built with FastAPI.
 
 ## Features
 
@@ -20,11 +24,11 @@ A CLI-based Android remote control tool built with Python and ADB.
 
 ## Requirements
 
-- Python 3.10 or newer
-- ADB installed and added to PATH
+- [Python](https://www.python.org/) 3.10 or newer
+- [Android SDK Platform Tools (ADB)](https://developer.android.com/tools/releases/platform-tools) installed and added to your PATH
 - [Scrcpy](https://github.com/Genymobile/scrcpy) (optional)
 - [Sndcpy](https://github.com/rom1v/sndcpy) (optional)
-- 
+
 ## Installation
 
 Clone the repository:
@@ -65,10 +69,7 @@ python WirelessPy.py
 - Fixed multiple bugs
 
 ### v1.0
-- Initial release
-:3
-
-## Future
+- Initial release :3
 
 ## 🚧 WirelessPy v2 (In Development)
 
