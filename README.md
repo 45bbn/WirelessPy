@@ -1,5 +1,9 @@
 # WirelessPy
 
+[![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![GitHub stars](https://img.shields.io/github/stars/45bbn/WirelessPy.svg)](https://github.com/45bbn/WirelessPy/stargazers)
+
 A CLI-based Android remote control tool built with Python and ADB.
 
 WirelessPy simplifies common Android management tasks through ADB, including device control, file transfer, screenshots, and display configuration.
