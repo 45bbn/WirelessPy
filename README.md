@@ -73,7 +73,7 @@ python WirelessPy.py
 
 ![Scrcpy Settings](Images/v1.2.0-scrcpy-settings.png)
 
-## 🚧 WirelessPy v2 (In Development)
+## WirelessPy v2 (In Development)
 
 WirelessPy v2 is a complete rewrite of the original WirelessPy, transitioning from a command-line application to a modern web-based platform built with FastAPI.
 
