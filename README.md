@@ -63,15 +63,15 @@ python WirelessPy.py
 
 ### Main Menu
 
-![Main Menu](images/main-menu.png)
+![Main Menu](Images/main-menu.png)
 
 ### ADB Menu
 
-![ADB Menu](images/adb-menu.png)
+![ADB Menu](Images/adb-menu.png)
 
 ### Scrcpy Settings
 
-![Scrcpy Settings](images/scrcpy-settings.png)
+![Scrcpy Settings](Images/scrcpy-settings.png)
 
 ## 🚧 WirelessPy v2 (In Development)
 
