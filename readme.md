@@ -1,9 +1,3 @@
-Absolutely. Your current README has the important information, but it reads more like a **development note** than a polished GitHub project README. I’d make it clearer for someone discovering WirelessPy for the first time while keeping the v2 development status honest.
-
-I’d also separate **current functionality** from **planned functionality**, and move the large internal architecture/design notes out of the main README. Your uploaded project notes confirm that v2 is intended as an Android-focused foundation with modular expansion later. 
-
-Here’s a substantially improved version:
-
 ````markdown
 # WirelessPy v2
 
