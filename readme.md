@@ -1,4 +1,3 @@
-````markdown
 # WirelessPy v2
 
 <p align="center">
