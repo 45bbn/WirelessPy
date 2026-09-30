@@ -1,0 +1,33 @@
+| Information               | ADB command                                                       |
+| ------------------------- | ----------------------------------------------------------------- |
+| Show all system propertys | `adb shell getprop`                                               |
+| Android version           | `adb shell getprop ro.build.version.release`                      |
+| SDK/API level             | `adb shell getprop ro.build.version.sdk`                          |
+| Security patch            | `adb shell getprop ro.build.version.security_patch`               |
+| Build ID                  | `adb shell getprop ro.build.id`                                   |
+| Device model              | `adb shell getprop ro.product.model`                              |
+| Manufacturer              | `adb shell getprop ro.product.manufacturer`                       |
+|                           |                                                                   |
+| CPU info                  | `adb shell cat /proc/cpuinfo`                                     |
+| Memory info               | `adb shell cat /proc/meminfo`                                     |
+|                           |                                                                   |
+| Battery status (full)     | ` `                                       |
+| Battery level             | `adb shell dumpsys battery | findstr "level"`                     |
+| Battery temperature       | `adb shell dumpsys battery | findstr "temperature"`               |
+| Battery charging status   | `adb shell dumpsys battery | findstr "status"`                    |
+|                           |                                                                   |
+| List all packages         | `adb shell pm list packages`                                      |
+| List third‑party packages | `adb shell pm list packages -3`                                   |
+| List system packages      | `adb shell pm list packages -s`                                   |
+|                           |                                                                   |
+| Install app               | `adb install app.apk`                                             |
+| Uninstall app             | `adb uninstall com.example.app`                                   |
+| Clear app data            | `adb shell pm clear com.example.app`                              |
+|                           |                                                                   |
+| Screen size               | `adb shell wm size`                                               |
+| Screen density            | `adb shell wm density`                                            |
+| Simulate tap              | `adb shell input tap 500 1000`                                    |
+|                           |                                                                   |
+| Show top processes        | `adb shell top`                                                   |
+
+adb shell "du -sh /sdcard/Android/data/com.miHoYo.GenshinImpact"

@@ -1,0 +1,11 @@
+.hidden {
+    display: none;
+}
+
+.content {
+    display: none;
+}
+
+#overview { /* showing first nav */
+    display: block;
+}

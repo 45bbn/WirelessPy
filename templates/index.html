@@ -1,0 +1,147 @@
+{% extends "base.html" %}
+{% block content %}
+<video autoplay muted loop playsinline preload="none" id="bg-video">
+    <source src="/static/assets/wallpaper/Melancholic Forest.mp4" type="video/mp4">
+</video>
+
+<main class="app no-select">
+    <header class="topbar panel glass">
+        <div class="topbar-left icon">WirelessPy v2</div>
+        <div class="topbar-center connected">● Connected</div>
+        <div class="topbar-right">
+            <button class="refresh btn-style">Refresh</button>
+            <button class="settings btn-style">Settings</button>
+        </div>
+    </header>
+
+    <div class="main-layout">
+        <aside class="navigation panel glass">
+            <header class="method">Method \/</header>
+            <div id="navigation-selector">
+                Navigation
+            </div>
+        </aside>
+
+        <section class="workspace-layout">
+            <div class="platform-header panel glass">
+                <header class="platform">
+                    <!-- PLATFORM SELECTION -->
+                    <button class="module-btn module-android btn-style" data-module="android">Android</button>
+                    <button class="module-btn module-windows btn-style" data-module="windows">Windows</button>
+                    <button class="module-btn module-linux btn-style" data-module="linux">Linux</button>
+                </header>
+            </div>
+
+            <div class="workspace panel glass">
+                <header class="workspace-header">Workspace</header>
+                <div class="main-workspace panel" id="workspace" hidden>Content</div>
+            </div>
+        </section>
+
+        <aside class="utility panel glass">
+            <header class="utility-name">Utility Name</header>
+            <div id="utility-selector">
+                <!-- UTILITY/TOOLS -->
+                <div class="device-list tab">
+                    <header id="device-list-heading">Connected Devices</header>
+                    <div class="list">
+                        <!-- SAMPLE -->
+                        <!-- <div class="device-item" data-id="123">
+                            <span class="status-dot">
+                                <span class="core"></span>
+                                <span class="ring"></span>
+                            </span>
+                            <div class="device-info">
+                                <p class="device-name">redmi note 14 5g</p>
+                                <p class="device-address">192.168.1.50:5555</p>
+                            </div>
+                            <div class="device-menu-wrapper">
+                                <img class="utility-vertical-dots" src="/static/assets/icon/three_dot_vertical.webp" draggable="false">
+                                <div class="device-menu" hidden>
+                                    <button class="device-menu-item" data-action="target">Set as Target</button>
+                                    <button class="device-menu-item" data-action="rename">Rename</button>
+                                    <button class="device-menu-item" data-action="disconnect">Disconnect</button>
+                                    <div class="device-menu-separator"></div>
+                                    <button class="device-menu-item danger" data-action="remove">Remove</button>
+                                </div>
+                            </div>
+                        </div> -->
+                    </div>
+                    <footer class="add-device">
+                        <img class="add-device-icon" src="/static/assets/icon/plus.svg" draggable="false">
+                        <div class="add-device-text">Connect Device</div>
+                    </footer>
+            </div>
+        </aside>
+    </div>
+
+    <footer class="statusbar panel glass">
+        <div class="statusbar-left">
+            <div>Task: adb connect 192.168.1.50:5555</div>
+        </div>
+        <div class="statusbar-center">
+            <div>Connected Device: 0</div>
+            <div>Uptime: 00:05:00</div>
+        </div>
+        <div class="statusbar-right">04/08/2026</div>
+    </footer>
+
+    <section class="console panel glass">
+        <header class="console-header">
+            <button class="btn-style" id="export-logs">export</button>
+            <div class="separator"></div>
+            <button class="btn-style" id="load-logs">load</button>
+            <div class="separator"></div>
+            <button class="btn-style" id="clear-logs">clear</button>
+            <div class="separator"></div>
+            <button class="filter btn-style">filter \/</button>
+        </header>
+        <div class="console-logs panel">
+            <pre id="logs"></pre>
+        </div>
+    </section>
+
+    <div id="overlay-root">
+        <div class="modal-backdrop" hidden>
+            <div class="modal-panel" id="connect-device-modal" hidden>
+                <header class="modal-header">
+                    Connect Device
+                    <img class="modal-close" src="/static/assets/icon/x.svg" draggable="false"></img>
+                </header>
+                <div class="modal-body">
+                    <div class="field-group">
+                        <label>Connection Type</label>
+                        <div class="connection-type-toggle">
+                            <div class="toggle-indicator"></div>
+                            <button type="button" class="type-btn active" data-type="adb">ADB</button>
+                            <button type="button" class="type-btn" data-type="ssh" disabled>SSH</button>
+                        </div>
+                    </div>
+
+                    <div class="field-group">
+                        <label for="connect-alias">Alias</label>
+                        <input type="text" id="connect-alias" placeholder="Android">
+                    </div>
+
+                    <div class="field-row">
+                        <div class="field-group field-ip">
+                            <label for="connect-address">IP Address</label>
+                            <input type="text" id="connect-address" placeholder="192.168.1.50">
+                        </div>
+                        <div class="field-group field-port">
+                            <label for="connect-port">Port</label>
+                            <input type="text" id="connect-port" placeholder="5555">
+                        </div>
+                    </div>
+
+                    <div class="modal-actions">
+                        <button type="button" id="connect-submit">Connect</button>
+                        <button type="button" id="connect-cancel" class="btn-secondary">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+{% endblock %}

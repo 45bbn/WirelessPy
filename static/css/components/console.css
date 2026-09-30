@@ -1,0 +1,47 @@
+.console {
+    height: var(--logs-height);
+    flex-shrink: 0;
+    padding: 0px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.console-header {
+    display: flex;
+    flex-direction: row-reverse;
+    margin: 6px;
+    margin-right: 10px;
+    gap: 16px;
+    height: 24px;
+    flex-shrink: 0;
+}
+
+.console-logs {
+    flex: 1;
+    min-height: 0;
+    border-bottom: 0px;
+    border-left: 0px;
+    border-right: 0px;
+    border-radius: 12px;
+    padding: 0px;
+}
+
+.console-logs pre {
+    height: 100%;
+    width: 100%;
+    padding: 0.5em 12px 0 1em;
+    font-family: 'Hack', monospace;
+    white-space: pre-line;
+    font-size: 14px;
+    color: var(--text-primary);
+
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-gutter: stable;
+    scrollbar-width: thin;
+    scrollbar-color: var(--scrollbar-thumb-color) var(--scrollbar-track-color);
+
+    margin: 0;
+    box-sizing: border-box;
+}

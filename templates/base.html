@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>WirelessPy v2</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', path='css/base/core.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', path='css/base/layout.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', path='css/components/topbar.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', path='css/components/workspace.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', path='css/components/sidebar.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', path='css/components/footer.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', path='css/components/modal.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', path='css/components/console.css') }}">
+    </head>
+<body>
+    
+    {% block content %}{% endblock %}
+    <script type="module" src="{{ url_for('static', path='js/main.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,9 @@
+.settings,
+.refresh {
+    border-radius: 8px;
+    height: 24px;
+}
+
+.icon {
+    text-shadow: var(--text-glow-heading);
+}

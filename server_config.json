@@ -1,0 +1,12 @@
+{
+    "server": {
+        "ip_mode": "manual",
+        "manual_ip": "127.0.0.1",
+        "port": 5000
+    },
+    "development": {
+        "debug": true
+    },
+    "note-1": "use auto/manual for ip mode",
+    "note-2": "use True/False for debug"
+}

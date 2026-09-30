@@ -1,0 +1,10 @@
+{
+    "id": "android",
+    "name": "Android",
+    "version": "1.0.0",
+    "author": "45bbn",
+    "icon": "android",
+    "description": "ADB",
+    "entry": "dashboard",
+    "enabled": true
+}

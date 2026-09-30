@@ -1,0 +1,24 @@
+.statusbar {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    font-size: 14px;
+}
+
+.statusbar-left {
+    justify-self: start;
+    margin-top: -8px;
+}
+
+.statusbar-center {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    justify-self: center;
+    margin-top: -8px;
+}
+
+.statusbar-right {
+    justify-self: end;
+    margin-top: -8px;
+}

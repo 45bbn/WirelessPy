@@ -1,0 +1,42 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# Database
+instance/
+*.db
+*.sqlite3
+
+# Logs
+*.log
+console.log
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Env
+.env
+.env.local
+
+# Testing
+test.py
+test2.py
+
+# Backup / old files
+main_old.js
+static/js/main_old.js
+static/css/old/
+
+# Files yang nggak perlu di-commit
+_img/
+templates/example.html
+templates/home.html
+static/assets/wallpaper/

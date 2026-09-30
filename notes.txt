@@ -1,0 +1,294 @@
+progress:
+1.ui bones done! (04/04/2026)
+2.start making backend (2.5/10)
+3.utility sidebar for device selection (9.5/10)
+3.polish structure, flow, error handling, etc... (8/10) #can lower if new features are made
+
+--- Plans ---
+WirelessPy v2 :
+-even more functions 
+-Security Auth
+-SQLite
+-Focusing on Android configuration support
+-Stable foundation
+-cool and unique ui/ux (optional)
+-animated background (optional)
+-basic file explorer
+-basic ssh (basic linux ssh)
+-gui/cli/json server configuration system
+-tooltip (toggle)
+-user login/register
+-and more maybe?
+
+WirelessPy v3 :
+-Windows, Linux, Router configuration support (router is optional)
+-completed file management (improved file explorer, convert, extract, ffmpeg, edit, rename, delete, play video/audio, open file, multipath transfer, and more)
+-AI command dispatcher
+-basic image tracker with OpenCV, Optical Flow and Kalman Filter
+-cross devices automation
+-android sensor tracker info
+-and more maybe?
+
+WirelessPy v4 :
+-Strongger compatibly
+-AI Assistant
+-Vision Module
+-Basic SmartHome Feature
+-Video Stabilizer (Gryoscope + Accelerometer)
+-and more maybe?
+
+WirelessPy
+WirelessPy is an open-source, modular device management platform built with Python, designed to simplify configuring, 
+controlling, and managing devices through a modern web interface. The project emphasizes clean architecture, scalability, 
+and extensibility, making it easy to add new tools and modules as it evolves.
+WirelessPy communicates with system-level tools and services through a structured backend while providing an intuitive 
+frontend for users. Its modular architecture separates routing, business logic, and system operations, creating a maintainable 
+codebase that can grow without major refactoring.
+
+WirelessPy v2
+WirelessPy v2 focuses on Android device management through ADB, providing a stable foundation for future expansion. 
+It includes a web dashboard, REST API, logging, authentication, and database integration while maintaining a clean, 
+modular architecture.
+
+WirelessPy v3 (Vision)
+WirelessPy v3 expands beyond Android into a multi-platform device management platform.
+Instead of focusing solely on ADB, it aims to provide a unified environment for managing and interacting 
+with different operating systems and devices through independent modules.
+
+
+---Structure (in v2 development)---
+wirelesspy-v2/
+│
+├── app.py
+├── config.py
+├── requirements.txt
+│
+├── core/
+│   ├── __init__.py
+│   └── adb.py
+│
+├── modules/
+│   └── android
+│
+├── database/
+│   ├── __init__.py
+│   └── db.py
+│
+├── routes/
+│   ├── __init__.py
+│   ├── api.py
+│   ├── responses.py
+│   ├── module.py
+│   └── web.py
+│
+├── templates/
+│   ├── index.html
+│   └── base.html
+│
+│
+├── static/
+│   ├── css/
+│   │    ├── console.css
+│   │    ├── core.css
+│   │    ├── dashboard.css
+│   │    ├── mobile.css
+│   │    ├── settings.css
+│   │    ├── sidebar.css
+│   │    └── wallpaper.css
+│   │
+│   ├── js/
+│   │   ├── main.js
+│   │   ├── api.js
+│   │   ├── core.js
+│   │   └── ui.js
+│   │
+│   └── assets/
+│
+├── utils/
+│   ├── __init__.py
+│   ├── server_utils.py
+│   ├── validator.py
+│   └── logger.py
+│
+├── services/
+│   └── device.py
+│
+└── instance/
+    └── wirelesspy.db
+
+
+
+--- Flow ---
+User Interaction (Button / Input)
+        ↓
+Frontend JavaScript (fetch API)
+        ↓
+FastAPI Route Handler
+        ↓
+Router Layer (routes/api.py or routes/web.py)
+        ↓
+Core Logic Layer (core/, modules/)
+        ↓
+System Layer (ADB / subprocess / OS)
+        ↓
+Process Result Returned
+        ↓
+JSON Response
+        ↓
+Frontend Updates DOM/UI
+
+
+
+
+
+
+
+
+
+
+Final Web Layout Idea (cool ig :3)
+                ┌────────────────────────────────────────────────────────────────────────────────┬─────────────────────┐
+                │ WirelessPy v2                        ● Connected                               │  Refresh  Settings  │
+                ├──────────────┬─────────────────────────────────────────────────────────────────┤─────────────────────┤
+method ->       │     ADB      │     Android | Windows | Linux | placeholder | placeholder       │  Connected Devices  │
+                │──────────────├─────────────────────────────────────────────────────────────────┤─────────────────────┤
+                │ Devices      │                                                                 │ ● Redmi Note 14     │
+                │ Display      │             Dynamic Module Content                              │   192.168.1.50:5555 │
+                │ Files        │                                                                 │                     │
+                │ APK          │                                                                 │ ● IPhone 67 PRO MAX │
+                │ placeholder  │                                                                 │   USB               │      
+                │ placeholder  │                                                                 ├─────────────────────┤
+                │ placeholder  │                                                                 │       Utility       │ <-- any usefull functions/global information/shortcut in here
+                │ placeholder  │                                                                 │                     │
+                ├──────────────┴─────────────────────────────────────────────────────────────────┴─────────────────────┤                   
+                │  Task: adb pull... │ Queue: 1 Running │ IPhone 67 PRO MAX │ Connected │ 12 ms                        │ <-- status bar
+                ├──────────────────────────────────────────────────────────────────────────────────────────────────────┤
+                ├════ Logs ▼ ══════════════════════Vertical-Resizable══════════════════════════════════════════════════┤ <-- logs panel can he hidden/minimize/vertical resizable
+                │ Filters: ▼ | Load Logs | Clear Logs | Export | placeholder                                           │ <-- logs panel showing in top of all panel so no one can interference it
+                ├──────────────────────────────────────────────────────────────────────────────────────────────────────┤
+                │ Time: ALL ▼ │ Module: ALL ▼ │ Level: ALL ▼ │ Search... │                                             │ <-- when user click filter this will be showed
+                ├──────────────────────────────────────────────────────────────────────────────────────────────────────┤
+                │   04:06:30     ADB             INFO         Found 1 Connected Devices                                │
+                │   04:06:30     ADB             INFO         192.168.1.50:5555	device                                 │ <-- this must more compact in horizontal
+                │   04:06:40     ADB             INFO         Sent keyevent 26 (Toggle Screen)                         │ <-- this must match the filter layout
+                │   04:06:50     SCRCPY          INFO         Started screen mirroring                                 │ <-- autoscroll to down (when new logs line arrives) by default there will be settings to turn of this in settings panel
+                └──────────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+
+
+
+
+HTML Structure
+<html>
+│
+├────── <head>
+│
+└────── <body>
+        │
+        ├────── <video>        ← Animated wallpaper
+        │
+        └────── <main class="app">
+                │
+                ├────── <header>    ← Top Bar
+                │
+                ├────── <div class="main-layout">
+                │       │
+                │       ├────── <aside>     ← Navigation Sidebar
+                │       │
+                │       ├────── <section>   ← Workspace
+                │       │
+                │       ├────── <aside>     ← Utility Sidebar
+                │       │      
+                │       └────── <footer>    ← Status Bar
+                │
+                └────── <section>        ← Logs Panel
+
+
+Background Brightness/blur/color (base idea)
+Topbar          ████████████
+Headers         █████████
+Workspace       ███████
+Logs            █████
+
+task: adb connect 192.168.1.50:5555
+      ───────────────────────────── <-- progressbar , loading (fast looping), idle, upload, download. with different colors
+
+modules/
+├── android/
+│   ├── module.json
+│   ├── routes.py
+│   ├── api.py
+│   ├── templates/
+│   │   └── dashboard.html
+│   ├── static/
+│   │   ├── android.css
+│   │   └── android.js
+│   └── services/
+│       ├── device.py
+│       └── adb.py
+│
+├── windows/
+├── linux/
+└── ssh/
+
+
+services/
+├── adb.py         # Low-level ADB commands
+├── device.py      # Device information
+├── files.py       # File manager
+├── apps.py        # APK management
+├── display.py     # Screen & brightness
+├── network.py     # Wi-Fi, hotspot, IP
+├── media.py       # Volume, music
+├── shell.py       # Terminal commands
+└── battery.py     # Battery information
+
+
+module.json
+{
+    "id": "android",
+    "name": "Android",
+    "version": "1.0.0",
+    "author": "45bbn",
+    "icon": "android",
+    "description": "Android device management",
+    "entry": "dashboard",
+    "enabled": true
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--- Logo Style (temporary) ---          
+██╗    ██╗██╗██████╗ ███████╗██╗     ███████╗███████╗███████╗██████╗ ██╗   ██╗
+██║    ██║██║██╔══██╗██╔════╝██║     ██╔════╝██╔════╝██╔════╝██╔══██╗╚██╗ ██╔╝
+██║ █╗ ██║██║██████╔╝█████╗  ██║     █████╗  ███████╗███████╗██████╔╝ ╚████╔╝ 
+██║███╗██║██║██╔══██╗██╔══╝  ██║     ██╔══╝  ╚════██║╚════██║██╔═══╝   ╚██╔╝  
+╚███╔███╔╝██║██║  ██║███████╗███████╗███████╗███████║███████║██║        ██║   
+ ╚══╝╚══╝ ╚═╝╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝╚══════╝╚══════╝╚═╝        ╚═╝    
