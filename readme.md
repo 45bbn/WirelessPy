@@ -20,6 +20,7 @@
 ## Table of Contents
 
 - [Overview](#overview)
+- [Screenshots](#screenshots)
 - [Project Status](#project-status)
 - [Goals](#goals)
 - [Features](#features)
@@ -53,6 +54,18 @@ The current focus is **Android device management through ADB**, while the archit
 > **v2 is under active development. APIs, architecture, and UI may change.**
 
 For the previous CLI implementation, see the [`main` branch](https://github.com/45bbn/WirelessPy/tree/main).
+
+---
+
+## Screenshots
+
+<p align="center">
+  <img src="docs/screenshots/dashboard.png" alt="WirelessPy v2 dashboard" width="100%">
+  <br>
+  <em>WirelessPy v2 dashboard: module tabs, workspace, connected devices, status bar, and real-time log panel.</em>
+</p>
+
+> The UI is under active development and may differ from the current version.
 
 ---
 
@@ -357,7 +370,7 @@ WirelessPy is designed around independent modules. A module can provide its own:
 - Configuration
 - Module metadata
 
-Example layout
+Example layout:
 
 ```text
 modules/
