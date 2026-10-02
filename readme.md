@@ -357,19 +357,21 @@ WirelessPy is designed around independent modules. A module can provide its own:
 - Configuration
 - Module metadata
 
-Example layout (only `android/` exists today; the others are planned):
+Example layout
 
 ```text
 modules/
-├── android/
-│   ├── module.json
-│   ├── api.py
-│   ├── services/
-│   ├── templates/
-│   └── static/
-├── windows/
-├── linux/
-└── ssh/
+└── android/
+     ├── module.json
+     ├── routes.py
+     ├── api.py
+     ├── templates/
+     │   └── dashboard.html
+     ├── static/
+     │   ├── android.css
+     │   └── android.js
+     └── services/
+         └── adb.py
 ```
 
 This keeps platform-specific functionality isolated from the core application.
