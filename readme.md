@@ -17,15 +17,40 @@
 
 ---
 
+## Table of Contents
+
+- [Overview](#overview)
+- [Project Status](#project-status)
+- [Goals](#goals)
+- [Features](#features)
+- [Requirements](#requirements)
+- [Installation](#installation)
+- [Running WirelessPy](#running-wirelesspy)
+- [Connecting an Android Device](#connecting-an-android-device)
+- [Architecture](#architecture)
+- [Project Structure](#project-structure)
+- [Module Architecture](#module-architecture)
+- [Database](#database)
+- [Logging](#logging)
+- [API](#api)
+- [Configuration](#configuration)
+- [Design Principles](#design-principles)
+- [Development Roadmap](#development-roadmap)
+- [Development](#development)
+- [Contributing](#contributing)
+- [License](#license)
+
+---
+
 ## Overview
 
-**WirelessPy** is an open-source, modular device management platform designed to simplify configuring, controlling, and managing devices through a web interface.
+**WirelessPy** is an open-source, modular device management platform that simplifies configuring, controlling, and managing devices through a web interface.
 
-WirelessPy v2 is being rebuilt around a **FastAPI backend**, **vanilla JavaScript frontend**, **SQLite database**, and a modular architecture.
+WirelessPy v2 is being rebuilt around a **FastAPI backend**, a **vanilla JavaScript frontend**, a **SQLite database**, and a modular architecture.
 
 The current focus is **Android device management through ADB**, while the architecture is designed to make future platform modules possible.
 
-> **v2 is currently in active development. APIs, architecture, and UI may change.**
+> **v2 is under active development. APIs, architecture, and UI may change.**
 
 For the previous CLI implementation, see the [`main` branch](https://github.com/45bbn/WirelessPy/tree/main).
 
@@ -34,7 +59,7 @@ For the previous CLI implementation, see the [`main` branch](https://github.com/
 ## Project Status
 
 | Version | Branch | Status |
-|---|---|---|
+| ------- | ------ | ------ |
 | **v1** | [`main`](https://github.com/45bbn/WirelessPy/tree/main) | Feature-complete / no longer maintained |
 | **v2** | `dev` | 🚧 Active development |
 
@@ -42,21 +67,19 @@ For the previous CLI implementation, see the [`main` branch](https://github.com/
 
 ## Goals
 
-WirelessPy v2 is being developed around a few core goals:
-
-- **Simple** — manage devices from a browser
-- **Modular** — platform functionality is separated into modules
-- **Extensible** — new device types and tools can be added later
-- **Maintainable** — routing, business logic, database access, and system operations are separated
-- **Cross-platform** — the server should eventually work across Windows, Linux, Android/Termux, and other environments
-- **API-first** — device operations are exposed through structured APIs
-- **Configurable** — server configuration should eventually be manageable through JSON, CLI, and GUI interfaces
+- **Simple**: manage devices from a browser
+- **Modular**: platform functionality is separated into modules
+- **Extensible**: new device types and tools can be added later
+- **Maintainable**: routing, business logic, database access, and system operations are separated
+- **Cross-platform**: the server should eventually work on Windows, Linux, Android/Termux, and other environments
+- **API-first**: device operations are exposed through structured APIs
+- **Configurable**: server configuration should eventually be manageable through JSON, CLI, and GUI
 
 ---
 
-# Features
+## Features
 
-## Device Management
+### Device Management
 
 - [x] List connected devices
 - [x] Connect to Android devices through ADB
@@ -68,7 +91,7 @@ WirelessPy v2 is being developed around a few core goals:
 - [ ] Live device status updates
 - [ ] Automatic reconnect on startup
 
-## Web Interface
+### Web Interface
 
 - [x] Web dashboard
 - [x] Dynamic module loading
@@ -80,7 +103,7 @@ WirelessPy v2 is being developed around a few core goals:
 - [ ] Improved responsive/mobile UI
 - [ ] UI customization
 
-## Backend
+### Backend
 
 - [x] FastAPI backend
 - [x] REST API
@@ -92,11 +115,10 @@ WirelessPy v2 is being developed around a few core goals:
 - [ ] User roles
 - [ ] API security improvements
 
-## Android
+### Android
 
-- [x] ADB connection management
-- [x] Device information
-- [x] Basic device actions
+- [ ] Device information
+- [ ] Basic device actions
 - [ ] Display management
 - [ ] File management
 - [ ] APK management
@@ -105,7 +127,7 @@ WirelessPy v2 is being developed around a few core goals:
 - [ ] Shell interface
 - [ ] Battery information
 
-## Planned
+### Planned
 
 - [ ] Basic file explorer
 - [ ] Basic SSH support
@@ -116,52 +138,42 @@ WirelessPy v2 is being developed around a few core goals:
 
 ---
 
-# Requirements
-
-### Software
+## Requirements
 
 - **Python 3.10+**
-- **Android SDK Platform Tools (ADB)**
+- **Android SDK Platform Tools (ADB)**, installed and available in your system `PATH`
 - A modern web browser
 - Git
 
-ADB must be installed and available through your system `PATH`.
-
-Download Android Platform Tools:
-
-https://developer.android.com/tools/releases/platform-tools
+Download Android Platform Tools: <https://developer.android.com/tools/releases/platform-tools>
 
 ---
 
-# Installation
+## Installation
 
-## 1. Clone the repository
+### 1. Clone the repository
 
 ```bash
 git clone -b dev https://github.com/45bbn/WirelessPy.git
 cd WirelessPy
-````
-
-## 2. Install dependencies
-
-```bash
-python -m pip install -r requirements.txt
 ```
 
-Using a virtual environment is recommended:
+### 2. Install dependencies
+
+Using a virtual environment is recommended.
 
 ```bash
 python -m venv .venv
 ```
 
-### Windows
+**Windows**
 
 ```powershell
 .venv\Scripts\activate
 python -m pip install -r requirements.txt
 ```
 
-### Linux / macOS
+**Linux / macOS**
 
 ```bash
 source .venv/bin/activate
@@ -170,9 +182,9 @@ python -m pip install -r requirements.txt
 
 ---
 
-# Running WirelessPy
+## Running WirelessPy
 
-Start the server with:
+Start the server:
 
 ```bash
 python app.py
@@ -184,21 +196,17 @@ By default, the web interface is available at:
 http://127.0.0.1:5000
 ```
 
-The server address, port, and other settings can be configured through:
-
-```text
-server_config.json
-```
+The server address, port, and other settings can be configured in `server_config.json`.
 
 > Configuration options may change while v2 is under development.
 
 ---
 
-# Connecting an Android Device
+## Connecting an Android Device
 
-WirelessPy v2 currently uses **ADB** for Android device communication.
+WirelessPy v2 uses **ADB** for Android device communication.
 
-First make sure ADB can see your device:
+First, make sure ADB can see your device:
 
 ```bash
 adb devices
@@ -216,50 +224,45 @@ Example:
 adb connect 192.168.1.50:5555
 ```
 
-After the device is connected, it can be managed through the WirelessPy web interface.
+Once connected, the device can be managed through the WirelessPy web interface.
 
 ---
 
-# Architecture
+## Architecture
 
 WirelessPy follows a layered architecture:
 
 ```text
 ┌──────────────────────────────┐
-│          Browser             │
+│           Browser            │
 │       HTML / CSS / JS        │
 └──────────────┬───────────────┘
-               │
                │ HTTP / WebSocket
                ▼
 ┌──────────────────────────────┐
-│        FastAPI App           │
-│          app.py              │
+│          FastAPI App         │
+│            app.py            │
 └──────────────┬───────────────┘
-               │
                ▼
 ┌──────────────────────────────┐
-│        Route Layer           │
+│          Route Layer         │
 │     routes/ + module API     │
 └──────────────┬───────────────┘
-               │
                ▼
 ┌──────────────────────────────┐
-│       Service Layer          │
+│        Service Layer         │
 │ services/ + module services  │
 └──────────────┬───────────────┘
-               │
                ▼
 ┌──────────────────────────────┐
-│         Core Layer            │
+│          Core Layer          │
 │      ADB / system APIs       │
 └──────────────┬───────────────┘
-               │
                ▼
 ┌──────────────────────────────┐
-│        System Layer          │
+│         System Layer         │
 │ ADB / subprocess / operating │
-│ system services              │
+│        system services       │
 └──────────────────────────────┘
 ```
 
@@ -289,7 +292,7 @@ Frontend UI Update
 
 ---
 
-# Project Structure
+## Project Structure
 
 ```text
 WirelessPy/
@@ -311,8 +314,8 @@ WirelessPy/
 │       ├── api.py            # Android API routes
 │       ├── module.json       # Module manifest
 │       ├── services/         # Android business logic
-│       ├── static/            # Module CSS / JS
-│       └── templates/         # Module templates
+│       ├── static/           # Module CSS / JS
+│       └── templates/        # Module templates
 │
 ├── routes/                   # Global HTTP routes
 │   ├── api.py
@@ -342,75 +345,56 @@ WirelessPy/
 
 ---
 
-# Module Architecture
+## Module Architecture
 
-WirelessPy is designed around independent modules.
+WirelessPy is designed around independent modules. A module can provide its own:
 
-A module can provide its own:
+- API routes
+- Services
+- Templates
+- JavaScript
+- CSS
+- Configuration
+- Module metadata
 
-* API routes
-* Services
-* Templates
-* JavaScript
-* CSS
-* Configuration
-* Module metadata
-
-Example:
+Example layout (only `android/` exists today; the others are planned):
 
 ```text
 modules/
-│
 ├── android/
 │   ├── module.json
 │   ├── api.py
-│   ├── routes.py
 │   ├── services/
 │   ├── templates/
 │   └── static/
-│
 ├── windows/
 ├── linux/
 └── ssh/
 ```
 
-This allows platform-specific functionality to remain isolated from the core application.
+This keeps platform-specific functionality isolated from the core application.
 
 ---
 
-# Database
+## Database
 
-WirelessPy uses **SQLite** for local application data.
-
-The database is stored in:
+WirelessPy uses **SQLite** for local application data, stored in:
 
 ```text
 instance/wirelesspy.db
 ```
 
-The database layer is responsible for persistent application data such as registered devices.
+The database layer handles persistent data such as registered devices. Runtime database files are excluded from version control.
 
 ```text
-Frontend
-   ↓
-API Route
-   ↓
-Service
-   ↓
-Database Layer
-   ↓
-SQLite
+Frontend → API Route → Service → Database Layer → SQLite
 ```
-
-Runtime database files are excluded from version control.
 
 ---
 
-# Logging
+## Logging
 
-WirelessPy provides a real-time logging system using WebSockets.
-
-Example:
+WirelessPy provides real-time logging over WebSockets.
 
 ```text
 [04:06:30] [ADB]    [INFO]  Found 1 connected device
@@ -421,24 +405,19 @@ Example:
 
 The web interface is designed to support:
 
-* Live logs
-* Filtering
-* Searching
-* Log levels
-* Module filtering
-* Auto-scroll
-* Clearing logs
-* Exporting logs
+- Live logs
+- Filtering and searching
+- Log levels
+- Module filtering
+- Auto-scroll
+- Clearing logs
+- Exporting logs
 
 ---
 
-# API
+## API
 
-The device API is currently available under:
-
-```text
-/api/devices
-```
+The device API is available under `/api/devices`:
 
 | Method | Endpoint                  | Description         |
 | ------ | ------------------------- | ------------------- |
@@ -450,185 +429,117 @@ The device API is currently available under:
 
 > The API is still under development and may change between releases.
 
-For interactive API documentation during development, FastAPI normally provides:
+During development, FastAPI provides interactive documentation at:
 
-```text
-http://127.0.0.1:5000/docs
-```
-
-and:
-
-```text
-http://127.0.0.1:5000/redoc
-```
+- Swagger UI: <http://127.0.0.1:5000/docs>
+- ReDoc: <http://127.0.0.1:5000/redoc>
 
 ---
 
-# Configuration
+## Configuration
 
-WirelessPy is intended to support multiple configuration methods:
+WirelessPy is intended to support multiple configuration methods. Today, settings are loaded like this:
 
 ```text
-             ┌───────────────┐
-             │ server_config  │
-             │     .json      │
-             └───────┬───────┘
-                     │
-             ┌───────▼───────┐
-             │    config.py   │
-             └───────┬───────┘
-                     │
-             ┌───────▼───────┐
-             │    Validate    │
-             │    Settings    │
-             └───────┬───────┘
-                     │
-             ┌───────▼───────┐
-             │ Server Startup │
-             └───────────────┘
+server_config.json → config.py → Validate settings → Server startup
 ```
 
 Future versions may provide:
 
-* JSON configuration
-* CLI configuration
-* Web/GUI configuration
+- JSON configuration
+- CLI configuration
+- Web/GUI configuration
 
 ---
 
-# Development Roadmap
+## Design Principles
 
-## v2 — Android Foundation
+WirelessPy follows a separation of concerns:
 
-The primary goal of v2 is to create a stable foundation around Android device management.
+| Directory    | Responsibility                                              |
+| ------------ | ----------------------------------------------------------- |
+| `core/`      | Low-level wrappers around system tools such as ADB          |
+| `services/`  | Business logic and application operations                   |
+| `routes/`    | HTTP request handling, validation, and response formatting  |
+| `modules/`   | Platform-specific functionality, developed independently    |
+| `database/`  | Persistent application state and device information         |
+| `static/`    | Frontend assets                                             |
+| `templates/` | HTML presentation                                           |
 
-Planned areas include:
+---
 
-* Android configuration
-* Authentication
-* SQLite integration
-* File explorer
-* Basic SSH
-* Server configuration system
-* Modular architecture
-* Improved UI/UX
+## Development Roadmap
+
+### v2 — Android Foundation
+
+Create a stable foundation around Android device management. Planned areas:
+
+- Android configuration
+- Authentication
+- SQLite integration
+- File explorer
+- Basic SSH
+- Server configuration system
+- Modular architecture
+- Improved UI/UX
 
 The long-term goal is to keep the architecture flexible enough for additional platforms.
 
----
+### v3 — Multi-Platform
 
-## v3 — Multi-Platform
+Expand WirelessPy beyond Android. Potential modules:
 
-The planned v3 direction expands WirelessPy beyond Android.
+- Windows
+- Linux
+- Router management
+- Advanced file management
+- Cross-device automation
+- Android sensor information
+- Computer vision tools
+- AI-assisted command dispatching
 
-Potential modules include:
+### v4 — Advanced Device Platform
 
-* Windows
-* Linux
-* Router management
-* Advanced file management
-* Cross-device automation
-* Android sensor information
-* Computer vision tools
-* AI-assisted command dispatching
+Long-term ideas:
 
----
-
-## v4 — Advanced Device Platform
-
-Long-term ideas include:
-
-* Stronger compatibility
-* AI assistant
-* Vision module
-* Smart-home functionality
-* Sensor-based video stabilization
-* Additional automation features
+- Stronger compatibility
+- AI assistant
+- Vision module
+- Smart-home functionality
+- Sensor-based video stabilization
+- Additional automation features
 
 > These future plans are experimental and may change significantly.
 
 ---
 
-# Design Principles
-
-### Separation of concerns
-
-```text
-core/
-    Low-level system operations
-
-services/
-    Business logic
-
-routes/
-    HTTP/API layer
-
-modules/
-    Platform-specific functionality
-
-database/
-    Persistent application data
-
-static/
-    Frontend assets
-
-templates/
-    HTML presentation
-```
-
-### Core
-
-Low-level wrappers around system tools such as ADB.
-
-### Services
-
-Business logic and application operations.
-
-### Routes
-
-HTTP request handling, validation, and response formatting.
-
-### Modules
-
-Platform-specific functionality that can be developed independently.
-
-### Database
-
-Persistent application state and device information.
-
----
-
-# Development
+## Development
 
 WirelessPy v2 is currently a **solo project under active development**.
 
 The `dev` branch may contain:
 
-* Experimental features
-* Breaking API changes
-* Incomplete modules
-* Temporary UI components
-* Architectural changes
+- Experimental features
+- Breaking API changes
+- Incomplete modules
+- Temporary UI components
+- Architectural changes
 
-If you want to experiment with WirelessPy, the `dev` branch is the appropriate branch.
+If you want to experiment with WirelessPy v2, use the `dev` branch.
 
 ---
 
-# Contributing
+## Contributing
 
-Feedback, ideas, bug reports, and suggestions are welcome.
-
-Because v2 is still under active development, major architectural changes may occur before the first stable release.
+Feedback, ideas, bug reports, and suggestions are welcome. Because v2 is still under active development, major architectural changes may occur before the first stable release.
 
 For bugs or feature requests, please open a GitHub Issue.
 
 ---
 
-# License
+## License
 
-WirelessPy is licensed under the **MIT License**.
-
-See [`LICENSE`](LICENSE) for the full license text.
+WirelessPy is licensed under the **MIT License**. See [`LICENSE`](LICENSE) for the full text.
 
 ---
 
