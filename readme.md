@@ -19,15 +19,30 @@
 
 ## Table of Contents
 
+<details open>
+<summary><strong> Getting Started</strong></summary>
+
 - [Overview](#overview)
 - [Screenshots](#screenshots)
 - [Project Status](#project-status)
 - [Goals](#goals)
 - [Features](#features)
+
+</details>
+
+<details open>
+<summary><strong> Setup & Usage</strong></summary>
+
 - [Requirements](#requirements)
 - [Installation](#installation)
 - [Running WirelessPy](#running-wirelesspy)
 - [Connecting an Android Device](#connecting-an-android-device)
+
+</details>
+
+<details open>
+<summary><strong> Technical Reference</strong></summary>
+
 - [Architecture](#architecture)
 - [Project Structure](#project-structure)
 - [Module Architecture](#module-architecture)
@@ -35,13 +50,21 @@
 - [Logging](#logging)
 - [API](#api)
 - [Configuration](#configuration)
+
+</details>
+
+<details open>
+<summary><strong> Community & Meta</strong></summary>
+
 - [Design Principles](#design-principles)
 - [Development Roadmap](#development-roadmap)
 - [Development](#development)
 - [Contributing](#contributing)
 - [License](#license)
 
----
+</details>
+
+
 
 ## Overview
 
@@ -55,7 +78,7 @@ The current focus is **Android device management through ADB**, while the archit
 
 For the previous CLI implementation, see the [`main` branch](https://github.com/45bbn/WirelessPy/tree/main).
 
----
+
 
 ## Screenshots
 
@@ -65,9 +88,13 @@ For the previous CLI implementation, see the [`main` branch](https://github.com/
   <em>WirelessPy v2 dashboard: module tabs, workspace, connected devices, status bar, and real-time log panel.</em>
 </p>
 
+> **Note:**
+> 
+> The status bar shown in the screenshot is not real-time and is still a placeholder.
+> 
 > The UI is under active development and may differ from the current version.
 
----
+
 
 ## Project Status
 
@@ -76,7 +103,7 @@ For the previous CLI implementation, see the [`main` branch](https://github.com/
 | **v1** | [`main`](https://github.com/45bbn/WirelessPy/tree/main) | Feature-complete / no longer maintained |
 | **v2** | `dev` | 🚧 Active development |
 
----
+
 
 ## Goals
 
@@ -88,7 +115,7 @@ For the previous CLI implementation, see the [`main` branch](https://github.com/
 - **API-first**: device operations are exposed through structured APIs
 - **Configurable**: server configuration should eventually be manageable through JSON, CLI, and GUI
 
----
+
 
 ## Features
 
@@ -149,7 +176,7 @@ For the previous CLI implementation, see the [`main` branch](https://github.com/
 - [ ] Additional platform modules
 - [ ] More device integrations
 
----
+
 
 ## Requirements
 
@@ -160,7 +187,7 @@ For the previous CLI implementation, see the [`main` branch](https://github.com/
 
 Download Android Platform Tools: <https://developer.android.com/tools/releases/platform-tools>
 
----
+
 
 ## Installation
 
@@ -193,7 +220,7 @@ source .venv/bin/activate
 python -m pip install -r requirements.txt
 ```
 
----
+
 
 ## Running WirelessPy
 
@@ -213,7 +240,7 @@ The server address, port, and other settings can be configured in `server_config
 
 > Configuration options may change while v2 is under development.
 
----
+
 
 ## Connecting an Android Device
 
@@ -239,7 +266,7 @@ adb connect 192.168.1.50:5555
 
 Once connected, the device can be managed through the WirelessPy web interface.
 
----
+
 
 ## Architecture
 
@@ -303,7 +330,7 @@ JSON Response
 Frontend UI Update
 ```
 
----
+
 
 ## Project Structure
 
@@ -356,7 +383,7 @@ WirelessPy/
     └── wirelesspy.db
 ```
 
----
+
 
 ## Module Architecture
 
@@ -389,7 +416,7 @@ modules/
 
 This keeps platform-specific functionality isolated from the core application.
 
----
+
 
 ## Database
 
@@ -405,7 +432,7 @@ The database layer handles persistent data such as registered devices. Runtime d
 Frontend → API Route → Service → Database Layer → SQLite
 ```
 
----
+
 
 ## Logging
 
@@ -415,7 +442,6 @@ WirelessPy provides real-time logging over WebSockets.
 [04:06:30] [ADB]    [INFO]  Found 1 connected device
 [04:06:30] [ADB]    [INFO]  192.168.1.50:5555  device
 [04:06:40] [ADB]    [INFO]  Sent keyevent 26
-[04:06:50] [SCRCPY] [INFO]  Started screen mirroring
 ```
 
 The web interface is designed to support:
@@ -428,7 +454,7 @@ The web interface is designed to support:
 - Clearing logs
 - Exporting logs
 
----
+
 
 ## API
 
@@ -449,7 +475,7 @@ During development, FastAPI provides interactive documentation at:
 - Swagger UI: <http://127.0.0.1:5000/docs>
 - ReDoc: <http://127.0.0.1:5000/redoc>
 
----
+
 
 ## Configuration
 
@@ -465,7 +491,7 @@ Future versions may provide:
 - CLI configuration
 - Web/GUI configuration
 
----
+
 
 ## Design Principles
 
@@ -481,7 +507,7 @@ WirelessPy follows a separation of concerns:
 | `static/`    | Frontend assets                                             |
 | `templates/` | HTML presentation                                           |
 
----
+
 
 ## Development Roadmap
 
@@ -526,7 +552,7 @@ Long-term ideas:
 
 > These future plans are experimental and may change significantly.
 
----
+
 
 ## Development
 
@@ -542,7 +568,7 @@ The `dev` branch may contain:
 
 If you want to experiment with WirelessPy v2, use the `dev` branch.
 
----
+
 
 ## Contributing
 
@@ -550,7 +576,7 @@ Feedback, ideas, bug reports, and suggestions are welcome. Because v2 is still u
 
 For bugs or feature requests, please open a GitHub Issue.
 
----
+
 
 ## License
 
