@@ -1,4 +1,4 @@
-import { connect, devices, disconnect, changeRes } from "./api.js";
+import { changeRes, sendKeyevent } from "./api.js";
 import { bind } from "../../../static/js/core.js";
 
 export function init() {
@@ -11,6 +11,7 @@ export function init() {
 
 function setupBtn() {
     bind("#changeRes", "click", changeRes);
+    bind("#sendKeyevent", "click", sendKeyevent)
 }
 
 function setupNav() {
@@ -42,10 +43,6 @@ function setupUtility() {
     while (Input.firstChild) {
         Output.appendChild(Input.firstChild);
     }
-
-    bind("#adb-connect", "click", connect);
-    bind("#adb-disconnect", "click", disconnect);
-    bind("#adb-devices", "click", devices);
 }
 
 export function destroy() {

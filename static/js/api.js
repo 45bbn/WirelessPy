@@ -39,18 +39,6 @@ export async function loadModule(module) {
     workspace.hidden = false; // show workspace when load done
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
 function requireDeviceFields(name, ip, port) {
     if (!name) throw new Error("Device name is required");
     if (!ip) throw new Error("IP address is required");
@@ -172,4 +160,51 @@ export async function removeDeviceApi(id, name, ip, port) {
     }
 
     return data;
+}
+
+let printJS = false;
+let multiLine = false;
+
+const origLog = console.log;   // save the original BEFORE overriding
+
+function formatArg(arg) {
+  if (arg instanceof Error) return arg.stack || arg.message;
+  if (typeof arg === "object" && arg !== null) {
+    try {
+      return multiLine
+        ? JSON.stringify(arg, null, 2)   // multi line
+        : JSON.stringify(arg);           // one line
+    } catch {
+      return String(arg);
+    }
+  }
+  return String(arg);
+}
+
+export async function sendConsoleApi(...args) {
+  const text = args.map(formatArg).join(" ");
+  origLog(...args);   // print locally without triggering the override
+
+  const response = await fetch("/api/logs/console", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ text }),
+  });
+
+  let data = null;
+  try {
+    data = await response.json();
+  } catch {}
+
+  if (!response.ok) {
+    throw new Error(data?.detail || `Failed to send console text (HTTP ${response.status})`);
+  }
+
+  return data;
+}
+
+if (printJS) {
+  console.log = (...args) => {
+    sendConsoleApi(...args).catch(() => {});
+  };
 }

@@ -1,7 +1,7 @@
 progress:
 1.ui bones done! (04/04/2026)
-2.start making backend (2.5/10)
-3.utility sidebar for device selection (9.5/10)
+2.start making backend (2.8/10)
+3.utility sidebar for device selection (9.6/10)
 3.polish structure, flow, error handling, etc... (8/10) #can lower if new features are made
 
 --- Plans ---
@@ -216,15 +216,14 @@ task: adb connect 192.168.1.50:5555
 modules/
 ├── android/
 │   ├── module.json
-│   ├── routes.py
 │   ├── api.py
 │   ├── templates/
 │   │   └── dashboard.html
 │   ├── static/
 │   │   ├── android.css
+│   │   ├── api.js
 │   │   └── android.js
 │   └── services/
-│       ├── device.py
 │       └── adb.py
 │
 ├── windows/

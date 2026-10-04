@@ -1,5 +1,4 @@
-import { connectDeviceApi, disconnectDeviceApi, loadDevicesList, removeDeviceApi, renameDeviceApi } from "./api.js";
-
+import { connectDeviceApi, disconnectDeviceApi, loadDevicesList, removeDeviceApi, renameDeviceApi, sendConsoleApi} from "./api.js";
 
 
 function get_active_module() {
@@ -67,8 +66,6 @@ export function initConnectionTypeToggle() {
     });
 }
 
-
-
 export async function connect_device() {
     const alias = document.getElementById("connect-alias").value.trim();
     const ip = document.getElementById("connect-address").value.trim();
@@ -95,6 +92,21 @@ export async function connect_device() {
 }
 
 
+
+
+
+
+
+
+
+let currentTarget = null;
+export function getCurrentTarget() {
+    console.log(currentTarget)
+    return currentTarget;
+}
+export function setCurrentTarget(device) {
+    currentTarget = device;
+}
 function createDeviceItem(device) {
     const item = document.createElement('div');
     item.className = 'device-item';
@@ -125,6 +137,7 @@ function createDeviceItem(device) {
             .forEach(el => el.classList.remove('active'));
 
         item.classList.add('active');
+        setCurrentTarget(device)
         console.log(`device ${device.ip}:${device.port} is selected with id: ${device.id}`);
     });
 

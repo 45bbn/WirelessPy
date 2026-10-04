@@ -6,7 +6,6 @@ __pycache__/
 venv/
 
 # Database
-instance/
 *.db
 *.sqlite3
 
@@ -30,13 +29,15 @@ Thumbs.db
 test.py
 test2.py
 
-# Backup / old files
+# old files
 main_old.js
 static/js/main_old.js
 static/css/old/
 
-# Files yang nggak perlu di-commit
+# other
 _img/
 templates/example.html
 templates/home.html
 static/assets/wallpaper/
+notes.txt
+adb.txt

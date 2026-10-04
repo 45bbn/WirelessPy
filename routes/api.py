@@ -31,9 +31,7 @@ class RenameRequest(BaseModel):
 
 @router.post("/connect")
 async def connect_device(data: ConnectRequest):
-    result = await device.connect(
-        data.name, data.ip, data.port, data.is_reconnect, data.device_id
-    )
+    result = await device.connect(data.name, data.ip, data.port, data.is_reconnect, data.device_id)
     return {"message": result}
 
 
@@ -69,3 +67,12 @@ async def get_log_route():
 @router_logs.post("/clear")
 async def clear_log_route():
     return logger.clear_log()
+
+
+class consoleRequest(BaseModel):
+    text: str
+
+
+@router_logs.post("/console")
+async def console(data: consoleRequest):
+    return await logger.js_console(data.text)

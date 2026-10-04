@@ -174,3 +174,4 @@ async def remove(device_id: str, name: str, raw_ip: str, raw_port: str) -> str:
         return remove_message
 
     return f"Device '{name}' removed. {disconnect_result}"
+
