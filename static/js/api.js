@@ -165,15 +165,21 @@ export async function removeDeviceApi(id, name, ip, port) {
 let printJS = false;
 let multiLine = false;
 
-const origLog = console.log;   // save the original BEFORE overriding
+// save all originals BEFORE overriding
+const orig = {
+    log: console.log,
+    info: console.info,
+    warn: console.warn,
+    error: console.error,
+};
 
 function formatArg(arg) {
     if (arg instanceof Error) return arg.stack || arg.message;
     if (typeof arg === "object" && arg !== null) {
         try {
             return multiLine
-                ? JSON.stringify(arg, null, 2)   // multi line
-                : JSON.stringify(arg);           // one line
+                ? JSON.stringify(arg, null, 2)
+                : JSON.stringify(arg);
         } catch {
             return String(arg);
         }
@@ -181,14 +187,12 @@ function formatArg(arg) {
     return String(arg);
 }
 
-export async function sendConsoleApi(...args) {
-    const text = args.map(formatArg).join(" ");
-    origLog(...args);   // print locally without triggering the override
-
+// only sends to the server (no local print)
+async function postText(level, text) {
     const response = await fetch("/api/logs/console", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ text }),
+        body: JSON.stringify({ level, text }),
     });
 
     let data = null;
@@ -199,12 +203,33 @@ export async function sendConsoleApi(...args) {
     if (!response.ok) {
         throw new Error(data?.detail || `Failed to send console text (HTTP ${response.status})`);
     }
-
     return data;
 }
 
+// print locally + send to the server
+export async function sendConsoleApi(level, ...args) {
+    const labels = { log: "INFO" };   // log -> INFO, others keep their own name
+    const tag = labels[level] || level.toUpperCase();
+    const text = args.map(formatArg).join(" "); // log formating
+
+    orig[level](...args);
+    return postText(tag, text);
+}
+
 if (printJS) {
-    console.log = (...args) => {
-        sendConsoleApi(...args).catch(() => { });
-    };
+    for (const level of Object.keys(orig)) {
+        console[level] = (...args) => {
+            sendConsoleApi(level, ...args).catch(() => { });
+        };
+    }
+
+    // errors not caught by try/catch
+    // (the browser already prints these itself, so only send to the server)
+    window.addEventListener("error", (e) => {
+        postText("ERROR", `[UNCAUGHT] ${formatArg(e.error || e.message)}`).catch(() => { });
+    });
+
+    window.addEventListener("unhandledrejection", (e) => {
+        postText("ERROR", `[UNHANDLED REJECTION] ${formatArg(e.reason)}`).catch(() => { });
+    });
 }

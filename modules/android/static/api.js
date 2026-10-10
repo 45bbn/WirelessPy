@@ -12,24 +12,24 @@ export async function changeRes() {
 }
 
 export async function sendKeyevent() {
-    const key = document.getElementById("inputKeyevent").value;
+    const keyevent = document.getElementById("inputKeyevent").value;
     const device = getCurrentTarget();
+    const ip = `${device.ip}:${device.port}`;
+    const id = device.id
 
-    console.log(key)
-    console.log(device)
-    // if (key == null || key === "") throw new Error("Keyevent is required");
+    if (keyevent == null || keyevent === "") throw new Error("Keyevent is required");
 
-    // const response = await fetch("/api/android/keyevent", {
-    //     method: "POST",
-    //     headers: { "Content-Type": "application/json"},
-    //     body: JSON.stringify({device.id, key}),
-    // });
+    const response = await fetch("/api/android/keyevent", {
+        method: "POST",
+        headers: { "Content-Type": "application/json"},
+        body: JSON.stringify({ip, keyevent, id}),
+    });
 
-    // const data = await response.json();
+    const data = await response.json();
 
-    // if (!response.ok) {
-    //     throw new Error(data.detail || "Failed to send KeyEvent to device");
-    // }
+    if (!response.ok) {
+        throw new Error(data.detail || "Failed to send KeyEvent to device");
+    }
 
-    // return data;
+    return data;
 }

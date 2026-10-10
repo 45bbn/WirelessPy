@@ -73,6 +73,24 @@ def get_all_devices() -> tuple[bool, list[tuple] | Exception]:
     finally:
         db.close()
 
+import sqlite3
+
+def get_device(device_id) -> tuple[bool, list[dict] | Exception]:
+    db = get_db()
+    db.row_factory = sqlite3.Row
+    cursor = db.cursor()
+
+    try:
+        cursor.execute("SELECT * FROM devices WHERE id = ?", (device_id,))
+        devices = [dict(row) for row in cursor.fetchall()]
+        return True, devices
+
+    except Exception as e:
+        return False, e
+
+    finally:
+        db.close()
+
 def update_device_name(device_id: str, new_name: str) -> tuple[bool, str]:
     db = get_db()
     cursor = db.cursor()
@@ -107,6 +125,9 @@ def update_device_status(device_id, status):
 
     db.commit()
     db.close()
+
+
+
 
 # print(update_device_name("3", "test"))
 # print(update_device_status("1", "pending"))

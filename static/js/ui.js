@@ -1,4 +1,4 @@
-import { connectDeviceApi, disconnectDeviceApi, loadDevicesList, removeDeviceApi, renameDeviceApi, sendConsoleApi} from "./api.js";
+import { connectDeviceApi, disconnectDeviceApi, loadDevicesList, removeDeviceApi, renameDeviceApi, sendConsoleApi } from "./api.js";
 
 
 function get_active_module() {
@@ -101,7 +101,11 @@ export async function connect_device() {
 
 let currentTarget = null;
 export function getCurrentTarget() {
-    console.log(currentTarget)
+    if (!currentTarget) {
+        throw new Error("No device selected, please select a device first!");
+    }
+
+    console.log(`selected device = ip:${currentTarget.ip}:${currentTarget.port} id:${currentTarget.id}`);
     return currentTarget;
 }
 export function setCurrentTarget(device) {
@@ -138,7 +142,6 @@ function createDeviceItem(device) {
 
         item.classList.add('active');
         setCurrentTarget(device)
-        console.log(`device ${device.ip}:${device.port} is selected with id: ${device.id}`);
     });
 
     attachDeviceMenu(item, device);
@@ -189,7 +192,6 @@ function attachDeviceMenu(item, device) {
     });
 }
 
-
 function startRename(item, device) {
     const nameEl = item.querySelector('.device-name');
     const oldName = nameEl.textContent;
@@ -206,7 +208,7 @@ function startRename(item, device) {
     async function commit() {
         const newName = input.value.trim();
         if (!newName || newName === oldName) {
-            input.replaceWith(nameEl); // batal, balikin ke <p> lama
+            input.replaceWith(nameEl); // cancel, return to old name
             return;
         }
 
@@ -216,7 +218,7 @@ function startRename(item, device) {
             console.log('Renamed:', result.message);
         } catch (err) {
             console.error('Failed to rename:', err.message);
-            nameEl.textContent = oldName; // rollback tampilan kalau gagal
+            nameEl.textContent = oldName; // rollback
         }
         input.replaceWith(nameEl);
     }
@@ -227,6 +229,7 @@ function startRename(item, device) {
         if (e.key === 'Escape') { input.value = oldName; input.blur(); }
     });
 }
+
 async function handleDeviceMenuAction(action, device) { // add function here!
     switch (action) {
         case 'rename':
@@ -277,7 +280,7 @@ export async function renderDeviceList() {
 
     devices.forEach(device => {
         const item = createDeviceItem(device);
-        console.log("Avalable devices:", device);
+        // console.log("Avalable devices:", device);
         list.appendChild(item);
     });
 }

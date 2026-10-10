@@ -69,8 +69,8 @@ async def websocket_logs(websocket: WebSocket):
         clients.discard(websocket)
 
 
-async def js_console(text: str):
+async def js_console(level:str, text: str):
     try:
-        await add_log("JS", "CONSOLE", text)
+        await add_log("JS", level, text)
     except Exception as e:
         await add_log("SYSTEM", "ERROR", f"js_console: {e}")

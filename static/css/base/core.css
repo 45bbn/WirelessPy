@@ -18,7 +18,7 @@ body {
     --max-showed-device: 4;
     --platform-height: 16px;
     --statusbar-height: 32px;
-    --logs-height: 100px;
+    --logs-height: 200px;
 
     /* appearance */
     --color-bg-surface: rgba(42, 42, 42);

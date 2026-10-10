@@ -70,9 +70,10 @@ async def clear_log_route():
 
 
 class consoleRequest(BaseModel):
+    level: str
     text: str
 
 
 @router_logs.post("/console")
 async def console(data: consoleRequest):
-    return await logger.js_console(data.text)
+    return await logger.js_console(data.level, data.text)
