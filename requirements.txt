@@ -1,10 +1,4 @@
-<<<<<<< HEAD
 fastapi
 uvicorn[standard]
 adbutils
-=======
-fastapi
-uvicorn[standard]
-adbutils
->>>>>>> fe61676932626bf6c3a842ccd700f34a8291b607
 jinja2
