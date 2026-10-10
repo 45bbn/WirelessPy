@@ -127,7 +127,7 @@ For the previous CLI implementation, see the [`main` branch](https://github.com/
 - [x] Reconnect devices
 - [x] Rename device aliases
 - [x] Remove devices from the database
-- [ ] Select active/target device
+- [x] Select active/target device
 - [ ] Live device status updates
 - [ ] Automatic reconnect on startup
 
