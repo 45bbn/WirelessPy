@@ -11,7 +11,7 @@
   <img src="https://img.shields.io/badge/FastAPI-Web%20Backend-009688.svg" alt="FastAPI">
   <img src="https://img.shields.io/badge/ADB-Android-green.svg" alt="ADB">
   <img src="https://img.shields.io/badge/SQLite-Database-003B57.svg" alt="SQLite">
-  <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="MIT License">
+  <img src="https://img.shields.io/badge/License-Apache_2.0-blue.svg" alt="Apache 2.0 License">
   <img src="https://img.shields.io/badge/Status-In%20Development-orange.svg" alt="In Development">
 </p>
 
@@ -580,11 +580,10 @@ For bugs or feature requests, please open a GitHub Issue.
 
 ## License
 
-WirelessPy is licensed under the **MIT License**. See [`LICENSE`](LICENSE) for the full text.
+WirelessPy is licensed under the **Apache License 2.0**. See [`LICENSE`](LICENSE) for the full text.
 
 ---
 
 <p align="center">
   <strong>WirelessPy v2</strong><br>
-  Modular device management, built to grow.
 </p>
