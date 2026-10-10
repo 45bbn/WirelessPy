@@ -19,7 +19,7 @@
 
 ## Table of Contents
 
-<details open>
+<details>
 <summary><strong> Getting Started</strong></summary>
 
 - [Overview](#overview)
@@ -30,7 +30,7 @@
 
 </details>
 
-<details open>
+<details>
 <summary><strong> Setup & Usage</strong></summary>
 
 - [Requirements](#requirements)
@@ -40,7 +40,7 @@
 
 </details>
 
-<details open>
+<details>
 <summary><strong> Technical Reference</strong></summary>
 
 - [Architecture](#architecture)
@@ -53,7 +53,7 @@
 
 </details>
 
-<details open>
+<details>
 <summary><strong> Community & Meta</strong></summary>
 
 - [Design Principles](#design-principles)
