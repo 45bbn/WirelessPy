@@ -129,8 +129,8 @@ export async function renameDeviceApi(id, name) {
 
     const response = await fetch("/api/devices/rename", {
         method: "POST",
-        headers: { "Content-Type": "application/json"},
-        body: JSON.stringify({id: String(id), name}),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id: String(id), name }),
     });
 
     const data = await response.json();
@@ -149,8 +149,8 @@ export async function removeDeviceApi(id, name, ip, port) {
 
     const response = await fetch("/api/devices/remove", {
         method: "POST",
-        headers: { "Content-Type": "application/json"},
-        body: JSON.stringify({id: String(id), name, ip, port: String(port)}),
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id: String(id), name, ip, port: String(port) }),
     });
 
     const data = await response.json();
@@ -168,43 +168,43 @@ let multiLine = false;
 const origLog = console.log;   // save the original BEFORE overriding
 
 function formatArg(arg) {
-  if (arg instanceof Error) return arg.stack || arg.message;
-  if (typeof arg === "object" && arg !== null) {
-    try {
-      return multiLine
-        ? JSON.stringify(arg, null, 2)   // multi line
-        : JSON.stringify(arg);           // one line
-    } catch {
-      return String(arg);
+    if (arg instanceof Error) return arg.stack || arg.message;
+    if (typeof arg === "object" && arg !== null) {
+        try {
+            return multiLine
+                ? JSON.stringify(arg, null, 2)   // multi line
+                : JSON.stringify(arg);           // one line
+        } catch {
+            return String(arg);
+        }
     }
-  }
-  return String(arg);
+    return String(arg);
 }
 
 export async function sendConsoleApi(...args) {
-  const text = args.map(formatArg).join(" ");
-  origLog(...args);   // print locally without triggering the override
+    const text = args.map(formatArg).join(" ");
+    origLog(...args);   // print locally without triggering the override
 
-  const response = await fetch("/api/logs/console", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ text }),
-  });
+    const response = await fetch("/api/logs/console", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ text }),
+    });
 
-  let data = null;
-  try {
-    data = await response.json();
-  } catch {}
+    let data = null;
+    try {
+        data = await response.json();
+    } catch { }
 
-  if (!response.ok) {
-    throw new Error(data?.detail || `Failed to send console text (HTTP ${response.status})`);
-  }
+    if (!response.ok) {
+        throw new Error(data?.detail || `Failed to send console text (HTTP ${response.status})`);
+    }
 
-  return data;
+    return data;
 }
 
 if (printJS) {
-  console.log = (...args) => {
-    sendConsoleApi(...args).catch(() => {});
-  };
+    console.log = (...args) => {
+        sendConsoleApi(...args).catch(() => { });
+    };
 }
