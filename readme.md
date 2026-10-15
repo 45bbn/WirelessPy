@@ -129,7 +129,7 @@ For the previous CLI implementation, see the [`main` branch](https://github.com/
 - [x] Remove devices from the database
 - [x] Select active/target device
 - [ ] Live device status updates
-- [ ] Automatic reconnect on startup
+- [x] Automatic reconnect on startup
 
 ### Web Interface
 
