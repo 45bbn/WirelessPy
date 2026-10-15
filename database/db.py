@@ -66,14 +66,11 @@ def get_all_devices() -> tuple[bool, list[tuple] | Exception]:
         cursor.execute("SELECT * FROM devices")
         devices = cursor.fetchall()
         return True, devices
-    
     except Exception as e:
         return False, e
     
     finally:
         db.close()
-
-import sqlite3
 
 def get_device(device_id) -> tuple[bool, list[dict] | Exception]:
     db = get_db()

@@ -1,0 +1,9 @@
+WirelessPy v2
+Copyright 2026 45bbn
+
+This product includes software developed by third parties:
+
+- FastAPI (MIT License) - https://github.com/tiangolo/fastapi
+- adbutils (MIT License) - https://github.com/openatx/adbutils
+
+Licensed under the Apache License, Version 2.0.

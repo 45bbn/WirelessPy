@@ -28,7 +28,6 @@ if not os.path.exists(CONFIG_FILE): # Create config if missing
         json.dump(default_server_config, f, indent=4)
     print("server_config.json not found, creating default config...")
 
-
 try: #load config
     with open(CONFIG_FILE, "r", encoding="utf-8") as f:
         server_config = json.load(f)
@@ -55,7 +54,7 @@ def get_local_ip(): #get local ip automaticaly
     finally:
         s.close()
 
-def is_valid_ip(ip): #check ip are valid or not
+def is_valid_ip(ip) -> bool: #check ip are valid or not
     try:
         ipaddress.ip_address(ip)
         return True
@@ -98,7 +97,7 @@ def get_server_ip():
 
     return ip, port
 
-def is_debug():
+def is_debug() -> bool:
     development = server_config.get("development", {})
 
     debug = development.get("debug", False)
@@ -106,14 +105,14 @@ def is_debug():
 
     return debug
 
-def turn_off_adb():
-    print("Turning off adb...")
-    result = subprocess.run(["adb", "kill-server"],
-        capture_output=True,
-        text=True)
+def init_adb():
+    print("Turning on ADB")
+    subprocess.run(["adb", "start-server"])
 
-    if result.returncode == 0:
-        print("Success")
-    else:
-        print("adb already off")
-        print(result)
+def kill_adb():
+    print("Turning off ADB")
+    subprocess.run(["adb", "kill-server"])
+
+
+
+

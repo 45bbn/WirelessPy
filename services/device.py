@@ -4,6 +4,55 @@ from utils.validator import buildIP
 import database.db as db
 import core.adb as adb
 
+async def get_devices() -> list[tuple] | None:
+    success, devices_or_err = db.get_all_devices()
+
+    if not success:
+        msg = f"Cant get database devices list: {devices_or_err}"
+        print(msg)
+        await add_log("SYSTEM", "ERROR", msg)
+        return None
+
+    return devices_or_err  # type: ignore
+
+def is_connected(result: str) -> bool:
+    text = result.lower()
+    if "cannot connect" in text or "failed" in text:
+        return False
+    return "connected to" in text
+
+async def startup_log(msg: str) -> None:
+    print(f"STARTUP | {msg}")
+    await add_log("SYSTEM", "STARTUP", msg)
+
+
+async def init_devices():
+    devices = await get_devices()
+    if devices is None:
+        return
+
+    success = 0
+    failed = []
+
+    for id_, name, ip_port, status in devices:
+        line = f"{name:<20} {ip_port:<20}"
+
+        try:
+            ip, port = ip_port.split(":")
+            result = await connect(name, ip, port, True, id_)
+
+            if is_connected(result):
+                success += 1
+                await startup_log(f"{line} | CONNECTED")
+            else:
+                failed.append(name)
+                await startup_log(f"{line} | FAILED")
+        except Exception as e:
+            failed.append(name)
+            await startup_log(f"{line} | ERROR ({e})")
+
+    await startup_log(f"Reconnect done: {success} success, {len(failed)} failed")
+
 
 async def add_device(name: str, ip: str, status: str) -> bool:
     try:
