@@ -1,8 +1,11 @@
-progress:
+WirelessPy v2.0.0 proggres: (18/02/2026)
 1.ui bones done! (04/04/2026)
-2.start making backend (2.8/10)
-3.utility sidebar for device selection (9.6/10)
-3.polish structure, flow, error handling, etc... (8/10) #can lower if new features are made
+2.start making backend (3.5/10)
+3.publish and configure /dev in github done! (10/09/2026)
+4.utility sidebar for device selection done! (15/10/2026)
+5.auth and security (0/0)
+6.gui/cli/json server configuration system (2/10)
+7.polish structure, flow, error handling, etc... (pending/ongoing)
 
 --- Plans ---
 WirelessPy v2 :
