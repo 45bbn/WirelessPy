@@ -128,8 +128,20 @@ For the previous CLI implementation, see the [`main` branch](https://github.com/
 - [x] Rename device aliases
 - [x] Remove devices from the database
 - [x] Select active/target device
-- [x] Live device status updates
+- [x] Live device status updates (fetch-based)
 - [x] Automatic reconnect on startup
+
+### Authentication & Security
+
+- [ ] User database table
+- [ ] Password hashing (bcrypt)
+- [ ] Login page & endpoint
+- [ ] Logout endpoint
+- [ ] Session management (httponly cookie)
+- [ ] API route protection (Middleware)
+- [ ] WebSocket connection protection
+- [ ] Rate limiting for login attempts
+- [ ] User roles (V2.x)
 
 ### Web Interface
 
@@ -139,7 +151,7 @@ For the previous CLI implementation, see the [`main` branch](https://github.com/
 - [x] Global navigation
 - [x] Utility sidebar
 - [x] Real-time log panel
-- [ ] Authentication / login
+- [ ] Login page UI
 - [ ] Improved responsive/mobile UI
 - [ ] UI customization
 
@@ -151,9 +163,8 @@ For the previous CLI implementation, see the [`main` branch](https://github.com/
 - [x] Service layer
 - [x] Modular architecture
 - [x] WebSocket logging
-- [ ] Authentication
-- [ ] User roles
 - [ ] API security improvements
+- [ ] Rate limiting
 
 ### Android
 
