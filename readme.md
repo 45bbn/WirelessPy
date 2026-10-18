@@ -133,8 +133,8 @@ For the previous CLI implementation, see the [`main` branch](https://github.com/
 
 ### Authentication & Security
 
-- [ ] User database table
-- [ ] Password hashing (bcrypt)
+- [x] User database table
+- [x] Password hashing (bcrypt)
 - [ ] Login page & endpoint
 - [ ] Logout endpoint
 - [ ] Session management (httponly cookie)
@@ -353,8 +353,7 @@ WirelessPy/
 ├── requirements.txt          # Python dependencies
 │
 ├── core/                     # Low-level system wrappers
-│   ├── adb.py                # ADB operations
-│   └── scrcpy.py             # Scrcpy integration
+│   └── adb.py                # ADB operations
 │
 ├── database/                 # Database layer
 │   ├── db.py                 # SQLite operations

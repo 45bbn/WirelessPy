@@ -2,3 +2,4 @@ fastapi
 uvicorn[standard]
 adbutils
 jinja2
+argon2-cffi

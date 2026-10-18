@@ -1,6 +1,10 @@
 import sqlite3
 from pathlib import Path
 
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+from utils.security import hash_password
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 INSTANCE_DIR = BASE_DIR / "instance"
 DB_PATH = INSTANCE_DIR / "wirelesspy.db"
@@ -9,7 +13,9 @@ DB_PATH = INSTANCE_DIR / "wirelesspy.db"
 
 def get_db():
     INSTANCE_DIR.mkdir(parents=True, exist_ok=True)
-    return sqlite3.connect(DB_PATH)
+    db = sqlite3.connect(DB_PATH, timeout=10)
+    db.execute("PRAGMA foreign_keys = ON;")
+    return db
 
 def init_db():
     db = get_db()
@@ -24,9 +30,32 @@ def init_db():
         )
     """)
 
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS users (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            username TEXT UNIQUE NOT NULL,
+            password_hash TEXT NOT NULL,
+            role TEXT NOT NULL,
+            created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+        )
+    """)
+
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS sessions (
+            token_hash TEXT PRIMARY KEY,
+            user_id INTEGER NOT NULL,
+            created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+            expires_at DATETIME NOT NULL,
+            ip_address TEXT,
+            user_agent TEXT,
+            FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+        )
+    """)
+    
     db.commit()
     db.close()
 
+# ------------------- DEVICES ------------------- #
 def add_device(name, ip, status):
     db = get_db()
     cursor = db.cursor()
@@ -124,19 +153,102 @@ def update_device_status(device_id, status):
     db.close()
 
 
+# ------------------- USERS ------------------- #
+def create_user(username: str, password_hash: str, role: str) -> bool:
+    db = get_db()
+    try:
+        cursor = db.cursor()
+        cursor.execute(
+            "INSERT INTO users (username, password_hash, role) VALUES (?, ?, ?)",
+            (username, password_hash, role),
+        )
+        db.commit()
+        return True
+    except sqlite3.IntegrityError:
+        db.rollback()
+        return False
+    finally:
+        db.close()
+
+def change_user_password(username: str, password_hash: str) -> bool:
+    db = get_db()
+    try:
+        cursor = db.cursor()
+        cursor.execute(
+            "UPDATE users SET password_hash = ? WHERE username = ?",
+            (password_hash, username),
+        )
+        db.commit()
+        return cursor.rowcount > 0
+    finally:
+        db.close()
 
 
-# print(update_device_name("3", "test"))
-# print(update_device_status("1", "pending"))
+# ------------------- SESSIONS ------------------- #
+def create_session(token_hash: str, user_id: int, expires_at: str, ip_address: str | None = None, user_agent: str | None = None) -> bool:
+    db = get_db()
+    try:
+        cursor = db.cursor()
+        cursor.execute(
+            "INSERT INTO sessions (token_hash, user_id, expires_at, ip_address, user_agent) VALUES (?, ?, ?, ?, ?)",
+            (token_hash, user_id, expires_at, ip_address, user_agent),
+        )
+        db.commit()
+        return True
+    except sqlite3.IntegrityError:
+        db.rollback()
+        return False
+    finally:
+        db.close()
 
-# init_db()
-# print(get_devices())
-# db_delete_device("5")
-# print(get_devices())
+def delete_session(token_hash: str) -> bool:
+    db = get_db()
+    try:
+        cursor = db.cursor()
+        cursor.execute(
+            "DELETE FROM sessions WHERE token_hash = ?",
+            (token_hash,),
+        )
+        db.commit()
+        return cursor.rowcount > 0
+    finally:
+        db.close()
+
+def delete_expired_sessions() -> int:
+    db = get_db()
+    try:
+        cursor = db.cursor()
+        cursor.execute("DELETE FROM sessions WHERE expires_at <= CURRENT_TIMESTAMP")
+        db.commit()
+        return cursor.rowcount
+    finally:
+        db.close()
+
+def get_session(token_hash: str) -> dict | None:
+    db = get_db()
+    try:
+        cursor = db.cursor()
+        cursor.execute(
+            """
+            SELECT u.id, u.username, u.role, s.expires_at
+            FROM sessions s
+            JOIN users u ON u.id = s.user_id
+            WHERE s.token_hash = ?
+            """,
+            (token_hash,),
+        )
+        row = cursor.fetchone()
+
+        if row is None:
+            return None  # invalid token
+        
+        user_id, username, role, expires_at = row
+        return {"id": user_id, "username": username, "role": role, "expires_at": expires_at}
+    finally:
+        db.close()
 
 
-# add_device("Redmagic", "192.168.1.10", "online")
-# print(get_devices())
-# update_device_name(3, "Redmi")
 
-
+# create_user("45bbn", "test", "admin")
+# print(change_user_password("45bbn", hash_password("45bbn")))
+# print(delete_session("828f6e14e2591c5d6dbc5fff9c23e3b56e4cc5d5eb7ad63e68eac927edea2f0d"))
