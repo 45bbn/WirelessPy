@@ -1,10 +1,6 @@
 import sqlite3
 from pathlib import Path
 
-import sys
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-from utils.security import hash_password
-
 BASE_DIR = Path(__file__).resolve().parent.parent
 INSTANCE_DIR = BASE_DIR / "instance"
 DB_PATH = INSTANCE_DIR / "wirelesspy.db"

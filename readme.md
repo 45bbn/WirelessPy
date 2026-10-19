@@ -134,7 +134,7 @@ For the previous CLI implementation, see the [`main` branch](https://github.com/
 ### Authentication & Security
 
 - [x] User database table
-- [x] Password hashing (argon)
+- [x] Password hashing (argon2)
 - [ ] Login page & endpoint
 - [ ] Logout endpoint
 - [ ] Session management (httponly cookie)

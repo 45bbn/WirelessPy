@@ -1,6 +1,5 @@
 from fastapi import APIRouter
 from pydantic import BaseModel
-from fastapi import APIRouter
 
 import services.device as device
 import utils.logger as logger
@@ -27,6 +26,12 @@ class DeviceActionRequest(BaseModel):
 class RenameRequest(BaseModel):
     id: str
     name: str
+
+
+class consoleRequest(BaseModel):
+    level: str
+    text: str
+
 
 
 @router.post("/connect")
@@ -67,11 +72,6 @@ async def get_log_route():
 @router_logs.post("/clear")
 async def clear_log_route():
     return logger.clear_log()
-
-
-class consoleRequest(BaseModel):
-    level: str
-    text: str
 
 
 @router_logs.post("/console")

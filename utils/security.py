@@ -6,7 +6,7 @@ ph = PasswordHasher(time_cost=4, memory_cost=65536, parallelism=4, hash_len=32, 
 def hash_password(user_password: str) -> str:
     return ph.hash(user_password)
 
-def verify_password(password_hash: str, user_password: str) -> bool:
+def verify_password(user_password: str, password_hash: str) -> bool:
     try:
         ph.verify(password_hash, user_password)
         return True

@@ -11,6 +11,7 @@ from modules.android.api import router as android_api
 from routes.api import router as api_router, router_logs
 from routes.module import router as module_router
 from routes.web import router as web_router
+from routes.auth import router as auth_router
 from services.device import init_devices
 from utils import logger
 from utils.server_utils import get_server_ip, init_adb, is_debug, kill_adb
@@ -28,6 +29,7 @@ async def lifespan(app: FastAPI):
 app = FastAPI(lifespan=lifespan)
 
 # Register routers
+app.include_router(auth_router)
 app.include_router(web_router)
 app.include_router(api_router)
 app.include_router(router_logs)
