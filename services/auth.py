@@ -3,15 +3,34 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from utils import security, session, logger
-from database.db import create_user, change_user_password, create_session, get_session, delete_session, delete_expired_sessions
+from database import db
 
-def register_user(username: str, password: str):
+def register_user(username: str, password: str, role: str):
     password_hash = security.hash_password(password)
+    db.create_user(username, password_hash, role)
+
     return password_hash
 
-def login_user(username: str, user_password: str, password_hash: str):
-    result = security.verify_password(user_password, password_hash)
-    return result
+DUMMY_HASH = security.hash_password("dummy-password")  
 
-print(register_user("45bbn", "1234"))
-print(login_user("45bbn", "1234", "$argon2id$v=19$m=65536,t=4,p=4$3IGr+QGZaqZOF5pzXPr40g$ddcetR3mva1aHuHMb81cTCSGrd1s7OnBYM3u/C+nwrE"))
+def login_user(username: str, password: str) -> str | None:
+    username = username.strip().lower()
+
+    if not username or not password or len(password) > 128:
+        return None
+
+    user = db.get_user_for_login(username)
+
+    if user is None:
+        security.verify_password(password, DUMMY_HASH)
+        return None
+
+    user_id, password_hash = user
+
+    if not security.verify_password(password, password_hash):
+        return None
+
+    return user_id
+
+# print(register_user("45bbn", "1234", "admin"))
+print(login_user("Test", "1234"))

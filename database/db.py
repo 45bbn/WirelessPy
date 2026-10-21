@@ -179,6 +179,29 @@ def change_user_password(username: str, password_hash: str) -> bool:
     finally:
         db.close()
 
+def get_user_for_login(username: str) -> tuple[str, str] | None:
+    db = get_db()
+    try:
+        row = db.execute(
+            "SELECT id, password_hash FROM users WHERE username = ?",
+            (username,),
+        ).fetchone()
+        return (row[0], row[1]) if row else None
+    finally:
+        db.close()
+
+def delete_user(user_id: str) -> bool:
+    db = get_db()
+    try:
+        cursor = db.cursor()
+        cursor.execute(
+            "DELETE FROM users WHERE id = ?",
+            (user_id,),
+        )
+        db.commit()
+        return cursor.rowcount > 0
+    finally:
+        db.close()
 
 # ------------------- SESSIONS ------------------- #
 def create_session(token_hash: str, user_id: int, expires_at: str, ip_address: str | None = None, user_agent: str | None = None) -> bool:

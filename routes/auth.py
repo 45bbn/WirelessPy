@@ -9,8 +9,8 @@ class LoginRequest(BaseModel):
     username: str = Field(..., min_length=3, max_length=20)
     password: str = Field(..., min_length=8)
 
-@router.post("/login")
-async def login(data: LoginRequest):
+# @router.post("/login")
+# async def login(data: LoginRequest):
 
 
 
