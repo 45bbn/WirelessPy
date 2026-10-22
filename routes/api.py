@@ -1,8 +1,9 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
 from pydantic import BaseModel
 
 import services.device as device
-import utils.logger as logger
+from routes.auth import get_current_user
+from utils import logger
 
 router = APIRouter(prefix="/api/devices", tags=["devices"])
 router_logs = APIRouter(prefix="/api/logs", tags=["logs"])
@@ -59,7 +60,7 @@ async def rename_device(data: RenameRequest):
 
 
 @router.get("/")
-async def list_devices():
+async def list_devices(current_user = Depends(get_current_user)):
     result = await device.get_db_devices()
     return result
 

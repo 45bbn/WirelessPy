@@ -166,7 +166,7 @@ def create_user(username: str, password_hash: str, role: str) -> bool:
     finally:
         db.close()
 
-def change_user_password(username: str, password_hash: str) -> bool:
+def update_user_password(username: str, password_hash: str) -> bool:
     db = get_db()
     try:
         cursor = db.cursor()
@@ -179,6 +179,15 @@ def change_user_password(username: str, password_hash: str) -> bool:
     finally:
         db.close()
 
+def get_all_users() -> list[str]:
+    db = get_db()
+    try:
+        cursor = db.cursor()
+        cursor.execute("SELECT username FROM users")
+        return [row[0].strip().lower() for row in cursor.fetchall()]
+    finally:
+        db.close()
+
 def get_user_for_login(username: str) -> tuple[str, str] | None:
     db = get_db()
     try:
@@ -187,6 +196,17 @@ def get_user_for_login(username: str) -> tuple[str, str] | None:
             (username,),
         ).fetchone()
         return (row[0], row[1]) if row else None
+    finally:
+        db.close()
+
+def get_user_by_id(user_id: str) -> str | None:
+    db = get_db()
+    try:
+        row = db.execute(
+            "SELECT username FROM users WHERE id = ?",
+            (user_id,),
+        ).fetchone()
+        return row[0] if row else None
     finally:
         db.close()
 
@@ -204,7 +224,7 @@ def delete_user(user_id: str) -> bool:
         db.close()
 
 # ------------------- SESSIONS ------------------- #
-def create_session(token_hash: str, user_id: int, expires_at: str, ip_address: str | None = None, user_agent: str | None = None) -> bool:
+def create_session(token_hash: str, user_id: str, expires_at: str, ip_address: str | None = None, user_agent: str | None = None) -> bool:
     db = get_db()
     try:
         cursor = db.cursor()
@@ -266,8 +286,7 @@ def get_session(token_hash: str) -> dict | None:
     finally:
         db.close()
 
-
-
+# delete_user("6")
 # create_user("45bbn", "test", "admin")
 # print(change_user_password("45bbn", hash_password("45bbn")))
 # print(delete_session("828f6e14e2591c5d6dbc5fff9c23e3b56e4cc5d5eb7ad63e68eac927edea2f0d"))

@@ -13,5 +13,5 @@ def verify_password(user_password: str, password_hash: str) -> bool:
     except (VerifyMismatchError, InvalidHashError):
         return False
 
-def needs_rehash(password_hash: str) -> bool:
+def check_needs_rehash(password_hash: str) -> bool:
     return ph.check_needs_rehash(password_hash)

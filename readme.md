@@ -134,13 +134,14 @@ For the previous CLI implementation, see the [`main` branch](https://github.com/
 ### Authentication & Security
 
 - [x] User database table
-- [x] Password hashing (argon2)
-- [ ] Login page & endpoint
-- [ ] Logout endpoint
-- [ ] Session management (httponly cookie)
-- [ ] API route protection (Middleware)
+- [x] Password hashing (Argon2id)
+- [x] Session management (SQLite + HTTPOnly cookie)
+- [x] Login API endpoint (`/api/auth/login`)
+- [x] API route protection (`get_current_user` dependency)
+- [ ] Login page UI (Glassmorphism design)
+- [ ] Logout API endpoint & Cookie clearing
 - [ ] WebSocket connection protection
-- [ ] Rate limiting for login attempts
+- [ ] Rate limiting for login attempts (V2.x)
 - [ ] User roles (V2.x)
 
 ### Web Interface
