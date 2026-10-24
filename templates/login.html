@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login - WirelessPy</title>
+    <!-- Nanti CSS-nya dimasukin ke sini -->
+    <link rel="stylesheet" href="/static/css/pages/login.css">
+</head>
+<body>
+    <div class="login-container">
+        <h2>WirelessPy Login</h2>
+        
+        <!-- Form ini jangan pakai action, biar JS yang ngurus -->
+        <form id="loginForm">
+            <div>
+                <label>Username</label>
+                <input type="text" id="username" required>
+            </div>
+            <div>
+                <label>Password</label>
+                <input type="password" id="password" required>
+            </div>
+            <button type="submit" id="loginBtn">Login</button>
+        </form>
+
+        <!-- Tempat buat nampilin pesan error -->
+        <p id="errorMessage" style="color: red; display: none;"></p>
+    </div>
+
+    <script src="/static/js/login.js"></script>
+</body>
+</html>

@@ -1,5 +1,6 @@
-from fastapi import APIRouter, WebSocket
+from fastapi import APIRouter, WebSocket, Depends
 from datetime import datetime
+from routes.auth import get_current_user_ws
 
 router = APIRouter(prefix="/api", tags=["logs"])
 
@@ -56,7 +57,7 @@ async def add_log(module, level, message):
 
 
 @router.websocket("/ws/logs")
-async def websocket_logs(websocket: WebSocket):
+async def websocket_logs(websocket: WebSocket, current_user: dict = Depends(get_current_user_ws)):
     await websocket.accept()
     clients.add(websocket)
 

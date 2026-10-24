@@ -80,7 +80,7 @@ def login_user(username: str, password: str) -> dict | None:
         security.verify_password(password, DUMMY_HASH)
         return None
 
-    user_id, password_hash = user
+    user_id, username_db, password_hash = user
     if not security.verify_password(password, password_hash):
         return None
 
@@ -95,7 +95,7 @@ def login_user(username: str, password: str) -> dict | None:
     db.create_session(token_hash_val, user_id, expires)
 
     return {
-        "user_id": user_id,
+        "username": username_db,
         "token": raw_token
     }
 
@@ -119,6 +119,16 @@ def get_user_from_session(token: str):
     
     user_id = session_data["id"]
     return db.get_user_by_id(user_id)
+
+
+def logout_user(raw_token: str) -> bool:
+    if not raw_token:
+        return False
+        
+    token_hash = session.hash_token(raw_token)
+    
+    deleted = db.delete_session(token_hash)
+    return deleted
 
 # print(register_user("45bbn", "1234567890", "admin"))
 # print(login_user("45bbn", "1234"))

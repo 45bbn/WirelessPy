@@ -36,25 +36,25 @@ class consoleRequest(BaseModel):
 
 
 @router.post("/connect")
-async def connect_device(data: ConnectRequest):
+async def connect_device(data: ConnectRequest, current_user = Depends(get_current_user)):
     result = await device.connect(data.name, data.ip, data.port, data.is_reconnect, data.device_id)
     return {"message": result}
 
 
 @router.post("/disconnect")
-async def disconnect_device(data: DeviceActionRequest):
+async def disconnect_device(data: DeviceActionRequest, current_user = Depends(get_current_user)):
     result = await device.disconnect(data.id, data.name, data.ip, data.port)
     return {"message": result}
 
 
 @router.post("/remove")
-async def delete_device(data: DeviceActionRequest):
+async def delete_device(data: DeviceActionRequest, current_user = Depends(get_current_user)):
     result = await device.remove(data.id, data.name, data.ip, data.port)
     return {"message": result}
 
 
 @router.post("/rename")
-async def rename_device(data: RenameRequest):
+async def rename_device(data: RenameRequest, current_user = Depends(get_current_user)):
     result = await device.rename(data.id, data.name)
     return {"message": result}
 
@@ -66,15 +66,15 @@ async def list_devices(current_user = Depends(get_current_user)):
 
 
 @router_logs.get("/")
-async def get_log_route():
+async def get_log_route(current_user = Depends(get_current_user)):
     return logger.get_log()
 
 
 @router_logs.post("/clear")
-async def clear_log_route():
+async def clear_log_route(current_user = Depends(get_current_user)):
     return logger.clear_log()
 
 
 @router_logs.post("/console")
-async def console(data: consoleRequest):
+async def console(data: consoleRequest, current_user = Depends(get_current_user)):
     return await logger.js_console(data.level, data.text)

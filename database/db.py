@@ -188,14 +188,14 @@ def get_all_users() -> list[str]:
     finally:
         db.close()
 
-def get_user_for_login(username: str) -> tuple[str, str] | None:
+def get_user_for_login(username: str) -> tuple[str, str, str] | None:
     db = get_db()
     try:
         row = db.execute(
-            "SELECT id, password_hash FROM users WHERE username = ?",
+            "SELECT id, username, password_hash FROM users WHERE username = ?",
             (username,),
         ).fetchone()
-        return (row[0], row[1]) if row else None
+        return (row[0], row[1], row[2]) if row else None
     finally:
         db.close()
 
