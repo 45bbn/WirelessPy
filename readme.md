@@ -138,9 +138,9 @@ For the previous CLI implementation, see the [`main` branch](https://github.com/
 - [x] Session management (SQLite + HTTPOnly cookie)
 - [x] Login API endpoint (`/api/auth/login`)
 - [x] API route protection (`get_current_user` dependency)
+- [x] Logout API endpoint & Cookie clearing
+- [x] WebSocket connection protection
 - [ ] Login page UI (Glassmorphism design)
-- [ ] Logout API endpoint & Cookie clearing
-- [ ] WebSocket connection protection
 - [ ] Rate limiting for login attempts (V2.x)
 - [ ] User roles (V2.x)
 
@@ -152,7 +152,7 @@ For the previous CLI implementation, see the [`main` branch](https://github.com/
 - [x] Global navigation
 - [x] Utility sidebar
 - [x] Real-time log panel
-- [ ] Login page UI
+- [x] Login page UI
 - [ ] Improved responsive/mobile UI
 - [ ] UI customization
 
