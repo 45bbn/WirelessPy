@@ -1,32 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <title>Login - WirelessPy</title>
-    <!-- Nanti CSS-nya dimasukin ke sini -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>WirelessPy - Login</title>
+    <link rel="icon" type="image/svg+xml" href="/static/assets/icon/logo/favicon.svg">
     <link rel="stylesheet" href="/static/css/pages/login.css">
 </head>
-<body>
-    <div class="login-container">
-        <h2>WirelessPy Login</h2>
-        
-        <!-- Form ini jangan pakai action, biar JS yang ngurus -->
-        <form id="loginForm">
-            <div>
-                <label>Username</label>
-                <input type="text" id="username" required>
-            </div>
-            <div>
-                <label>Password</label>
-                <input type="password" id="password" required>
-            </div>
-            <button type="submit" id="loginBtn">Login</button>
-        </form>
 
-        <!-- Tempat buat nampilin pesan error -->
-        <p id="errorMessage" style="color: red; display: none;"></p>
+<body>
+    <div class="bg-glow"></div>
+    <canvas id="geo" aria-hidden="true"></canvas>
+    <div class="spot" aria-hidden="true"></div>
+
+    <div class="app">
+        <header class="bar top">
+            <!-- Inline SVG so the gradient can follow the theme variables -->
+            <div class="brand">
+                <svg class="logo" viewBox="0 0 545 380" role="img" aria-label="WirelessPy">
+                    <defs>
+                        <linearGradient id="logo-g" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="566" y2="380">
+                            <stop offset="0" style="stop-color: var(--accent-1)" />
+                            <stop offset="0.5" style="stop-color: var(--accent-3)" />
+                            <stop offset="1" style="stop-color: var(--accent-4)" />
+                        </linearGradient>
+                    </defs>
+                    <path fill="url(#logo-g)"
+                        d="M39.4 20L113.9 20A14 14 0 0 1 127.2 29.6L172.8 167.9A12 12 0 0 0 195.6 167.9L213.4 113.9A9 9 0 0 1 230.5 113.9L272.9 242.4A10 10 0 0 1 272.9 248.7L239.4 350.4A14 14 0 0 1 226.1 360L142.3 360A14 14 0 0 1 129 350.4L26.1 38.4A14 14 0 0 1 39.4 20Z" />
+                    <path fill="url(#logo-g)"
+                        d="M236.9 20L314.3 20A10 10 0 0 1 323.8 26.9L370.3 167.9A12 12 0 0 0 393.1 167.9L439.7 26.9A10 10 0 0 1 449.2 20L526.6 20A14 14 0 0 1 539.9 38.4L436.9 350.4A14 14 0 0 1 423.6 360L339.8 360A14 14 0 0 1 326.5 350.4L223.6 38.4A14 14 0 0 1 236.9 20Z" />
+                </svg><div class="brand-name">ireless<span class="python-extension">Py</span></div>
+            </div>
+            <nav>
+                <a href="https://github.com/45bbn/WirelessPy">GitHub</a>
+                <a href="#">Docs</a>
+            </nav>
+        </header>
+
+        <main class="stage">
+            <section class="hero">
+                <h1><span>Connect &bull;</span> <span>Control &bull;</span> <span>Automate</span></h1>
+                <p>A unified platform for device control and automation.</p>
+            </section>
+
+            <form class="card" id="login-form" novalidate>
+                <h2>Welcome back :D</h2>
+                <p class="sub">Login to your WirelessPy account.</p>
+                <label for="username">Username</label>
+                <input id="username" name="username" type="text" autocomplete="username" required>
+                <label for="password">Password</label>
+                <input id="password" name="password" type="password" autocomplete="current-password" required>
+                <p class="error" id="error" role="alert" aria-live="polite"></p>
+                <button class="btn" id="submit" type="submit">Login</button>
+            </form>
+        </main>
+
+        <footer class="bar bottom">
+            <div class="status"><span class="dot"></span><span>Ready</span><span>v2.0.0</span></div>
+            <div class="fx" role="group" aria-label="Visual effects">
+                <span>Effects</span>
+                <button type="button" data-mode="full" aria-pressed="false">Full</button>
+                <button type="button" data-mode="saver" aria-pressed="false">Saver</button>
+                <button type="button" data-mode="off" aria-pressed="false">Off</button>
+            </div>
+        </footer>
     </div>
 
-    <script src="/static/js/login.js"></script>
+    <script type="module" src="/static/js/login.js"></script>
+    <script type="module" src="/static/js/wallpaper.js"></script>
 </body>
+
 </html>

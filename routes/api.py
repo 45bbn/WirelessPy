@@ -76,5 +76,5 @@ async def clear_log_route(current_user = Depends(get_current_user)):
 
 
 @router_logs.post("/console")
-async def console(data: consoleRequest, current_user = Depends(get_current_user)):
+async def javascript_console(data: consoleRequest, current_user = Depends(get_current_user)):
     return await logger.js_console(data.level, data.text)

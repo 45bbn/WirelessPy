@@ -73,5 +73,7 @@ async def websocket_logs(websocket: WebSocket, current_user: dict = Depends(get_
 async def js_console(level:str, text: str):
     try:
         await add_log("JS", level, text)
+        return f"JavaScript {level}: {text}"
     except Exception as e:
         await add_log("SYSTEM", "ERROR", f"js_console: {e}")
+        return f"SYSTEM ERROR js_console: {e}"

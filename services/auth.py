@@ -129,6 +129,3 @@ def logout_user(raw_token: str) -> bool:
     
     deleted = db.delete_session(token_hash)
     return deleted
-
-# print(register_user("45bbn", "1234567890", "admin"))
-# print(login_user("45bbn", "1234"))

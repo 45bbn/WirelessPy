@@ -1,37 +1,38 @@
-document.getElementById('loginForm').addEventListener('submit', async (e) => {
-    e.preventDefault(); // Tahan biar halaman nggak reload
-    
-    const username = document.getElementById('username').value;
-    const password = document.getElementById('password').value;
-    const errorMsg = document.getElementById('errorMessage');
-    const loginBtn = document.getElementById('loginBtn');
-    
-    // Kasih efek loading
-    loginBtn.innerText = "Authenticating...";
-    loginBtn.disabled = true;
-    errorMsg.style.display = "none";
+const form = document.getElementById("login-form");
+const errorEl = document.getElementById("error");
+const submit = document.getElementById("submit");
 
+form.addEventListener("submit", async e => {
+    e.preventDefault();
+    errorEl.textContent = "";
+    const username = form.username.value.trim(), password = form.password.value;
+    
+    if (!username || !password) { 
+        errorEl.textContent = "Enter your username and password."; 
+        return; 
+    }
+    
+    submit.disabled = true;
+    
     try {
-        const response = await fetch('/api/auth/login', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ username, password })
+        // 1. TAMBAHKAN "const" DI SINI
+        const response = await fetch("/api/auth/login", { 
+            method: "POST", 
+            credentials: "same-origin",
+            headers: { "Content-Type": "application/json" }, 
+            body: JSON.stringify({ username, password }) 
         });
 
         if (response.ok) {
-            // Kalau sukses (200 OK), lempar ke dashboard
             window.location.href = '/';
         } else {
-            // Kalau gagal (401), tampilkan error
-            errorMsg.innerText = "Username atau password salah!";
-            errorMsg.style.display = "block";
-            loginBtn.innerText = "Login";
-            loginBtn.disabled = false;
+            errorEl.textContent = "Invalid username or password.";
         }
-    } catch (err) {
-        errorMsg.innerText = "Server error, coba lagi nanti.";
-        errorMsg.style.display = "block";
-        loginBtn.innerText = "Login";
-        loginBtn.disabled = false;
+        
+    } catch (error) {
+        console.error(error);
+        errorEl.textContent = "Network error. Please try again.";
+    } finally { 
+        submit.disabled = false; 
     }
 });

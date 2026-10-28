@@ -18,12 +18,29 @@ from utils.server_utils import get_server_ip, init_adb, is_debug, kill_adb
 
 BASE_DIR = Path(__file__).resolve().parent
 
+AlreadyReconnect = False
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    task = asyncio.create_task(init_devices())
-    yield
-    task.cancel()
+    global AlreadyReconnect
+    AutoReconnect = False
+    task = None
+
+    try:
+        if AutoReconnect and not AlreadyReconnect:
+            AlreadyReconnect = True
+            task = asyncio.create_task(init_devices())
+
+        yield
+
+    finally:
+        if task is not None:
+            task.cancel()
+
+            try:
+                await task
+            except asyncio.CancelledError:
+                pass
 
 
 app = FastAPI(lifespan=lifespan)

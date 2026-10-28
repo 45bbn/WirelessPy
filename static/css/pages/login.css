@@ -1,3 +1,295 @@
-#loginForm {
-    background-color: gray;
+:root {
+    --bg-0: #070B1A;
+    --bg-1: #0E1530;
+    --accent-1: #5BC4FF;
+    --accent-2: #4A8CFF;
+    --accent-3: #6668F5;
+    --accent-4: #8A43F5;
+    --accent-gradient: linear-gradient(90deg, var(--accent-2), var(--accent-4));
+    --text: #E8ECFF;
+    --text-dim: #A9B3D6;
+    --text-muted: #8791B8;
+    --glass-bg: rgba(14, 21, 48, 0.62);
+    --glass-border: rgba(120, 140, 255, 0.2);
+    --blur: 14px;
+    --ok: #2ECC8F;
+    --danger: #FF6B7A;
+    --bar-h: 44px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    color: var(--text);
+    background: linear-gradient(160deg, var(--bg-0), var(--bg-1));
+    overflow: hidden;
+}
+
+/* ---------- Background layers: gradient glows, geometry canvas, mouse spotlight ---------- */
+.bg-glow {
+    position: fixed;
+    inset: 0;
+    background:
+        radial-gradient(60% 50% at 15% 20%, rgba(74, 140, 255, 0.20), transparent 70%),
+        radial-gradient(55% 55% at 85% 80%, rgba(138, 67, 245, 0.20), transparent 70%);
+}
+
+#geo {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.spot {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(360px circle at var(--mx, 50%) var(--my, 50%),
+            rgba(102, 104, 245, 0.26), transparent 70%);
+}
+
+/* ---------- Layout: top bar / stage / status bar ---------- */
+.app {
+    position: relative;
+    display: grid;
+    grid-template-rows: var(--bar-h) 1fr var(--bar-h);
+    height: 100%;
+}
+
+.bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 18px;
+    font-size: 13px;
+    color: var(--text-dim);
+    background: rgba(7, 11, 26, 0.55);
+    backdrop-filter: blur(8px);
+}
+
+.bar.top {
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.bar.bottom {
+    border-top: 1px solid var(--glass-border);
+}
+
+.bar a {
+    color: var(--text-dim);
+    text-decoration: none;
+    margin-left: 18px;
+}
+
+.bar a:hover,
+.bar a:focus-visible {
+    color: var(--text);
+}
+
+.logo {
+    width: 34px;
+    height: auto;
+    display: block;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+}
+
+.brand-name {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--text);
+    letter-spacing: -0.5px;
+}
+.python-extension {
+    background: linear-gradient(to right, #60a5fa, #a855f7);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 700; /* Samakan dengan Wireless */
+    display: inline-block; /* WAJIB: Agar gradient tidak bocor/aneh */
+    margin-left: 1px; /* Kasih jarak super tipis (opsional) biar s dan P gak nempel banget */
+}
+
+
+.stage {
+    display: grid;
+    grid-template-columns: 1fr minmax(320px, 400px);
+    gap: 48px;
+    align-items: center;
+    padding: 0 clamp(24px, 8vw, 120px);
+    min-height: 0;
+}
+
+.hero h1 {
+    margin: 0 0 12px;
+    font-size: clamp(26px, 3vw, 38px);
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+}
+
+.hero h1 span {
+    display: inline-block;
+}
+
+/* a wrapped line never starts with a bullet */
+.hero p {
+    margin: 0;
+    max-width: 44ch;
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--text-dim);
+}
+
+/* ---------- Glass login card ---------- */
+.card {
+    padding: 32px 30px 28px;
+    border-radius: 16px;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(var(--blur));
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+}
+
+.card h2 {
+    margin: 0 0 6px;
+    font-size: 22px;
+}
+
+.card .sub {
+    margin: 0 0 22px;
+    font-size: 14px;
+    color: var(--text-dim);
+}
+
+label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 13px;
+    color: var(--text-dim);
+}
+
+input {
+    width: 100%;
+    height: 42px;
+    padding: 0 12px;
+    margin-bottom: 16px;
+    color: var(--text);
+    font: inherit;
+    font-size: 15px;
+    background: rgba(7, 11, 26, 0.6);
+    border: 1px solid var(--glass-border);
+    border-radius: 10px;
+}
+
+input:focus-visible {
+    outline: none;
+    border-color: var(--accent-2);
+    box-shadow: 0 0 0 3px rgba(74, 140, 255, 0.3);
+}
+
+.btn {
+    width: 100%;
+    height: 44px;
+    border: 0;
+    border-radius: 10px;
+    cursor: pointer;
+    font: inherit;
+    font-weight: 600;
+    font-size: 15px;
+    color: #fff;
+    background: var(--accent-gradient);
+}
+
+.btn:hover {
+    filter: brightness(1.1);
+}
+
+.btn:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: 2px;
+}
+
+.btn:disabled {
+    opacity: 0.6;
+    cursor: progress;
+}
+
+.error {
+    min-height: 20px;
+    margin: 0 0 12px;
+    font-size: 13px;
+    color: var(--danger);
+}
+
+/* ---------- Status bar ---------- */
+.status {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--ok);
+    box-shadow: 0 0 8px var(--ok);
+}
+
+.fx {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.fx button {
+    padding: 3px 9px;
+    font: inherit;
+    font-size: 12px;
+    color: var(--text-dim);
+    background: transparent;
+    border: 1px solid var(--glass-border);
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.fx button[aria-pressed="true"] {
+    color: #fff;
+    border-color: var(--accent-3);
+    background: rgba(102, 104, 245, 0.25);
+}
+
+.fx button:focus-visible {
+    outline: 2px solid var(--accent-2);
+}
+
+@media (max-width: 860px) {
+    .stage {
+        grid-template-columns: 1fr;
+        justify-items: center;
+        padding: 0 20px;
+    }
+
+    .hero {
+        display: none;
+    }
+
+    .card {
+        width: 100%;
+        max-width: 400px;
+    }
 }
