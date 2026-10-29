@@ -4,6 +4,33 @@
     height: 24px;
 }
 
-.icon {
-    text-shadow: var(--text-glow-heading);
+.btn-user {
+    display: flex;
+    align-items: center;
+    gap: 8px; /* Jarak antar ikon dan teks */
+    background: transparent;
+    border: none;
+    color: #e6edf3;
+    font-family: inherit;
+    font-size: 14px;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-user:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* Mengatur ukuran SVG lewat CSS */
+.user-icon, .chevron-icon {
+    width: 18px;
+    height: 18px;
+}
+
+.chevron-icon {
+    width: 14px;
+    height: 14px;
+    opacity: 0.7;
 }

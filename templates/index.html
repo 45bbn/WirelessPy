@@ -6,11 +6,26 @@
 
 <main class="app no-select">
     <header class="topbar panel glass">
-        <div class="topbar-left icon">WirelessPy v2</div>
+        <div class="brand">
+            <svg class="logo" viewBox="0 0 545 380" role="img" aria-label="WirelessPy">
+                <use href="#logo-w"></use>
+            </svg>
+            <div class="brand-name">ireless<span class="python-extension">Py</span></div>
+        </div>
+        
         <div class="topbar-center connected">● Connected</div>
         <div class="topbar-right">
             <button class="refresh btn-style">Refresh</button>
             <button class="settings btn-style">Settings</button>
+            <button class="btn-user" id="profileBtn">
+                <svg class="icon" width="18" height="18">
+                    <use href="#icon-user"></use>
+                </svg>
+                <span>45bbn</span>
+                <svg class="icon" width="14" height="14">
+                    <use href="#icon-chevron"></use>
+                </svg>
+            </button>
         </div>
     </header>
 
@@ -71,7 +86,7 @@
                         <img class="add-device-icon" src="/static/assets/icon/plus.svg" draggable="false">
                         <div class="add-device-text">Connect Device</div>
                     </footer>
-            </div>
+                </div>
         </aside>
     </div>
 

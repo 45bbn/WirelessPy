@@ -211,3 +211,61 @@ body {
     animation: none;
     display: none;
 }
+
+
+
+
+
+
+
+
+
+
+
+/* ---------- Layout context: the bar that contains .brand ---------- */
+.bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 18px;
+    font-size: 13px;
+    color: var(--text-dim);
+    background: rgba(7, 11, 26, 0.55);
+    backdrop-filter: blur(8px);
+}
+
+.bar.top {
+    border-bottom: 1px solid var(--glass-border);
+}
+
+/* ---------- The logo <svg class="logo"> ---------- */
+.logo {
+    width: 34px;
+    height: auto;      /* 545×380 viewBox → ≈23.7px tall */
+    display: block;    /* kills the inline-svg baseline gap */
+}
+
+/* ---------- The wrapper <div class="brand"> ---------- */
+.brand {
+    display: flex;
+    align-items: center;
+}
+
+/* ---------- "ireless" text ---------- */
+.brand-name {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--text);
+    letter-spacing: -0.5px;
+}
+
+/* ---------- "Py" gradient text ---------- */
+.python-extension {
+    background: linear-gradient(to right, var(--accent-1), var(--accent-4));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 700;
+    display: inline-block;   /* required: background-clip needs a box */
+    margin-left: 1px;        /* hairline gap after the logo's "W" */
+}

@@ -125,7 +125,7 @@ function createDeviceItem(device) {
             <p class="device-name"></p>
             <p class="device-address"></p>
         </div>
-        <img class="utility-vertical-dots" src="/static/assets/icon/three_dot_vertical.webp" draggable="false">
+        <img class="utility-vertical-dots" src="/static/assets/icon/three_dot_vertical.svg" draggable="false">
     `;
 
     item.querySelector('.device-name').textContent = device.name;
