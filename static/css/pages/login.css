@@ -202,6 +202,10 @@ input:focus-visible {
 }
 
 .btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
     width: 100%;
     height: 44px;
     border: 0;
@@ -209,9 +213,15 @@ input:focus-visible {
     cursor: pointer;
     font: inherit;
     font-weight: 600;
-    font-size: 15px;
+    font-size: 18px;
     color: #fff;
     background: var(--accent-gradient);
+}
+.btn-arrow {
+    width: 18px;
+    height: 18px;
+    margin-left: -4px;
+    transform: translateY(2px);
 }
 
 .btn:hover {
@@ -275,6 +285,71 @@ input:focus-visible {
 
 .fx button:focus-visible {
     outline: 2px solid var(--accent-2);
+}
+
+
+/* Icon and input share one grid cell, so the icon is always centered on the input */
+.field {
+    display: grid;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.field > * {
+    grid-area: 1 / 1;             /* stack both children in the same cell */
+}
+
+.field input {
+    margin-bottom: 0;             /* the spacing now lives on .field */
+    padding-left: 40px;           /* room for the icon */
+}
+
+.field-icon {
+    justify-self: start;
+    margin-left: 12px;
+    width: 18px;
+    height: 18px;
+    color: var(--text-muted);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.field:focus-within .field-icon {
+    color: var(--accent-2);
+}
+/* Room on the right so typed text never runs under the eye button */
+#password {
+    padding-right: 44px;
+}
+
+/* The button lives in the same grid cell, pinned to the right edge */
+.toggle-pass {
+    justify-self: end;
+    margin-right: 6px;
+    width: 34px;
+    height: 34px;
+    padding: 0;
+    display: grid;
+    place-items: center;
+    color: var(--text-muted);
+    background: transparent;
+    border: 0;
+    border-radius: 8px;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.toggle-pass:hover { color: var(--text); }
+.toggle-pass:focus-visible { outline: 2px solid var(--accent-2); }
+
+.toggle-pass svg {
+    width: 18px;
+    height: 18px;
+}
+
+/* The hidden attribute does not reliably hide SVG elements, so enforce it */
+.toggle-pass svg[hidden] {
+    display: none;
 }
 
 @media (max-width: 860px) {

@@ -140,17 +140,28 @@ function draw() {
     ctx.globalAlpha = 1;
 }
 
-// ---------- Loop: 60 fps in full mode, 30 fps in saver mode, paused when the tab is hidden ----------
+// ---------- Frame rate per effect mode. 0 means no limit (follows the screen refresh rate) ----------
+const FPS = { full: 0, saver: 24 };
 let raf = 0, last = 0;
+
 function tick(now) {
     raf = requestAnimationFrame(tick);
-    const interval = mode === "saver" ? 1000 / 30 : 0;
-    if (now - last < interval) return;
-    const dt = Math.min(0.05, (now - last) / 1000 || 0.016);
-    last = now;
+
+    const fps = FPS[mode];
+    const interval = fps ? 1000 / fps : 0;
+    const elapsed = now - last;
+
+    // The 1 ms tolerance stops 30 fps from silently turning into ~20 fps
+    if (elapsed < interval - 1) return;
+
+    const dt = Math.min(0.05, elapsed / 1000 || 0.016);
+    // Keep the leftover time so the pace stays steady
+    last = interval ? now - (elapsed % interval) : now;
+
     step(dt, now);
     draw();
 }
+
 function start() { stop(); if (mode !== "off" && !document.hidden) raf = requestAnimationFrame(tick); }
 function stop() { if (raf) cancelAnimationFrame(raf); raf = 0; }
 
