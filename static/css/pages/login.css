@@ -1,5 +1,5 @@
 :root {
-    --bg-0: #070B1A;
+        --bg-0: #070B1A;
     --bg-1: #0E1530;
     --accent-1: #5BC4FF;
     --accent-2: #4A8CFF;
@@ -15,6 +15,99 @@
     --ok: #2ECC8F;
     --danger: #FF6B7A;
     --bar-h: 44px;
+
+    /* RGB channels so rgba(var(--x-rgb), 0.2) works */
+    --bg-0-rgb: 7, 11, 26;
+    --bg-1-rgb: 14, 21, 48;
+    --accent-2-rgb: 74, 140, 255;
+    --accent-3-rgb: 102, 104, 245;
+    --accent-4-rgb: 138, 67, 245;
+
+    /* Text color on top of the accent gradient (the button) */
+    --on-accent: #FFFFFF;
+
+    --glass-bg: rgba(var(--bg-1-rgb), 0.62);
+    /* replaces the old fixed rgba */
+}
+
+/* Aurora: teal to green */
+:root[data-theme="aurora"] {
+    --bg-0: #04120F;
+    --bg-1: #0A1F1B;
+    --bg-0-rgb: 4, 18, 15;
+    --bg-1-rgb: 10, 31, 27;
+    --accent-1: #67E8F9;
+    --accent-2: #2DD4BF;
+    --accent-3: #34D399;
+    --accent-4: #4ADE80;
+    --accent-2-rgb: 45, 212, 191;
+    --accent-3-rgb: 52, 211, 153;
+    --accent-4-rgb: 74, 222, 128;
+    --text: #E6FFF8;
+    --text-dim: #A3CFC4;
+    --text-muted: #86B0A5;
+    --glass-border: rgba(110, 231, 200, 0.2);
+    --on-accent: #031512;
+}
+
+/* Sunset: orange to magenta */
+:root[data-theme="sunset"] {
+    --bg-0: #150810;
+    --bg-1: #241025;
+    --bg-0-rgb: 21, 8, 16;
+    --bg-1-rgb: 36, 16, 37;
+    --accent-1: #FFB86B;
+    --accent-2: #FF8A5B;
+    --accent-3: #F2557E;
+    --accent-4: #D14BD6;
+    --accent-2-rgb: 255, 138, 91;
+    --accent-3-rgb: 242, 85, 126;
+    --accent-4-rgb: 209, 75, 214;
+    --text: #FFEFF3;
+    --text-dim: #D9B3C2;
+    --text-muted: #B58E9E;
+    --glass-border: rgba(255, 150, 170, 0.2);
+    --on-accent: #1A0610;
+}
+
+/* Ember: red to violet */
+:root[data-theme="ember"] {
+    --bg-0: #14070B;
+    --bg-1: #240D14;
+    --bg-0-rgb: 20, 7, 11;
+    --bg-1-rgb: 36, 13, 20;
+    --accent-1: #FF8A7A;
+    --accent-2: #D63C44;
+    --accent-3: #D6336C;
+    --accent-4: #B02BC0;
+    --accent-2-rgb: 214, 60, 68;
+    --accent-3-rgb: 214, 51, 108;
+    --accent-4-rgb: 176, 43, 192;
+    --text: #FFEDEE;
+    --text-dim: #D6AEB2;
+    --text-muted: #B58B90;
+    --glass-border: rgba(255, 130, 140, 0.2);
+    --on-accent: #FFFFFF;
+}
+
+/* Graphite: neutral silver */
+:root[data-theme="graphite"] {
+    --bg-0: #0A0C10;
+    --bg-1: #14181F;
+    --bg-0-rgb: 10, 12, 16;
+    --bg-1-rgb: 20, 24, 31;
+    --accent-1: #E2E8F0;
+    --accent-2: #CBD5E1;
+    --accent-3: #94A3B8;
+    --accent-4: #7C8CA3;
+    --accent-2-rgb: 203, 213, 225;
+    --accent-3-rgb: 148, 163, 184;
+    --accent-4-rgb: 124, 140, 163;
+    --text: #EEF1F6;
+    --text-dim: #B4BCC9;
+    --text-muted: #8E98A8;
+    --glass-border: rgba(200, 210, 225, 0.18);
+    --on-accent: #0A0C10;
 }
 
 * {
@@ -114,14 +207,15 @@ body {
     color: var(--text);
     letter-spacing: -0.5px;
 }
+
 .python-extension {
-    background: linear-gradient(to right, #60a5fa, #a855f7);
+    background: linear-gradient(to right, var(--accent-1), var(--accent-4));
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
-    font-weight: 700; /* Samakan dengan Wireless */
-    display: inline-block; /* WAJIB: Agar gradient tidak bocor/aneh */
-    margin-left: 1px; /* Kasih jarak super tipis (opsional) biar s dan P gak nempel banget */
+    font-weight: 700;
+    display: inline-block;
+    margin-left: 1px;
 }
 
 
@@ -217,6 +311,7 @@ input:focus-visible {
     color: #fff;
     background: var(--accent-gradient);
 }
+
 .btn-arrow {
     width: 18px;
     height: 18px;
@@ -288,6 +383,7 @@ input:focus-visible {
 }
 
 
+/* ---------- Field and icons ---------- */
 /* Icon and input share one grid cell, so the icon is always centered on the input */
 .field {
     display: grid;
@@ -295,13 +391,16 @@ input:focus-visible {
     margin-bottom: 16px;
 }
 
-.field > * {
-    grid-area: 1 / 1;             /* stack both children in the same cell */
+.field>* {
+    grid-area: 1 / 1;
+    /* stack both children in the same cell */
 }
 
 .field input {
-    margin-bottom: 0;             /* the spacing now lives on .field */
-    padding-left: 40px;           /* room for the icon */
+    margin-bottom: 0;
+    /* the spacing now lives on .field */
+    padding-left: 40px;
+    /* room for the icon */
 }
 
 .field-icon {
@@ -317,6 +416,7 @@ input:focus-visible {
 .field:focus-within .field-icon {
     color: var(--accent-2);
 }
+
 /* Room on the right so typed text never runs under the eye button */
 #password {
     padding-right: 44px;
@@ -339,19 +439,24 @@ input:focus-visible {
     z-index: 1;
 }
 
-.toggle-pass:hover { color: var(--text); }
-.toggle-pass:focus-visible { outline: 2px solid var(--accent-2); }
+.toggle-pass:hover {
+    color: var(--text);
+}
+
+.toggle-pass:focus-visible {
+    outline: 2px solid var(--accent-2);
+}
 
 .toggle-pass svg {
     width: 18px;
     height: 18px;
 }
 
-/* The hidden attribute does not reliably hide SVG elements, so enforce it */
 .toggle-pass svg[hidden] {
     display: none;
 }
 
+/* ---------- Mobile optimization ---------- */
 @media (max-width: 860px) {
     .stage {
         grid-template-columns: 1fr;

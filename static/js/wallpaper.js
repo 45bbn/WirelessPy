@@ -191,6 +191,23 @@ addEventListener("resize", () => {
     resizeTimer = setTimeout(() => { resize(); makeShapes(); if (mode === "off") draw(); }, 150);
 });
 
+const THEMES = ["blue", "aurora", "sunset", "ember", "graphite"];
+
+function applyTheme(name) {
+    if (!THEMES.includes(name)) name = "blue";
+    document.documentElement.dataset.theme = name;
+    try { localStorage.setItem("wp-theme", name); } catch (_) {}
+
+    // The canvas reads colors once, so refresh them and recolor the shapes
+    readPalette();
+    shapes.forEach(s => { s.color = palette[(Math.random() * palette.length) | 0]; });
+    if (mode === "off") draw();
+}
+
+let saved = "blue";
+try { saved = localStorage.getItem("wp-theme") || "blue"; } catch (_) {}
+applyTheme(saved);
+
 resize(); makeShapes();
 tx = mx = W / 2; ty = my = H / 2;
 applyMode(mode);
