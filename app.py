@@ -8,7 +8,7 @@ from fastapi.staticfiles import StaticFiles
 
 from database.db import init_db
 from modules.android.api import router as android_api
-from routes.api import router as api_router, router_logs
+from routes.api import router as api_router, router_system, router_logs
 from routes.module import router as module_router
 from routes.web import router as web_router
 from routes.auth import router as auth_router
@@ -49,6 +49,7 @@ app = FastAPI(lifespan=lifespan)
 app.include_router(auth_router)
 app.include_router(web_router)
 app.include_router(api_router)
+app.include_router(router_system)
 app.include_router(router_logs)
 app.include_router(module_router)
 app.include_router(android_api)

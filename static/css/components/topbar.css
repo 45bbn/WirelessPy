@@ -23,7 +23,6 @@
     background: rgba(255, 255, 255, 0.1);
 }
 
-/* Mengatur ukuran SVG lewat CSS */
 .user-icon, .chevron-icon {
     width: 18px;
     height: 18px;
@@ -33,4 +32,101 @@
     width: 14px;
     height: 14px;
     opacity: 0.7;
+}
+
+/* Container */
+.user-profile {
+    position: relative;
+    display: inline-block;
+    z-index: 2;
+}
+
+/* Tombol Profil */
+.profile-btn {
+    background: transparent;
+    border: none;
+    color: #e6edf3;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.2s;
+}
+
+.profile-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* Ikon SVG di dalam tombol */
+.profile-btn .icon {
+    stroke: currentColor;
+}
+
+/* Menu Dropdown */
+.profile-menu {
+    position: absolute;
+    top: 120%;
+    right: 0;
+    width: 200px;
+    background: rgba(13, 17, 23, 1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    flex-direction: column;
+    z-index: 1000;
+}
+
+/* Class untuk menampilkan menu */
+.profile-menu.show {
+    display: flex;
+}
+
+/* Header & Divider */
+.menu-header {
+    padding: 12px 16px;
+    font-size: 12px;
+    color: #8b949e;
+    display: flex;
+    flex-direction: column;
+}
+.menu-header strong {
+    color: #fff;
+    font-size: 14px;
+    margin-top: 2px;
+}
+.menu-divider {
+    height: 1px;
+    background: rgba(255, 255, 255, 0.1);
+    margin: 0;
+}
+
+/* Item Menu */
+.menu-item {
+    padding: 12px 16px;
+    color: #e6edf3;
+    text-decoration: none;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: transparent;
+    border: none;
+    text-align: left;
+    width: 100%;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.menu-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.text-danger {
+    color: #ff4d4d !important;
+}
+.text-danger:hover {
+    background: rgba(255, 77, 77, 0.1);
 }

@@ -3,42 +3,39 @@ import json
 import socket
 import ipaddress
 import subprocess
+import time
 
-#-------------------- JSON CODE --------------------#
+# -------------------- JSON CODE -------------------- #
 CONFIG_FILE = "server_config.json"
 default_server_config = {
-    "server": {
-        "ip_mode": "auto",
-        "manual_ip": "",
-        "port": 5000
-    },
-    "development": {
-        "debug": False
-    },
+    "server": {"ip_mode": "auto", "manual_ip": "", "port": 5000},
+    "development": {"debug": False},
     "note-1": "use auto/manual for ip mode",
-    "note-2": "use True/False for debug"
+    "note-2": "use True/False for debug",
 }
+
 
 def save_server_config():
     with open(CONFIG_FILE, "w", encoding="utf-8") as f:
         json.dump(server_config, f, indent=4)
 
-if not os.path.exists(CONFIG_FILE): # Create config if missing
+
+if not os.path.exists(CONFIG_FILE):  # Create config if missing
     with open(CONFIG_FILE, "w", encoding="utf-8") as f:
         json.dump(default_server_config, f, indent=4)
     print("server_config.json not found, creating default config...")
 
-try: #load config
+try:  # load config
     with open(CONFIG_FILE, "r", encoding="utf-8") as f:
         server_config = json.load(f)
 except (json.JSONDecodeError, OSError) as e:
     print(f"Config load error: {e}. Using defaults.")
     server_config = default_server_config.copy()
     save_server_config()
-#-------------------------------------------------#
+# ------------------------------------------------- #
 
 
-def get_local_ip(): #get local ip automaticaly
+def get_local_ip():  # get local ip automaticaly
     print("getting server ip...")
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
@@ -54,15 +51,18 @@ def get_local_ip(): #get local ip automaticaly
     finally:
         s.close()
 
-def is_valid_ip(ip) -> bool: #check ip are valid or not
+
+def is_valid_ip(ip) -> bool:  # check ip are valid or not
     try:
         ipaddress.ip_address(ip)
         return True
     except ValueError:
         return False
 
-def is_valid_port(port): #check port are valid or not
+
+def is_valid_port(port):  # check port are valid or not
     return isinstance(port, int) and 1 <= port <= 65535
+
 
 def get_server_ip():
     server = server_config.get("server", {})
@@ -74,7 +74,7 @@ def get_server_ip():
     if not is_valid_port(port):
         print(f"Invalid port:{port}, using port 5000...")
         port = 5000
-        
+
     try:
         if ip_mode == "auto":
             ip = get_local_ip()
@@ -97,6 +97,7 @@ def get_server_ip():
 
     return ip, port
 
+
 def is_debug() -> bool:
     development = server_config.get("development", {})
 
@@ -105,14 +106,17 @@ def is_debug() -> bool:
 
     return debug
 
+
 def init_adb():
     print("Turning on ADB")
     subprocess.run(["adb", "start-server"])
+
 
 def kill_adb():
     print("Turning off ADB")
     subprocess.run(["adb", "kill-server"])
 
+SERVER_START_TIME = time.time()
 
-
-
+def get_server_uptime() -> int:
+    return int(time.time() - SERVER_START_TIME)

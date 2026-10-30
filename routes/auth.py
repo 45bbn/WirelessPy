@@ -82,7 +82,6 @@ async def get_current_user_ws(websocket: WebSocket):
 
     return user
 
-
 @router.get("/me")
 async def get_me(user: dict = Depends(get_current_user)):
-    return {"success": True, "username": user}
+    return {"user": user}

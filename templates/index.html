@@ -12,20 +12,36 @@
             </svg>
             <div class="brand-name">ireless<span class="python-extension">Py</span></div>
         </div>
-        
+
         <div class="topbar-center connected">● Connected</div>
         <div class="topbar-right">
             <button class="refresh btn-style">Refresh</button>
-            <button class="settings btn-style">Settings</button>
             <button class="btn-user" id="profileBtn">
                 <svg class="icon" width="18" height="18">
                     <use href="#icon-user"></use>
                 </svg>
-                <span>45bbn</span>
+                <span id="usernameDisplay"></span>
                 <svg class="icon" width="14" height="14">
                     <use href="#icon-chevron"></use>
                 </svg>
             </button>
+
+            <div class="profile-menu" id="profileMenu" hidden>
+                <div class="menu-header">
+                    <span>Signed in as</span>
+                    <strong id="userNameMenu">User</strong>
+                    <button class="settings btn-style">Settings</button>
+                </div>
+                <div class="menu-divider"></div>
+
+                <!-- Tombol Logout -->
+                <button class="menu-item text-danger" id="logout-btn">
+                    <svg class="icon" width="16" height="16">
+                        <use href="#icon-logout"></use>
+                    </svg>
+                    Logout
+                </button>
+            </div>
         </div>
     </header>
 
@@ -92,13 +108,22 @@
 
     <footer class="statusbar panel glass">
         <div class="statusbar-left">
-            <div>Task: adb connect 192.168.1.50:5555</div>
+            <div>v2.0.0</div>
         </div>
         <div class="statusbar-center">
-            <div>Connected Device: 0</div>
-            <div>Uptime: 00:05:00</div>
+            <div class="status-row">
+                <div>Connected Device:</div>
+                <span id="connected-devices-count"></span>
+            </div>
+            
+            <div class="status-row">
+                <span>Server Uptime:</span>
+                <span id="server-uptime"></span>
+            </div>
         </div>
-        <div class="statusbar-right">04/08/2026</div>
+        <div class="statusbar-right">
+            <div id="date"></div>
+        </div>
     </footer>
 
     <section class="console panel glass">

@@ -12,6 +12,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    z-index: 1;
     padding: 0 22px;
     height: var(--topbar-height);
 }

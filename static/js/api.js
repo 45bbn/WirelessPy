@@ -162,6 +162,50 @@ export async function removeDeviceApi(id, name, ip, port) {
     return data;
 }
 
+export async function getServerUptimeApi() {
+    const response = await fetch("/api/system/uptime", {
+        method: "GET"
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+        throw new Error(data.detail || "Failed to get server uptime");
+    }
+
+    return data
+}
+
+export async function getUsernameApi() {
+    const response = await fetch("/api/auth/me", {
+        method: "GET"
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+        throw new Error(data.detail || "Failed to get username");
+    }
+
+    return data.user
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 let printJS = false;
 let multiLine = false;
 

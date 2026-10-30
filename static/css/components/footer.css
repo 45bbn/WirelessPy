@@ -22,3 +22,8 @@
     justify-self: end;
     margin-top: -8px;
 }
+
+.status-row {
+    display: flex;
+    gap: 6px;
+}

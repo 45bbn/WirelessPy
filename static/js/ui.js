@@ -1,4 +1,7 @@
-import { connectDeviceApi, disconnectDeviceApi, loadDevicesList, removeDeviceApi, renameDeviceApi, sendConsoleApi } from "./api.js";
+import {
+    connectDeviceApi, disconnectDeviceApi, loadDevicesList, removeDeviceApi, renameDeviceApi,
+    sendConsoleApi, getServerUptimeApi, getUsernameApi
+} from "./api.js";
 
 
 function get_active_module() {
@@ -91,9 +94,109 @@ export async function connect_device() {
     console.log(result)
 }
 
+function formatUptime(totalSeconds) {
+    // Clamp invalid or negative input to 0
+    const s = Math.max(0, Math.floor(Number(totalSeconds) || 0));
+    const d = Math.floor(s / 86400);
+    const h = Math.floor((s % 86400) / 3600);
+    const m = Math.floor((s % 3600) / 60);
+    const sec = s % 60;
+    const parts = [];
+    if (d) parts.push(`${d}d`);
+    if (h || d) parts.push(`${h}h`);
+    if (m || h || d) parts.push(`${m}m`);
+    parts.push(`${sec}s`);
+    return parts.join(" ");
+}
 
+export async function initServerUptime() {
+    const el = document.getElementById("server-uptime");
+    let seconds = await getServerUptimeApi();
 
+    setInterval(() => {
+        seconds += 1;
+        el.textContent = formatUptime(seconds);
+    }, 1000);
+}
 
+export function initDate() {
+    const el = document.getElementById("date")
+    const today = new Date();
+
+    // Day, month, year as separate numbers
+    const day = today.getDate();          // 1-31
+    const month = today.getMonth() + 1;   // 0-11, so add 1
+    const year = today.getFullYear();     // e.g. 2026
+
+    // Format: DD/MM/YYYY (with leading zeros)
+    const formattedDate = `${String(day).padStart(2, "0")}/${String(month).padStart(2, "0")}/${year}`;
+    el.textContent = formattedDate // 30/10/2026
+}
+
+export async function initConnectedDevices() {
+    const el = document.getElementById("connected-devices-count")
+    const devices = await loadDevicesList()
+    const onlineCount = devices.filter(d => d.status === "online").length
+    el.textContent = onlineCount
+}
+
+export async function initUser() {
+    const username = await getUsernameApi();
+    document.getElementById('usernameDisplay').textContent = username;
+    document.getElementById('userNameMenu').textContent = username;
+}
+
+export async function logout() {
+    const logoutBtn = document.getElementById('logout-btn');
+    
+    logoutBtn.addEventListener('click', async () => {
+        if (!confirm("Are you sure you want to log out?")) return;
+
+        logoutBtn.disabled = true;
+        try {
+            const response = await fetch('/api/auth/logout', { method: 'POST' });
+            if (!response.ok) {
+                throw new Error(`Logout failed: ${response.status}`);
+            }
+            window.location.replace('/login');
+        } catch (err) {
+            console.error("Error logout", err);
+            alert("Logout failed, please try again.");
+            logoutBtn.disabled = false;
+        }
+    });
+}
+
+export function initProfileMenu() {
+    const profileBtn = document.getElementById('profileBtn');
+    const profileMenu = document.getElementById('profileMenu');
+
+    // Guard so we get a clear error instead of a null crash
+    if (!profileBtn || !profileMenu) {
+        console.error("Profile menu elements not found");
+        return;
+    }
+
+    function closeMenu() {
+        profileMenu.classList.remove('show');
+    }
+
+    profileBtn.addEventListener('click', (e) => {
+        e.stopPropagation(); // Prevent the document click from closing it immediately
+        profileMenu.classList.toggle('show');
+    });
+
+    document.addEventListener('click', (e) => {
+        if (!profileMenu.contains(e.target) && !profileBtn.contains(e.target)) {
+            closeMenu();
+        }
+    });
+
+    // Close with the Escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeMenu();
+    });
+}
 
 
 

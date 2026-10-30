@@ -4,8 +4,10 @@ from pydantic import BaseModel
 import services.device as device
 from routes.auth import get_current_user
 from utils import logger
+from utils.server_utils import get_server_uptime
 
 router = APIRouter(prefix="/api/devices", tags=["devices"])
+router_system = APIRouter(prefix="/api/system", tags=["system"])
 router_logs = APIRouter(prefix="/api/logs", tags=["logs"])
 
 
@@ -78,3 +80,7 @@ async def clear_log_route(current_user = Depends(get_current_user)):
 @router_logs.post("/console")
 async def javascript_console(data: consoleRequest, current_user = Depends(get_current_user)):
     return await logger.js_console(data.level, data.text)
+
+@router_system.get("/uptime")
+async def server_uptime(current_user = Depends(get_current_user)):
+    return get_server_uptime()

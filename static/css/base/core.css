@@ -11,6 +11,11 @@ body {
 }
 
 :root {
+    --accent-1: #67E8F9;
+    --accent-2: #2DD4BF;
+    --accent-3: #34D399;
+    --accent-4: #4ADE80;
+
     /* layout */
     --topbar-height: 40px;
     --sidebar-width: 280px;
