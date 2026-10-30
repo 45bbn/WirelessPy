@@ -1,15 +1,44 @@
 from fastapi import APIRouter, Response, HTTPException, status, Request, WebSocket, WebSocketException, Depends
 from pydantic import BaseModel, Field
-
+from typing import Literal
+ALLOW_REGISTRATION = True
 from services import auth
 
 router = APIRouter(prefix="/api/auth", tags=["Authentication"])
 
 
+class RegisterRequest(BaseModel):
+    username: str = Field(..., min_length=3, max_length=20)
+    password: str = Field(..., min_length=8)
+    role: Literal["admin", "viewer"] = "viewer"
+
 class LoginRequest(BaseModel):
     username: str = Field(..., min_length=3, max_length=20)
     password: str = Field(..., min_length=8)
 
+
+router.post("/register")
+async def register(data: RegisterRequest):
+    if not ALLOW_REGISTRATION:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN, 
+            detail="Registrasi ditutup. Hubungi administrator."
+        )
+
+    assigned_role = "viewer"
+
+    try:
+        auth.register_user(data.username, data.password, assigned_role)
+        return {
+            "success": True,
+            "message": "Register successfully",
+            "username": data.username,
+        }
+    except ValueError as e:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST, 
+            detail=str(e)
+        )
 
 @router.post("/login")
 async def login(data: LoginRequest, response: Response):
