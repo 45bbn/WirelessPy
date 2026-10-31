@@ -1,6 +1,7 @@
 let currentModule = null;
 let currentStyleEl = null;
 
+// SYSTEM API
 export async function loadModule(module) {
     const workspace = document.getElementById("workspace");
     const cacheBust = `?v=${Date.now()}`;
@@ -39,12 +40,30 @@ export async function loadModule(module) {
     workspace.hidden = false; // show workspace when load done
 }
 
+export async function getServerUptimeApi() {
+    const response = await fetch("/api/system/uptime", {
+        method: "GET"
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+        throw new Error(data.detail || "Failed to get server uptime");
+    }
+
+    return data
+}
+
+
+// VALIDATOR
 function requireDeviceFields(name, ip, port) {
     if (!name) throw new Error("Device name is required");
     if (!ip) throw new Error("IP address is required");
     if (!port) throw new Error("Port is required");
 }
 
+
+// DEVICE API
 export async function connectDeviceApi(name, ip, port, is_reconnect, device_id) {
     requireDeviceFields(name, ip, port)
     if (is_reconnect && (device_id == null)) {
@@ -162,15 +181,37 @@ export async function removeDeviceApi(id, name, ip, port) {
     return data;
 }
 
-export async function getServerUptimeApi() {
-    const response = await fetch("/api/system/uptime", {
-        method: "GET"
+
+// AUTH API
+export async function loginUserAPI(username, password) {
+    const response = await fetch("/api/auth/login", {
+        method: "POST",
+        credentials: "same-origin",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, password })
     });
 
     const data = await response.json();
 
     if (!response.ok) {
-        throw new Error(data.detail || "Failed to get server uptime");
+        throw new Error(data.detail || "Failed to login");
+    }
+
+    return data
+}
+
+export async function registerUserAPI(username, password) {
+    const response = await fetch("/api/auth/register", {
+        method: "POST",
+        credentials: "same-origin",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username, password })
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+        throw new Error(data.detail || "Failed to login");
     }
 
     return data

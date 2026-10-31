@@ -1,41 +1,111 @@
+import {bind} from "./core.js";
+import {loginUserAPI, registerUserAPI} from "./api.js";
+
 const form = document.getElementById("login-form");
 const errorEl = document.getElementById("error");
 const submit = document.getElementById("submit");
 
-form.addEventListener("submit", async e => {
+const formTitle = document.getElementById("form-title")
+const sub = document.querySelector(".sub");
+const submitLabel = document.querySelector(".btn-label")
+const formToggle = document.getElementById("toggle-form")
+
+const formState = {
+    mode: "login"   // login | register
+}
+
+function formRender() {
+    let titleText
+    let subText
+    let labelText
+    let toggleText
+
+    if (formState.mode === "login") {
+        titleText = "Welcome back :D"
+        subText = "Login to your WirelessPy account"
+        labelText = "Login"
+        toggleText = "Register here"
+    } else {
+        titleText = "Create your account"
+        subText = "Register your WirelessPy account"
+        labelText = "Register"
+        toggleText = "Login here"
+    }
+
+    formTitle.textContent = titleText
+    sub.textContent = subText
+    submitLabel.textContent = labelText
+    formToggle.textContent = toggleText
+}
+
+function toggleForm(e) {
+    e.preventDefault();
+    if (formState.mode === "login") {
+        formState.mode = "register"
+    } else {
+        formState.mode = "login"
+    }
+    formRender()
+}
+
+
+
+
+bind("#toggle-form", "click", toggleForm);
+
+
+
+
+
+
+
+
+
+form.addEventListener("submit", async (e) => {
     e.preventDefault();
     errorEl.textContent = "";
-    const username = form.username.value.trim(), password = form.password.value;
-    
-    if (!username || !password) { 
-        errorEl.textContent = "Enter your username and password."; 
-        return; 
-    }
-    
-    submit.disabled = true;
-    
-    try {
-        // 1. TAMBAHKAN "const" DI SINI
-        const response = await fetch("/api/auth/login", { 
-            method: "POST", 
-            credentials: "same-origin",
-            headers: { "Content-Type": "application/json" }, 
-            body: JSON.stringify({ username, password }) 
-        });
 
-        if (response.ok) {
-            window.location.href = '/';
+    const username = form.username.value.trim();
+    const password = form.password.value;
+
+    if (!username || !password) {
+        errorEl.textContent = "Enter your username and password.";
+        return;
+    }
+
+    // Validate the form mode before doing anything else
+    const action = formState.mode;
+    if (action !== "login" && action !== "register") {
+        errorEl.textContent = "Form state error.";
+        return;
+    }
+
+    submit.disabled = true;
+
+    try {
+        // Pick the API function based on the current mode
+        const apiCall = action === "login" ? loginUserAPI : registerUserAPI;
+        const response = await apiCall(username, password);
+
+        if (response.success) {
+            window.location.href = "/";
         } else {
-            errorEl.textContent = "Invalid username or password.";
+            errorEl.textContent =
+                response.detail ||
+                (action === "login"
+                    ? "Invalid username or password."
+                    : "Registration failed.");
         }
-        
-    } catch (error) {
-        console.error(error);
-        errorEl.textContent = "Network error. Please try again.";
-    } finally { 
-        submit.disabled = false; 
+    } catch (err) {
+        console.error(err);
+        errorEl.textContent = "Something went wrong. Please try again.";
+    } finally {
+        // Always re-enable the button, success or fail
+        submit.disabled = false;
     }
 });
+
+
 
 // Show / hide password
 const passInput = document.getElementById("password");
@@ -47,8 +117,6 @@ toggleBtn.addEventListener("click", () => {
     const reveal = passInput.type === "password";
     passInput.type = reveal ? "text" : "password";
 
-    // SVG elements have no .hidden property, so toggle the attribute directly.
-    // The CSS rule .toggle-pass svg[hidden] { display: none } does the hiding.
     eyeShow.toggleAttribute("hidden", reveal);
     eyeClose.toggleAttribute("hidden", !reveal);
 

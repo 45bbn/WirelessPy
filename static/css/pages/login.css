@@ -456,6 +456,31 @@ input:focus-visible {
     display: none;
 }
 
+#toggle-form {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 14px;
+    color: #8b949e;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    user-select: none;
+}
+
+#toggle-form:hover {
+    color: var(--accent-1, --accent-3);
+    text-decoration: underline;
+}
+
+
+
+
+
+
+
+
+
+
+
 /* ---------- Mobile optimization ---------- */
 @media (max-width: 860px) {
     .stage {

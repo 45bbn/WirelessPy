@@ -140,7 +140,7 @@ For the previous CLI implementation, see the [`main` branch](https://github.com/
 - [x] API route protection (`get_current_user` dependency)
 - [x] Logout API endpoint & Cookie clearing
 - [x] WebSocket connection protection
-- [ ] Login page UI (Glassmorphism design)
+- [x] Login page UI (Glassmorphism design)
 - [ ] Rate limiting for login attempts (V2.x)
 - [ ] User roles (V2.x)
 
@@ -181,12 +181,11 @@ For the previous CLI implementation, see the [`main` branch](https://github.com/
 
 ### Planned
 
+- [ ] Plugin system (2.x)
+- [ ] Tailscale intergration (2.x)
 - [ ] Basic file explorer
 - [ ] Basic SSH support
-- [ ] Improved file management
-- [ ] Cross-device automation
-- [ ] Additional platform modules
-- [ ] More device integrations
+
 
 
 

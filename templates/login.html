@@ -40,12 +40,12 @@
             </section>
 
             <form class="card" id="login-form" novalidate>
-                <h2>Welcome back :D</h2>
-                <p class="sub">Login to your WirelessPy account.</p>
+                <h2 id="form-title">Welcome back :D</h2>
+                <p class="sub">Login to your WirelessPy account</p>
 
                 <label for="username">Username</label>
                 <div class="field">
-                    <!-- Panggil ikon user -->
+
                     <svg class="field-icon" width="24" height="24">
                         <use href="#icon-user"></use>
                     </svg>
@@ -54,18 +54,18 @@
 
                 <label for="password">Password</label>
                 <div class="field">
-                    <!-- Panggil ikon lock -->
+
                     <svg class="field-icon" width="24" height="24">
                         <use href="#icon-lock"></use>
                     </svg>
                     <input id="password" name="password" type="password" autocomplete="current-password" required>
                     <button class="toggle-pass" id="toggle-pass" type="button" aria-label="Show password"
                         aria-pressed="false">
-                        <!-- Panggil ikon mata buka -->
+
                         <svg class="eye-show" width="24" height="24" aria-hidden="true">
                             <use href="#icon-eye"></use>
                         </svg>
-                        <!-- Panggil ikon mata tutup -->
+
                         <svg class="eye-close" width="24" height="24" aria-hidden="true" hidden>
                             <use href="#icon-eye-off"></use>
                         </svg>
@@ -76,11 +76,13 @@
 
                 <button class="btn" id="submit" type="submit">
                     <span class="btn-label">Login</span>
-                    <!-- Panggil ikon panah -->
+
                     <svg class="btn-arrow" width="24" height="24" aria-hidden="true">
                         <use href="#icon-arrow-right"></use>
                     </svg>
                 </button>
+                
+                <div id="toggle-form">Register here</div>
             </form>
         </main>
 
