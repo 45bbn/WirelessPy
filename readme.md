@@ -164,7 +164,7 @@ For the previous CLI implementation, see the [`main` branch](https://github.com/
 - [x] Service layer
 - [x] Modular architecture
 - [x] WebSocket logging
-- [ ] API security improvements
+- [x] API security improvements
 - [ ] Rate limiting
 
 ### Android
@@ -179,10 +179,10 @@ For the previous CLI implementation, see the [`main` branch](https://github.com/
 - [ ] Shell interface
 - [ ] Battery information
 
-### Planned
+### Planned (2.x)
 
-- [ ] Plugin system (2.x)
-- [ ] Tailscale intergration (2.x)
+- [ ] Plugin system
+- [ ] Tailscale intergration
 - [ ] Basic file explorer
 - [ ] Basic SSH support
 
