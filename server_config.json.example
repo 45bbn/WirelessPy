@@ -1,12 +1,12 @@
 {
     "config_version": 1,
     "server": {
-        "ip_mode": "manual",
+        "ip_mode": "auto",
         "manual_ip": "127.0.0.1",
         "port": 5000
     },
     "development": {
-        "debug": true
+        "debug": false
     },
     "security": {
         "allow_registration": false,
