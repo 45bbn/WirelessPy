@@ -15,12 +15,15 @@
     <link rel="stylesheet" href="{{ url_for('static', path='css/components/footer.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', path='css/components/modal.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', path='css/components/console.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', path='css/pages/login.css') }}">
+    <link rel="stylesheet" href="/static/css/pages/login.css">
 </head>
 
 <body>
     {% include 'icons.html' %}
     {% block content %}{% endblock %}
     <script type="module" src="{{ url_for('static', path='js/main.js') }}"></script>
+    <script type="module" src="{{ url_for('static', path='js/wallpaper.js') }}"></script>
 </body>
 
 </html>

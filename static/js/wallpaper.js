@@ -211,3 +211,4 @@ applyTheme(saved);
 resize(); makeShapes();
 tx = mx = W / 2; ty = my = H / 2;
 applyMode(mode);
+console.log("Wallpaper Rendered")

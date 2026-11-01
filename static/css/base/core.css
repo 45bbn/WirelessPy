@@ -23,7 +23,7 @@ body {
     --max-showed-device: 4;
     --platform-height: 16px;
     --statusbar-height: 32px;
-    --logs-height: 200px;
+    --logs-height: 150px;
 
     /* appearance */
     --color-bg-surface: rgba(42, 42, 42);
@@ -44,7 +44,7 @@ body {
     --scrollbar-thumb-color: rgba(255, 255, 255, 0.3);
     --scrollbar-track-color: transparent;
 
-    --blur: 5px;
+    --blur: 1px;
 }
 
 body {

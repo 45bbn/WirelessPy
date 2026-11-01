@@ -3,7 +3,24 @@ import {
     sendConsoleApi, getServerUptimeApi, getUsernameApi
 } from "./api.js";
 
+// HELPER
+function formatUptime(totalSeconds) {
+    // Clamp invalid or negative input to 0
+    const s = Math.max(0, Math.floor(Number(totalSeconds) || 0));
+    const d = Math.floor(s / 86400);
+    const h = Math.floor((s % 86400) / 3600);
+    const m = Math.floor((s % 3600) / 60);
+    const sec = s % 60;
+    const parts = [];
+    if (d) parts.push(`${d}d`);
+    if (h || d) parts.push(`${h}h`);
+    if (m || h || d) parts.push(`${m}m`);
+    parts.push(`${sec}s`);
+    return parts.join(" ");
+}
 
+
+// SYSTEM
 function get_active_module() {
     const active = document.querySelector(".btn.active");
     return active?.dataset.module ?? null;
@@ -34,81 +51,8 @@ export function refresh() {
     location.reload();
 }
 
-export function toggle_add_device_modal() {
-    const backdrop = document.querySelector(".modal-backdrop");
-    const connectDeviceModal = document.getElementById("connect-device-modal");
 
-    if (backdrop.hidden && backdrop.hidden) {
-        backdrop.hidden = false;
-        connectDeviceModal.hidden = false;
-    } else {
-        backdrop.hidden = true;
-        connectDeviceModal.hidden = true;
-    }
-
-    console.log("backdrop:", backdrop.hidden);
-    console.log("modal:", connectDeviceModal.hidden);
-}
-
-export function initConnectionTypeToggle() {
-    const toggle = document.querySelector('.connection-type-toggle');
-    const buttons = toggle.querySelectorAll('.type-btn');
-    const portInput = document.getElementById('connect-port');
-
-    buttons.forEach(btn => {
-        btn.addEventListener('click', () => {
-            if (btn.disabled) return;
-
-            buttons.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-
-            const type = btn.dataset.type;
-            toggle.dataset.active = type;
-            portInput.placeholder = type === 'ssh' ? '22' : '5555';
-        });
-    });
-}
-
-export async function connect_device() {
-    const alias = document.getElementById("connect-alias").value.trim();
-    const ip = document.getElementById("connect-address").value.trim();
-    let port = document.getElementById("connect-port").value.trim();
-
-    if (!alias) {
-        console.log("Alias is required");
-        return;
-    }
-    if (!ip) {
-        console.log("IP address is required");
-        return;
-    }
-    if (!port) {
-        const type = document.querySelector('.connection-type-toggle').dataset.active;
-        port = type === 'ssh' ? '22' : '5555';
-        console.log(`Using default port: ${port}`);
-    }
-
-    const result = await connectDeviceApi(alias, ip, port);
-
-    console.log(`${ip}:${port}`);
-    console.log(result)
-}
-
-function formatUptime(totalSeconds) {
-    // Clamp invalid or negative input to 0
-    const s = Math.max(0, Math.floor(Number(totalSeconds) || 0));
-    const d = Math.floor(s / 86400);
-    const h = Math.floor((s % 86400) / 3600);
-    const m = Math.floor((s % 3600) / 60);
-    const sec = s % 60;
-    const parts = [];
-    if (d) parts.push(`${d}d`);
-    if (h || d) parts.push(`${h}h`);
-    if (m || h || d) parts.push(`${m}m`);
-    parts.push(`${sec}s`);
-    return parts.join(" ");
-}
-
+// STATUSBAR
 export async function initServerUptime() {
     const el = document.getElementById("server-uptime");
     let seconds = await getServerUptimeApi();
@@ -140,33 +84,67 @@ export async function initConnectedDevices() {
     el.textContent = onlineCount
 }
 
-export async function initUser() {
-    const username = await getUsernameApi();
-    document.getElementById('usernameDisplay').textContent = username;
-    document.getElementById('userNameMenu').textContent = username;
+
+// CONNECT() MODAL
+export function toggle_add_device_modal() {
+    const backdrop = document.querySelector(".modal-backdrop");
+    const connectDeviceModal = document.getElementById("connect-device-modal");
+
+    if (backdrop.hidden && backdrop.hidden) {
+        backdrop.hidden = false;
+        connectDeviceModal.hidden = false;
+    } else {
+        backdrop.hidden = true;
+        connectDeviceModal.hidden = true;
+    }
 }
 
-export async function logout() {
-    const logoutBtn = document.getElementById('logout-btn');
-    
-    logoutBtn.addEventListener('click', async () => {
-        if (!confirm("Are you sure you want to log out?")) return;
+export function initConnectionTypeToggle() {
+    const toggle = document.querySelector('.connection-type-toggle');
+    const buttons = toggle.querySelectorAll('.type-btn');
+    const portInput = document.getElementById('connect-port');
 
-        logoutBtn.disabled = true;
-        try {
-            const response = await fetch('/api/auth/logout', { method: 'POST' });
-            if (!response.ok) {
-                throw new Error(`Logout failed: ${response.status}`);
-            }
-            window.location.replace('/login');
-        } catch (err) {
-            console.error("Error logout", err);
-            alert("Logout failed, please try again.");
-            logoutBtn.disabled = false;
-        }
+    buttons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            if (btn.disabled) return;
+
+            buttons.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            const type = btn.dataset.type;
+            toggle.dataset.active = type;
+            portInput.placeholder = type === 'ssh' ? '22' : '5555';
+        });
     });
 }
 
+export async function connect_device() { // need to show error in ui
+    const alias = document.getElementById("connect-alias").value.trim();
+    const ip = document.getElementById("connect-address").value.trim();
+    let port = document.getElementById("connect-port").value.trim();
+
+    if (!alias) {
+        console.log("Alias is required");
+        return;
+    }
+    if (!ip) {
+        console.log("IP address is required");
+        return;
+    }
+    if (!port) {
+        const type = document.querySelector('.connection-type-toggle').dataset.active;
+        port = type === 'ssh' ? '22' : '5555';
+        console.log(`Using default port: ${port}`);
+    }
+
+    const result = await connectDeviceApi(alias, ip, port);
+
+    console.log(`${ip}:${port}`);
+    console.log(result)
+}
+
+
+// USERPROFILE
 export function initProfileMenu() {
     const profileBtn = document.getElementById('profileBtn');
     const profileMenu = document.getElementById('profileMenu');
@@ -198,10 +176,35 @@ export function initProfileMenu() {
     });
 }
 
+export async function initUser() {
+    const username = await getUsernameApi();
+    document.getElementById('usernameDisplay').textContent = username;
+    document.getElementById('userNameMenu').textContent = username;
+}
+
+export async function logout() {
+    const logoutBtn = document.getElementById('logout-btn');
+    
+    logoutBtn.addEventListener('click', async () => {
+        if (!confirm("Are you sure you want to log out?")) return;
+
+        logoutBtn.disabled = true;
+        try {
+            const response = await fetch('/api/auth/logout', { method: 'POST' });
+            if (!response.ok) {
+                throw new Error(`Logout failed: ${response.status}`);
+            }
+            window.location.replace('/login');
+        } catch (err) {
+            console.error("Error logout", err);
+            alert("Logout failed, please try again.");
+            logoutBtn.disabled = false;
+        }
+    });
+}
 
 
-
-
+// DEVICES MANAGEMENT
 let currentTarget = null;
 export function getCurrentTarget() {
     if (!currentTarget) {
@@ -211,9 +214,50 @@ export function getCurrentTarget() {
     console.log(`selected device = ip:${currentTarget.ip}:${currentTarget.port} id:${currentTarget.id}`);
     return currentTarget;
 }
+
 export function setCurrentTarget(device) {
     currentTarget = device;
 }
+
+async function handleDeviceMenuAction(action, device) { // add function here!
+    switch (action) {
+        case 'rename':
+            const item = document.querySelector(`.device-item[data-id="${device.id}"]`);
+            if (item) startRename(item, device);
+            break;
+
+        case 'disconnect':
+            try {
+                const result = await disconnectDeviceApi(device.id, device.name, device.ip, device.port);
+                console.log('Disconnected:', result.message);
+                await renderDeviceList();
+            } catch (err) {
+                console.error('Failed to disconnect:', err.message);
+            }
+            break;
+
+        case "reconnect":
+            try {
+                const result = await connectDeviceApi(device.name, device.ip, device.port, true, device.id);
+                console.log('Reconnected:', result.message);
+                await renderDeviceList();
+            } catch (err) {
+                console.error('Failed to reconnect:', err.message);
+            }
+            break;
+
+        case 'remove':
+            try {
+                const result = await removeDeviceApi(device.id, device.name, device.ip, device.port);
+                console.log('Removed:', result.message);
+                await renderDeviceList();
+            } catch (err) {
+                console.error('Failed to remove:', err.message);
+            }
+            break;
+    }
+}
+
 function createDeviceItem(device) {
     const item = document.createElement('div');
     item.className = 'device-item';
@@ -269,8 +313,6 @@ function openDeviceMenu(anchorEl, device) {
     `;
 
     document.getElementById('overlay-root').appendChild(menu);
-
-    // position it relative to the dots icon using real screen coordinates
 
     const rect = anchorEl.getBoundingClientRect();
     menu.style.position = 'fixed';
@@ -331,45 +373,6 @@ function startRename(item, device) {
         if (e.key === 'Enter') input.blur();
         if (e.key === 'Escape') { input.value = oldName; input.blur(); }
     });
-}
-
-async function handleDeviceMenuAction(action, device) { // add function here!
-    switch (action) {
-        case 'rename':
-            const item = document.querySelector(`.device-item[data-id="${device.id}"]`);
-            if (item) startRename(item, device);
-            break;
-
-        case 'disconnect':
-            try {
-                const result = await disconnectDeviceApi(device.id, device.name, device.ip, device.port);
-                console.log('Disconnected:', result.message);
-                await renderDeviceList();
-            } catch (err) {
-                console.error('Failed to disconnect:', err.message);
-            }
-            break;
-
-        case "reconnect":
-            try {
-                const result = await connectDeviceApi(device.name, device.ip, device.port, true, device.id);
-                console.log('Reconnected:', result.message);
-                await renderDeviceList();
-            } catch (err) {
-                console.error('Failed to reconnect:', err.message);
-            }
-            break;
-
-        case 'remove':
-            try {
-                const result = await removeDeviceApi(device.id, device.name, device.ip, device.port);
-                console.log('Removed:', result.message);
-                await renderDeviceList();
-            } catch (err) {
-                console.error('Failed to remove:', err.message);
-            }
-            break;
-    }
 }
 
 export function closeDeviceMenu() {

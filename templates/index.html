@@ -1,8 +1,17 @@
 {% extends "base.html" %}
 {% block content %}
-<video autoplay muted loop playsinline preload="none" id="bg-video">
+<!-- <video autoplay muted loop playsinline preload="none" id="bg-video">
     <source src="/static/assets/wallpaper/Melancholic Forest.mp4" type="video/mp4">
-</video>
+</video> -->
+
+<div class="bg-glow"></div>
+<canvas id="geo" aria-hidden="true"></canvas>
+<div class="spot" aria-hidden="true"></div>
+<div class="fx">
+    <button data-mode="full">Full</button>
+    <button data-mode="saver">Saver</button>
+    <button data-mode="off">Off</button>
+</div>
 
 <main class="app no-select">
     <header class="topbar panel glass">
@@ -115,7 +124,7 @@
                 <div>Connected Device:</div>
                 <span id="connected-devices-count"></span>
             </div>
-            
+
             <div class="status-row">
                 <span>Server Uptime:</span>
                 <span id="server-uptime"></span>
