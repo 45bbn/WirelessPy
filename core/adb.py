@@ -1,6 +1,15 @@
 import adbutils
 import asyncio
+import subprocess
 from utils.logger import add_log
+
+def init_adb():
+    print("Turning on ADB")
+    subprocess.run(["adb", "start-server"])
+
+def kill_adb():
+    print("Turning off ADB")
+    subprocess.run(["adb", "kill-server"])
 
 async def connect(ip: str) -> tuple[bool, str]:
     result = await asyncio.to_thread(adbutils.adb.connect, ip)

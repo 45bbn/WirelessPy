@@ -36,6 +36,7 @@ static/css/old/
 
 # other
 _img/
+server_config.json
 templates/example.html
 templates/home.html
 static/assets/wallpaper/

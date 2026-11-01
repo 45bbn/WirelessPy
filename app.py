@@ -6,6 +6,9 @@ import uvicorn
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 
+from config import HOST, PORT, DEBUG
+from core.adb import init_adb, kill_adb
+
 from database.db import init_db
 from modules.android.api import router as android_api
 from routes.api import router as api_router, router_system, router_logs
@@ -14,7 +17,6 @@ from routes.web import router as web_router
 from routes.auth import router as auth_router
 from services.device import init_devices
 from utils import logger
-from utils.server_utils import get_server_ip, init_adb, is_debug, kill_adb
 
 BASE_DIR = Path(__file__).resolve().parent
 
@@ -42,7 +44,6 @@ async def lifespan(app: FastAPI):
             except asyncio.CancelledError:
                 pass
 
-
 app = FastAPI(lifespan=lifespan)
 
 # Register routers
@@ -62,13 +63,11 @@ app.mount("/modules", StaticFiles(directory=BASE_DIR / "modules"), name="modules
 
 if __name__ == "__main__":
     init_db()
-    ip, port = get_server_ip()
-    debug = is_debug()
     init_adb()
 
-    print(f"Running on http://{ip}:{port}")
+    print(f"Running on http://{HOST}:{PORT}")
     try:
-        uvicorn.run("app:app", host=ip, port=port, reload=debug)
+        uvicorn.run("app:app", host=HOST, port=PORT, reload=DEBUG)
     finally:
         kill_adb()
         print("Server stopped")

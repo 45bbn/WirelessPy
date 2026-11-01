@@ -1,4 +1,5 @@
 {
+    "config_version": 1,
     "server": {
         "ip_mode": "manual",
         "manual_ip": "127.0.0.1",
@@ -7,6 +8,15 @@
     "development": {
         "debug": true
     },
-    "note-1": "use auto/manual for ip mode",
-    "note-2": "use True/False for debug"
+    "security": {
+        "allow_registration": false,
+        "session_expire_days": 7,
+        "max_login_attempts": 5,
+        "lockout_minutes": 10,
+        "cookie_secure": false,
+        "cookie_samesite": "lax"
+    },
+    "ui": {
+        "default_theme": "blue"
+    }
 }
