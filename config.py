@@ -87,4 +87,3 @@ CONFIG = init_config()
 HOST = resolve_host(CONFIG)
 PORT = CONFIG["server"]["port"]
 DEBUG = CONFIG["development"]["debug"]
-print("test")
