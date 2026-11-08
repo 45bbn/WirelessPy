@@ -3,8 +3,7 @@
     height: 53px;
     width: 100%;
     flex-shrink: 0;
-    box-shadow:
-        inset 0 -2px 0 rgba(255,255,255,.55);
+    box-shadow: inset 0 -2px 0 rgba(255, 255, 255, .55);
 }
 
 .padding {
@@ -31,36 +30,28 @@
     border: var(--border-size) solid rgba(255, 255, 255, .1);
 }
 
+/* --- Navigation buttons -------------------------------------------------- */
 .nav-btn {
     background: none;
     border: none;
     color: inherit;
     font: inherit;
-
     padding: 6px 14px;
     border-radius: 8px;
-    
-
     cursor: pointer;
     transition: background 0.15s ease;
+
+    &:hover,
+    &.active {
+        background: linear-gradient(
+            0deg,
+            rgba(255, 255, 255, .20),
+            rgba(255, 255, 255, .08)
+        );
+    }
 }
 
-.nav-btn:hover {
-    background: linear-gradient(
-        0deg,
-        rgba(255, 255, 255, .20),
-        rgba(255, 255, 255, .08)
-    );
-}
-
-.nav-btn.active {
-    background: linear-gradient(
-        0deg,
-        rgba(255, 255, 255, .20),
-        rgba(255, 255, 255, .08)
-    );
-}
-
+/* --- Utility ------------------------------------------------------------- */
 .utility-tab-style {
     height: fit-content;
 }
@@ -72,7 +63,6 @@
 }
 
 #device-list-heading {
-    font-size: 14px;
     text-align: center;
     padding-bottom: 10px;
     font-size: 16px;
@@ -85,15 +75,18 @@
     padding: 4px;
     border-radius: 50%;
     transition: filter 0.15s ease, background-color 0.15s ease;
-}
-.utility-vertical-dots:hover {
-    filter: invert(0);
-}
-.utility-vertical-dots.active {
-    filter: invert(0);
-    background-color: rgba(255, 255, 255, 0.1);
+
+    &:hover {
+        filter: invert(0);
+    }
+
+    &.active {
+        filter: invert(0);
+        background-color: rgba(255, 255, 255, 0.1);
+    }
 }
 
+/* --- Device item --------------------------------------------------------- */
 .device-item {
     display: flex;
     align-items: center;
@@ -107,16 +100,19 @@
     border: var(--border-size) solid rgba(255, 255, 255, .1);
     cursor: pointer;
     transition: background 0.15s ease, border-color 0.15s ease;
-}
-.device-item:hover {
-    background: rgba(255, 255, 255, 0.08);
-}
-.device-item.active {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: rgba(255, 255, 255, 0.35);
-}
-.device-item.active:hover {
-    background: rgba(255, 255, 255, 0.14);
+
+    &:hover {
+        background: rgba(255, 255, 255, 0.08);
+    }
+
+    &.active {
+        background: rgba(255, 255, 255, 0.1);
+        border-color: rgba(255, 255, 255, 0.35);
+
+        &:hover {
+            background: rgba(255, 255, 255, 0.14);
+        }
+    }
 }
 
 .device-info {
@@ -125,10 +121,10 @@
     display: flex;
     flex-direction: column;
     gap: 2px;
-}
 
-.device-info p {
-    margin: 0;
+    & p {
+        margin: 0;
+    }
 }
 
 .device-address {
@@ -142,40 +138,47 @@
     text-overflow: ellipsis;
 }
 
+/* --- Device list --------------------------------------------------------- */
 .list {
     display: flex;
     flex-direction: column;
     overflow-y: auto;
     gap: 10px;
     border-radius: 8px;
-
     max-height: calc(
         (var(--max-showed-device) * var(--device-item-height)) +
         ((var(--max-showed-device) - 1) * 10px)
     );
-}
-.list::-webkit-scrollbar {
-    width: 6px;
-}
-.list::-webkit-scrollbar-track {
-    background: transparent;
-    margin: 4px 0;
-}
-.list::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.15);
-    border-radius: 3px;
-}
-.list::-webkit-scrollbar-thumb:hover {
-    background: rgba(255, 255, 255, 0.28);
-}
-.list::-webkit-scrollbar-thumb:active {
-    background: rgba(255, 255, 255, 0.4);
-}
-.list { /* Firefox support */
+
+    /* Firefox support */
     scrollbar-width: thin;
     scrollbar-color: rgba(255, 255, 255, 0.15) transparent;
+
+    /* Chromium / Safari scrollbar */
+    &::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: transparent;
+        margin: 4px 0;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.15);
+        border-radius: 3px;
+
+        &:hover {
+            background: rgba(255, 255, 255, 0.28);
+        }
+
+        &:active {
+            background: rgba(255, 255, 255, 0.4);
+        }
+    }
 }
 
+/* --- Add device button --------------------------------------------------- */
 .add-device {
     display: flex;
     flex-direction: row;
@@ -191,30 +194,29 @@
     cursor: pointer;
     color: #4caf50;
     transition: background-color 0.15s ease, border-color 0.15s ease;
+
+    &:hover {
+        background-color: rgba(76, 175, 80, 0.25);
+        border-color: rgba(76, 175, 80, 0.6);
+    }
+
+    &:active {
+        background-color: rgba(76, 175, 80, 0.3);
+    }
 }
-.add-device:hover {
-    background-color: rgba(76, 175, 80, 0.25);
-    border-color: rgba(76, 175, 80, 0.6);
-}
-.add-device:active {
-    background-color: rgba(76, 175, 80, 0.3);
-}
+
 .add-device-icon {
     width: 24px;
     height: 24px;
 }
+
 .add-device-text {
     font-size: 20px;
     margin-top: -2px;
     margin-left: 8px;
 }
 
-
-
-
-
-
-
+/* --- Device menu --------------------------------------------------------- */
 .device-menu-wrapper {
     position: relative;
 }
@@ -232,10 +234,10 @@
     display: flex;
     flex-direction: column;
     gap: 2px;
-}
 
-.device-menu[hidden] {
-    display: none;
+    &[hidden] {
+        display: none;
+    }
 }
 
 .device-menu-item {
@@ -248,20 +250,20 @@
     border-radius: 6px;
     cursor: pointer;
     transition: background-color 0.15s ease, color 0.15s ease;
-}
 
-.device-menu-item:hover {
-    background: rgba(255, 255, 255, 0.08);
-    color: #fff;
-}
+    &:hover {
+        background: rgba(255, 255, 255, 0.08);
+        color: #fff;
+    }
 
-.device-menu-item.danger {
-    color: #ef4444;
-}
+    &.danger {
+        color: #ef4444;
 
-.device-menu-item.danger:hover {
-    background: rgba(239, 68, 68, 0.12);
-    color: #f87171;
+        &:hover {
+            background: rgba(239, 68, 68, 0.12);
+            color: #f87171;
+        }
+    }
 }
 
 .device-menu-separator {
@@ -270,6 +272,7 @@
     margin: 4px 2px;
 }
 
+/* --- Inline rename input ------------------------------------------------- */
 .device-name-input {
     font: inherit;
     color: inherit;
@@ -282,10 +285,10 @@
     box-sizing: border-box;
     outline: none;
     transition: background-color 0.15s ease, border-color 0.15s ease;
-}
 
-.device-name-input:focus {
-    background: rgba(255, 255, 255, 0.12);
-    border-color: rgba(255, 255, 255, 0.4);
-    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.08);
+    &:focus {
+        background: rgba(255, 255, 255, 0.12);
+        border-color: rgba(255, 255, 255, 0.4);
+        box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.08);
+    }
 }
