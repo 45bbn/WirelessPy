@@ -1,10 +1,3 @@
-/*
- * login.js
- * Login page behaviour: geometry wallpaper (canvas), mouse spotlight/bloom,
- * effect mode switch (full / saver / off) and the sign-in form.
- * Loaded as an ES module: <script type="module" src="/static/js/login.js">
- */
-
 const root = document.documentElement;
 const canvas = document.getElementById("geo");
 const ctx = canvas.getContext("2d");

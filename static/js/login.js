@@ -47,19 +47,7 @@ function toggleForm(e) {
     }
     formRender()
 }
-
-
-
-
 bind("#toggle-form", "click", toggleForm);
-
-
-
-
-
-
-
-
 
 form.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -73,7 +61,6 @@ form.addEventListener("submit", async (e) => {
         return;
     }
 
-    // Validate the form mode before doing anything else
     const action = formState.mode;
     if (action !== "login" && action !== "register") {
         errorEl.textContent = "Form state error.";
@@ -100,7 +87,6 @@ form.addEventListener("submit", async (e) => {
         console.error(err);
         errorEl.textContent = "Something went wrong. Please try again.";
     } finally {
-        // Always re-enable the button, success or fail
         submit.disabled = false;
     }
 });

@@ -1,121 +1,105 @@
-.settings,
 .refresh {
-    border-radius: 8px;
     height: 24px;
+    border-radius: 8px;
 }
 
-.btn-user {
+.btn-user,
+.profile-btn {
     display: flex;
     align-items: center;
-    gap: 8px; /* Jarak antar ikon dan teks */
+    gap: 8px;
     background: transparent;
     border: none;
     color: #e6edf3;
     font-family: inherit;
     font-size: 14px;
-    padding: 6px 12px;
-    border-radius: 6px;
     cursor: pointer;
     transition: background 0.2s;
 }
 
-.btn-user:hover {
+.btn-user {
+    padding: 6px 12px;
+    border-radius: 6px;
+}
+
+.profile-btn {
+    padding: 8px 12px;
+    border-radius: 8px;
+}
+
+.btn-user:hover,
+.profile-btn:hover {
     background: rgba(255, 255, 255, 0.1);
 }
 
-.user-icon, .chevron-icon {
-    width: 18px;
-    height: 18px;
-}
-
+.user-icon,
 .chevron-icon {
     width: 14px;
     height: 14px;
     opacity: 0.7;
 }
 
-/* Container */
+/* --- Dropdown container -------------------------------------------------- */
 .user-profile {
     position: relative;
     display: inline-block;
     z-index: 2;
 }
 
-/* Tombol Profil */
-.profile-btn {
-    background: transparent;
-    border: none;
-    color: #e6edf3;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px 12px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 14px;
-    transition: background 0.2s;
-}
-
-.profile-btn:hover {
-    background: rgba(255, 255, 255, 0.1);
-}
-
-/* Ikon SVG di dalam tombol */
-.profile-btn .icon {
-    stroke: currentColor;
-}
-
-/* Menu Dropdown */
 .profile-menu {
     position: absolute;
     top: 120%;
     right: 0;
+    z-index: 1000;
+    flex-direction: column;
     width: 200px;
-    background: rgba(13, 17, 23, 1);
+    overflow: hidden;
+    background: rgb(13, 17, 23);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 10px;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
-    flex-direction: column;
-    z-index: 1000;
 }
 
-/* Class untuk menampilkan menu */
-.profile-menu.show {
+.profile-menu.show,
+.profile-menu:not([hidden]) {
     display: flex;
 }
 
-/* Header & Divider */
+/* --- Header -------------------------------------------------------------- */
 .menu-header {
+    display: flex;
+    flex-direction: column;
     padding: 12px 16px;
     font-size: 12px;
     color: #8b949e;
-    display: flex;
-    flex-direction: column;
-}
-.menu-header strong {
-    color: #fff;
-    font-size: 14px;
-    margin-top: 2px;
-}
-.menu-divider {
-    height: 1px;
-    background: rgba(255, 255, 255, 0.1);
-    margin: 0;
 }
 
-/* Item Menu */
-.menu-item {
-    padding: 12px 16px;
-    color: #e6edf3;
-    text-decoration: none;
+.menu-header strong {
+    margin-top: 2px;
     font-size: 14px;
+    color: #fff;
+}
+
+.menu-divider {
+    height: 1px;
+    margin: 0;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* --- Menu items (Settings, Logout, ...) ---------------------------------- */
+.menu-item {
     display: flex;
     align-items: center;
     gap: 10px;
+    width: 100%;
+    padding: 12px 16px;
     background: transparent;
     border: none;
+    font-family: inherit;
+    font-size: 14px;
+    color: #e6edf3;
     text-align: left;
-    width: 100%;
+    text-decoration: none;
     cursor: pointer;
     transition: background 0.2s;
 }
@@ -124,9 +108,26 @@
     background: rgba(255, 255, 255, 0.1);
 }
 
-.text-danger {
-    color: #ff4d4d !important;
+.menu-item:focus-visible {
+    outline: 2px solid var(--accent-3);
+    outline-offset: -2px;
 }
+
+.menu-item svg {
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.text-danger {
+    color: #ff4d4d;
+}
+
 .text-danger:hover {
     background: rgba(255, 77, 77, 0.1);
 }

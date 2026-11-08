@@ -28,24 +28,30 @@
     justify-content: space-between;
     padding: 16px 20px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-    font-size: 15px;
+    font-size: 16px;
     font-weight: 600;
     color: #e8e8e8;
 }
+.modal-header label {
+    color: #e8e8e8;
+    font-size: 18px;
+    font-weight: 600;
+}
 
-.modal-close {
+#close-connect-device-modal, 
+#close-settings-modal {
     width: 26px;
     height: 26px;
     padding: 6px;
     border-radius: 6px;
     cursor: pointer;
-    filter: invert(0.9);
     opacity: 0.7;
     transition: background-color 0.15s ease, opacity 0.15s ease;
     box-sizing: content-box;
 }
 
-.modal-close:hover {
+#close-connect-device-modal:hover, 
+#close-settings-modal:hover {
     background-color: rgba(255, 255, 255, 0.08);
     opacity: 1;
 }
@@ -105,7 +111,8 @@
 }
 
 /* Connection type toggle (ADB / SSH) — single definition, animated sliding indicator */
-.connection-type-toggle {
+.connection-type-toggle,
+.settings-submenu-toggle {
     position: relative;
     display: flex;
     gap: 6px;
@@ -115,23 +122,63 @@
     padding: 4px;
 }
 
+.settings-submenu-toggle {
+    width: 650px;
+    max-width: 100%;
+    margin-inline: auto;
+}
+
+#settings-modal {
+    width: min(1000px, 90vw);   /* never wider than 90% of the viewport */
+    height: min(500px, 85vh);   /* never taller than 85% of the viewport */
+}
+
 .toggle-indicator {
     position: absolute;
     top: 4px;
     left: 4px;
-    width: calc(50% - 7px);
-    height: calc(100% - 8px);
     background: rgba(76, 175, 80, 0.2);
     border-radius: 6px;
     transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 0;
 }
 
+#connect-type {
+    width: calc(50% - 7px);
+    height: calc(100% - 8px);
+}
 .connection-type-toggle[data-active="ssh"] .toggle-indicator {
     transform: translateX(calc(100% + 6px));
 }
 
-.type-btn {
+
+/* 6 buttons: (100% - 8px padding - 6px * 5 gaps) / 6 */
+#settings-type {
+    width: calc(16.666% - 6.33px);
+    height: calc(100% - 8px);
+}
+.settings-submenu-toggle[data-active="connection"] #settings-type {
+    transform: translateX(calc(100% + 6px));
+}
+
+.settings-submenu-toggle[data-active="graphics"] #settings-type {
+    transform: translateX(calc((100% + 6px) * 2));
+}
+
+.settings-submenu-toggle[data-active="behavior"] #settings-type {
+    transform: translateX(calc((100% + 6px) * 3));
+}
+
+.settings-submenu-toggle[data-active="account"] #settings-type {
+    transform: translateX(calc((100% + 6px) * 4));
+}
+
+.settings-submenu-toggle[data-active="about"] #settings-type {
+    transform: translateX(calc((100% + 6px) * 5));
+}
+
+.type-btn,
+.submenu-btn {
     position: relative;
     z-index: 1;
     flex: 1;
@@ -146,15 +193,18 @@
     transition: color 0.2s ease;
 }
 
-.type-btn:hover:not(:disabled) {
+.type-btn:hover:not(:disabled),
+.submenu-btn:hover:not(:disabled) {
     color: rgba(255, 255, 255, 0.8);
 }
 
-.type-btn.active {
+.type-btn.active,
+.submenu-btn.active {
     color: #4caf50;
 }
 
-.type-btn:disabled {
+.type-btn:disabled,
+.submenu-btn:disabled {
     opacity: 0.4;
     cursor: not-allowed;
 }

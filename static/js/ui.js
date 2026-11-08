@@ -85,8 +85,8 @@ export async function initConnectedDevices() {
 }
 
 
-// CONNECT() MODAL
-export function toggle_add_device_modal() {
+// MODAL
+export function toggleAddDeviceModal() {
     const backdrop = document.querySelector(".modal-backdrop");
     const connectDeviceModal = document.getElementById("connect-device-modal");
 
@@ -96,6 +96,19 @@ export function toggle_add_device_modal() {
     } else {
         backdrop.hidden = true;
         connectDeviceModal.hidden = true;
+    }
+}
+
+export function toggleAddSettingsModal() {
+    const backdrop = document.querySelector(".modal-backdrop");
+    const settingsModal = document.getElementById("settings-modal");
+
+    if (backdrop.hidden && backdrop.hidden) {
+        backdrop.hidden = false;
+        settingsModal.hidden = false;
+    } else {
+        backdrop.hidden = true;
+        settingsModal.hidden = true;
     }
 }
 
@@ -114,6 +127,25 @@ export function initConnectionTypeToggle() {
             const type = btn.dataset.type;
             toggle.dataset.active = type;
             portInput.placeholder = type === 'ssh' ? '22' : '5555';
+        });
+    });
+}
+
+export function initSettingsSubenuToggle() {
+    const toggle = document.querySelector('.settings-submenu-toggle');
+    const buttons = toggle.querySelectorAll('.submenu-btn');
+    const portInput = document.getElementById('connect-port');
+
+    buttons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            if (btn.disabled) return;
+
+            buttons.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            const type = btn.dataset.type;
+            toggle.dataset.active = type;
+            console.log(type)
         });
     });
 }

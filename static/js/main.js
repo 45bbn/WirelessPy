@@ -3,9 +3,10 @@ import {loadModule} from "./api.js";
 import { loadLog, clearlog, connectLogSocket } from "./console.js";
 import {
     select_platform, show_wireframe, refresh, 
-    toggle_add_device_modal, connect_device, 
+    toggleAddDeviceModal, connect_device, 
     initConnectionTypeToggle, renderDeviceList, closeDeviceMenu,
-    initServerUptime, initDate, initConnectedDevices, initUser, initProfileMenu, logout
+    initServerUptime, initDate, initConnectedDevices, initUser, initProfileMenu, logout,
+    toggleAddSettingsModal, initSettingsSubenuToggle
 } from "./ui.js";
 
 
@@ -19,12 +20,16 @@ bind("#clear-logs", "click", async() => {
 });
 
 bind(".refresh", "click", refresh)
-bind(".settings", "click", show_wireframe);
 bind(".module-btn", "click", select_platform);
 bind("#logoutBtn", "click", logout())
-bind(".add-device", "click", toggle_add_device_modal)
-bind(".modal-close", "click", toggle_add_device_modal)
-bind("#connect-cancel", "click", toggle_add_device_modal)
+
+bind(".settings", "click", toggleAddSettingsModal);
+bind("#close-settings-modal", "click", toggleAddSettingsModal)
+
+
+bind(".add-device", "click", toggleAddDeviceModal)
+bind("#close-connect-device-modal", "click", toggleAddDeviceModal)
+bind("#connect-cancel", "click", toggleAddDeviceModal)
 bind("#connect-submit", "click", connect_device)
 
 
@@ -41,6 +46,7 @@ window.addEventListener("DOMContentLoaded", () => {
     connectLogSocket();
     initConnectionTypeToggle();
     renderDeviceList();
+    initSettingsSubenuToggle();
     document.addEventListener('click', closeDeviceMenu);
 });
 
