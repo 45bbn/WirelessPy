@@ -1,27 +1,30 @@
+/* --- Backdrop & panel ---------------------------------------------------- */
 .modal-backdrop {
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.6);
+    z-index: 1000;
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 1000;
-}
-.modal-backdrop[hidden] {
-    display: none;
+    background: rgba(0, 0, 0, 0.6);
+
+    &[hidden] {
+        display: none;
+    }
 }
 
 .modal-panel {
+    max-width: 90vw;
+    overflow: hidden;
     background: rgba(24, 26, 27, 0.85);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 12px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-    max-width: 90vw;
-    overflow: hidden;
 }
 
+/* --- Header & close button ----------------------------------------------- */
 .modal-header {
     display: flex;
     align-items: center;
@@ -31,15 +34,17 @@
     font-size: 16px;
     font-weight: 600;
     color: #e8e8e8;
-}
-.modal-header label {
-    color: #e8e8e8;
-    font-size: 18px;
-    font-weight: 600;
+
+    & label {
+        font-size: 18px;
+        font-weight: 600;
+        color: #e8e8e8;
+    }
 }
 
-#close-connect-device-modal, 
+#close-connect-device-modal,
 #close-settings-modal {
+    box-sizing: content-box;
     width: 26px;
     height: 26px;
     padding: 6px;
@@ -47,54 +52,53 @@
     cursor: pointer;
     opacity: 0.7;
     transition: background-color 0.15s ease, opacity 0.15s ease;
-    box-sizing: content-box;
+
+    &:hover {
+        background-color: rgba(255, 255, 255, 0.08);
+        opacity: 1;
+    }
 }
 
-#close-connect-device-modal:hover, 
-#close-settings-modal:hover {
-    background-color: rgba(255, 255, 255, 0.08);
-    opacity: 1;
-}
-
+/* --- Body & form fields -------------------------------------------------- */
 .modal-body {
     display: flex;
     flex-direction: column;
     gap: 12px;
     padding: 20px;
-}
 
-.modal-body input {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 8px;
-    padding: 10px 12px;
-    font-size: 14px;
-    color: #e8e8e8;
-    outline: none;
-    transition: border-color 0.15s ease, background-color 0.15s ease;
-}
+    & input {
+        padding: 10px 12px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+        font-size: 14px;
+        color: #e8e8e8;
+        outline: none;
+        transition: border-color 0.15s ease, background-color 0.15s ease;
 
-.modal-body input::placeholder {
-    color: rgba(255, 255, 255, 0.35);
-}
+        &::placeholder {
+            color: rgba(255, 255, 255, 0.35);
+        }
 
-.modal-body input:focus {
-    border-color: rgba(76, 175, 80, 0.6);
-    background: rgba(255, 255, 255, 0.08);
+        &:focus {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(76, 175, 80, 0.6);
+        }
+    }
 }
 
 .field-group {
     display: flex;
     flex-direction: column;
     gap: 6px;
-}
 
-.field-group label {
-    font-size: 12px;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    color: rgba(255, 255, 255, 0.5);
+    & label {
+        font-size: 12px;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: rgba(255, 255, 255, 0.5);
+    }
 }
 
 .field-row {
@@ -102,24 +106,131 @@
     gap: 12px;
 }
 
-.field-ip {
-    flex: 2;
-}
+.field-ip   { flex: 2; }
+.field-port { flex: 1; }
 
-.field-port {
-    flex: 1;
-}
-
-/* Connection type toggle (ADB / SSH) — single definition, animated sliding indicator */
+/* --- Toggle (shared by Connect and Settings) ----------------------------- */
 .connection-type-toggle,
 .settings-submenu-toggle {
     position: relative;
     display: flex;
     gap: 6px;
+    box-sizing: border-box;
+    padding: 4px;
     background: rgba(255, 255, 255, 0.04);
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 8px;
-    padding: 4px;
+}
+
+/* Sliding indicator. Width is set per toggle (see the modal sections) */
+.toggle-indicator {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    z-index: 0;
+    height: calc(100% - 8px);
+    background: rgba(76, 175, 80, 0.2);
+    border-radius: 6px;
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.type-btn,
+.submenu-btn {
+    position: relative;
+    z-index: 1;
+    flex: 1;
+    padding: 8px;
+    background: transparent;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    transition: color 0.2s ease;
+
+    &:hover:not(:disabled) {
+        color: rgba(255, 255, 255, 0.8);
+    }
+
+    &.active {
+        color: #4caf50;
+    }
+
+    &:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+    }
+
+    &:focus-visible {
+        outline: 2px solid var(--accent-3, #34d399);
+        outline-offset: 2px;
+    }
+}
+
+/* --- Action buttons (Cancel + Connect) ----------------------------------- */
+.modal-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 4px;
+
+    & #connect-submit,
+    & .btn-secondary {
+        flex: 1;
+    }
+}
+
+/* Shared base for both buttons */
+#connect-submit,
+.btn-secondary {
+    padding: 10px;
+    border-radius: 8px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.15s ease,
+                border-color 0.15s ease,
+                color 0.15s ease;
+}
+
+/* Primary (green) */
+#connect-submit {
+    background-color: rgba(76, 175, 80, 0.15);
+    border: 1px solid rgba(76, 175, 80, 0.4);
+    color: #4caf50;
+
+    &:hover {
+        background-color: rgba(76, 175, 80, 0.25);
+        border-color: rgba(76, 175, 80, 0.6);
+    }
+}
+
+/* Cancel (red) */
+.btn-secondary {
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    color: #ef4444;
+
+    &:hover {
+        background: rgba(239, 68, 68, 0.2);
+        border-color: rgba(239, 68, 68, 0.5);
+        color: #f87171;
+    }
+}
+
+/* --- Connect modal ----------------------------------- */
+/* 2 buttons: (100% - 8px padding - 6px * 1 gap) / 2 */
+#connect-type {
+    width: calc(50% - 7px);
+
+    .connection-type-toggle[data-active="ssh"] & {
+        transform: translateX(calc(100% + 6px));
+    }
+}
+
+/* --- Settings modal ----------------------------------- */
+#settings-modal {
+    width: min(1000px, 90vw);  /* never wider than 90% of the viewport */
+    height: min(500px, 85vh);  /* never taller than 85% of the viewport */
 }
 
 .settings-submenu-toggle {
@@ -128,128 +239,29 @@
     margin-inline: auto;
 }
 
-#settings-modal {
-    width: min(1000px, 90vw);   /* never wider than 90% of the viewport */
-    height: min(500px, 85vh);   /* never taller than 85% of the viewport */
-}
-
-.toggle-indicator {
-    position: absolute;
-    top: 4px;
-    left: 4px;
-    background: rgba(76, 175, 80, 0.2);
-    border-radius: 6px;
-    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-    z-index: 0;
-}
-
-#connect-type {
-    width: calc(50% - 7px);
-    height: calc(100% - 8px);
-}
-.connection-type-toggle[data-active="ssh"] .toggle-indicator {
-    transform: translateX(calc(100% + 6px));
-}
-
-
 /* 6 buttons: (100% - 8px padding - 6px * 5 gaps) / 6 */
 #settings-type {
     width: calc(16.666% - 6.33px);
-    height: calc(100% - 8px);
-}
-.settings-submenu-toggle[data-active="connection"] #settings-type {
-    transform: translateX(calc(100% + 6px));
-}
 
-.settings-submenu-toggle[data-active="graphics"] #settings-type {
-    transform: translateX(calc((100% + 6px) * 2));
-}
+    /* Each step = indicator width + 6px gap.
+       "general" is position 0, so it needs no rule */
+    .settings-submenu-toggle[data-active="connection"] & {
+        transform: translateX(calc(100% + 6px));
+    }
 
-.settings-submenu-toggle[data-active="behavior"] #settings-type {
-    transform: translateX(calc((100% + 6px) * 3));
-}
+    .settings-submenu-toggle[data-active="graphics"] & {
+        transform: translateX(calc((100% + 6px) * 2));
+    }
 
-.settings-submenu-toggle[data-active="account"] #settings-type {
-    transform: translateX(calc((100% + 6px) * 4));
-}
+    .settings-submenu-toggle[data-active="behavior"] & {
+        transform: translateX(calc((100% + 6px) * 3));
+    }
 
-.settings-submenu-toggle[data-active="about"] #settings-type {
-    transform: translateX(calc((100% + 6px) * 5));
-}
+    .settings-submenu-toggle[data-active="account"] & {
+        transform: translateX(calc((100% + 6px) * 4));
+    }
 
-.type-btn,
-.submenu-btn {
-    position: relative;
-    z-index: 1;
-    flex: 1;
-    background: transparent;
-    border: none;
-    color: rgba(255, 255, 255, 0.5);
-    padding: 8px;
-    border-radius: 6px;
-    font-size: 13px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: color 0.2s ease;
-}
-
-.type-btn:hover:not(:disabled),
-.submenu-btn:hover:not(:disabled) {
-    color: rgba(255, 255, 255, 0.8);
-}
-
-.type-btn.active,
-.submenu-btn.active {
-    color: #4caf50;
-}
-
-.type-btn:disabled,
-.submenu-btn:disabled {
-    opacity: 0.4;
-    cursor: not-allowed;
-}
-
-/* Action row: Cancel + Connect side by side */
-.modal-actions {
-    display: flex;
-    gap: 10px;
-    margin-top: 4px;
-}
-
-.modal-actions #connect-submit,
-.modal-actions .btn-secondary {
-    flex: 1;
-}
-
-#connect-submit {
-    background-color: rgba(76, 175, 80, 0.15);
-    border: 1px solid rgba(76, 175, 80, 0.4);
-    color: #4caf50;
-    padding: 10px;
-    border-radius: 8px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background-color 0.15s ease, border-color 0.15s ease;
-}
-
-#connect-submit:hover {
-    background-color: rgba(76, 175, 80, 0.25);
-    border-color: rgba(76, 175, 80, 0.6);
-}
-
-.btn-secondary {
-    background: rgba(239, 68, 68, 0.1);
-    border: 1px solid rgba(239, 68, 68, 0.3);
-    color: #ef4444;
-    padding: 10px;
-    border-radius: 8px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease;
-}
-
-.btn-secondary:hover {
-    background: rgba(239, 68, 68, 0.2);
-    border-color: rgba(239, 68, 68, 0.5);
-    color: #f87171;
+    .settings-submenu-toggle[data-active="about"] & {
+        transform: translateX(calc((100% + 6px) * 5));
+    }
 }
