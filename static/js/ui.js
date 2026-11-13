@@ -112,7 +112,7 @@ export function toggleAddSettingsModal() {
     }
 }
 
-export function initConnectionTypeToggle() {
+export function initConnectionType() {
     const toggle = document.querySelector('.connection-type-toggle');
     const buttons = toggle.querySelectorAll('.type-btn');
     const portInput = document.getElementById('connect-port');
@@ -131,10 +131,10 @@ export function initConnectionTypeToggle() {
     });
 }
 
-export function initSettingsSubenuToggle() {
+export function initSettingsSubmenu() {
     const toggle = document.querySelector('.settings-submenu-toggle');
     const buttons = toggle.querySelectorAll('.submenu-btn');
-    const portInput = document.getElementById('connect-port');
+    const panels = document.querySelectorAll('.modal-body > div');
 
     buttons.forEach(btn => {
         btn.addEventListener('click', () => {
@@ -145,7 +145,9 @@ export function initSettingsSubenuToggle() {
 
             const type = btn.dataset.type;
             toggle.dataset.active = type;
-            console.log(type)
+
+            // Hide all panels, then show only the selected one
+            panels.forEach(p => p.hidden = p.id !== type);
         });
     });
 }

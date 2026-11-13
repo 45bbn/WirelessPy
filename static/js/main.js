@@ -4,9 +4,9 @@ import { loadLog, clearlog, connectLogSocket } from "./console.js";
 import {
     select_platform, show_wireframe, refresh, 
     toggleAddDeviceModal, connect_device, 
-    initConnectionTypeToggle, renderDeviceList, closeDeviceMenu,
+    initConnectionType, renderDeviceList, closeDeviceMenu,
     initServerUptime, initDate, initConnectedDevices, initUser, initProfileMenu, logout,
-    toggleAddSettingsModal, initSettingsSubenuToggle
+    toggleAddSettingsModal, initSettingsSubmenu
 } from "./ui.js";
 
 
@@ -44,9 +44,9 @@ window.addEventListener("DOMContentLoaded", () => {
     loadModule("android")
     loadLog();
     connectLogSocket();
-    initConnectionTypeToggle();
+    initConnectionType();
     renderDeviceList();
-    initSettingsSubenuToggle();
+    initSettingsSubmenu();
     document.addEventListener('click', closeDeviceMenu);
 });
 

@@ -74,7 +74,7 @@
     flex-shrink: 0;
 }
 
-.method,
+.protocol,
 .utility-name,
 .platform {
     display: flex;
@@ -104,7 +104,7 @@
     background-color: burlywood;
 }
 
-.wireframe-enabled .method {
+.wireframe-enabled .protocol {
     background-color: chocolate;
 }
 

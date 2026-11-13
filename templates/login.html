@@ -10,11 +10,8 @@
 </head>
 
 <body>
-    {% include 'icons.html' %}
-
-    <div class="bg-glow"></div>
-    <canvas id="geo" aria-hidden="true"></canvas>
-    <div class="spot" aria-hidden="true"></div>
+    {% include 'components/icons.html' %}
+    {% include 'components/wallpaper.html' %}
 
     <div class="app">
         <header class="bar top">
@@ -32,7 +29,7 @@
         </header>
 
 
-        
+
         <main class="stage">
             <section class="hero">
                 <h1><span>Connect &bull;</span> <span>Control &bull;</span> <span>Automate</span></h1>
@@ -81,7 +78,7 @@
                         <use href="#icon-arrow-right"></use>
                     </svg>
                 </button>
-                
+
                 <div id="toggle-form">Register here</div>
             </form>
         </main>

@@ -1,0 +1,76 @@
+<div id="overlay-root">
+    <div class="modal-backdrop glass">
+        <div class="modal-panel" id="connect-device-modal" hidden>
+            <header class="modal-header">
+                Connect Device
+                <svg id="close-connect-device-modal" width="14" height="14">
+                    <use href="#icon-x"></use>
+                </svg>
+            </header>
+            <div class="modal-body">
+                <div class="field-group">
+                    <label>Connection Type</label>
+                    <div class="connection-type-toggle">
+                        <div class="toggle-indicator" id="connect-type"></div>
+                        <button type="button" class="type-btn active" data-type="adb">ADB</button>
+                        <button type="button" class="type-btn" data-type="ssh">SSH</button>
+                    </div>
+                </div>
+
+                <div class="field-group">
+                    <label for="connect-alias">Alias</label>
+                    <input type="text" id="connect-alias" placeholder="Android">
+                </div>
+
+                <div class="field-row">
+                    <div class="field-group field-ip">
+                        <label for="connect-address">IP Address</label>
+                        <input type="text" id="connect-address" placeholder="192.168.1.50">
+                    </div>
+                    <div class="field-group field-port">
+                        <label for="connect-port">Port</label>
+                        <input type="text" id="connect-port" placeholder="5555">
+                    </div>
+                </div>
+
+                <div class="modal-actions">
+                    <button type="button" id="connect-submit">Connect</button>
+                    <button type="button" id="connect-cancel" class="btn-secondary">Cancel</button>
+                </div>
+            </div>
+        </div>
+        <div class="modal-panel" id="settings-modal">
+            <header class="modal-header">
+                <label>Settings</label>
+                <div class="field-group">
+                    <div class="settings-submenu-toggle">
+                        <div class="toggle-indicator" id="settings-type"></div>
+                        <button type="button" class="submenu-btn active" data-type="general">General</button>
+                        <button type="button" class="submenu-btn" data-type="connection">Connection</button>
+                        <button type="button" class="submenu-btn" data-type="graphics">Graphics</button>
+                        <button type="button" class="submenu-btn" data-type="behavior">Behavior</button>
+                        <button type="button" class="submenu-btn" data-type="account">Account</button>
+                        <button type="button" class="submenu-btn" data-type="about">About</button>
+                    </div>
+                </div>
+                <svg id="close-settings-modal" width="14" height="14">
+                    <use href="#icon-x"></use>
+                </svg>
+            </header>
+            <div class="modal-body" hidden>
+                <div id="general">general</div>
+                <div id="connection" hidden>connection</div>
+                <div id="graphics" hidden>
+                    <div class="fx">
+                        <button data-mode="full">Full</button>
+                        <button data-mode="saver">Saver</button>
+                        <button data-mode="off">Off</button>
+                    </div>
+                </div>
+                <div id="behavior" hidden>behavior</div>
+                <div id="account" hidden>account</div>
+                <div id="about" hidden>about</div>
+            </div>
+        </div>
+    </div>
+</div>
