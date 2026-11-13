@@ -39,6 +39,9 @@
                 </div>
             </div>
         </div>
+
+
+
         <div class="modal-panel" id="settings-modal">
             <header class="modal-header">
                 <label>Settings</label>
@@ -61,15 +64,43 @@
                 <div id="general">general</div>
                 <div id="connection" hidden>connection</div>
                 <div id="graphics" hidden>
+                    <label>--Visual Effects--</label>
+
+                    <div>Reduce Motion [ ]</div>
+                    
+                    <div>
+                        <label>Wallpaper FPS</label>
+                        <span id="FPS-value">24FPS</span>
+                    </div>
+
                     <div class="fx">
                         <button data-mode="full">Full</button>
                         <button data-mode="saver">Saver</button>
                         <button data-mode="off">Off</button>
+                        <svg class="info-icon" width="18" height="18">
+                            <use href="#icon-info"></use>
+                        </svg>
+                    </div>
+
+                    <div class="slider-group">
+                        <label for="blur-slider">Blur Intensity</label>
+                        <svg class="info-icon" width="18" height="18">
+                            <use href="#icon-info"></use>
+                        </svg>
+                        <div class="slider-wrapper">
+                            <input type="range" id="blur-slider" min="0" max="50" value="8" step="1">
+                            <span id="blur-value">14px</span>
+                        </div>
                     </div>
                 </div>
+
                 <div id="behavior" hidden>behavior</div>
                 <div id="account" hidden>account</div>
                 <div id="about" hidden>about</div>
+            </div>
+            <div class="modal-actions">
+                <button type="button" id="connect-submit">save</button>
+                <button type="button" id="cancel-settings" class="btn-secondary">Cancel</button>
             </div>
         </div>
     </div>

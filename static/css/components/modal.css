@@ -265,3 +265,36 @@
         transform: translateX(calc((100% + 6px) * 5));
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+.slider-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-top: 8px;
+}
+
+#blur-slider {
+    flex: 1; /* Biar slider-nya memanjang memenuhi ruang */
+    cursor: pointer;
+    
+    /* Ini trik paling gampang untuk mewarnai slider sesuai tema */
+    accent-color: var(--accent-3); 
+}
+
+#blur-value {
+    font-family: monospace; /* Biar angka lebih rapi */
+    font-size: 14px;
+    color: var(--text-dim);
+    min-width: 40px; /* Biar teks nggak goyang saat angkanya berubah */
+    text-align: right;
+}
