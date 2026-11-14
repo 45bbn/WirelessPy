@@ -17,6 +17,10 @@
     flex-shrink: 0;
 }
 
+.console-header label {
+    margin-right: auto;
+}
+
 .console-logs {
     flex: 1;
     min-height: 0;
