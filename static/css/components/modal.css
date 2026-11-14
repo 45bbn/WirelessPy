@@ -1,27 +1,32 @@
 /* --- Backdrop & panel ---------------------------------------------------- */
 .modal-backdrop {
+    display: none;
+
     position: fixed;
     inset: 0;
     z-index: 1000;
-    display: flex;
     align-items: center;
     justify-content: center;
     background: rgba(0, 0, 0, 0.6);
 
-    &[hidden] {
-        display: none;
+    &.active {
+        display: flex;
     }
 }
 
 .modal-panel {
-    max-width: 90vw;
-    overflow: hidden;
+    display: none;
+
     background: rgba(24, 26, 27, 0.85);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 12px;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+
+    &.active {
+        display: grid;
+    }
 }
 
 /* --- Header & close button ----------------------------------------------- */
@@ -39,6 +44,20 @@
         font-size: 18px;
         font-weight: 600;
         color: #e8e8e8;
+    }
+}
+
+#connect-device-modal {
+    width: min(500px, 90vw);
+}
+
+#settings-modal {
+    flex-direction: column;
+    width: min(1000px, 90vw);  
+    height: min(500px, 85vh);  
+
+    &.active {
+        display: flex;
     }
 }
 
@@ -63,7 +82,7 @@
 .modal-body {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 16px;
     padding: 20px;
 
     & input {
@@ -122,7 +141,6 @@
     border-radius: 8px;
 }
 
-/* Sliding indicator. Width is set per toggle (see the modal sections) */
 .toggle-indicator {
     position: absolute;
     top: 4px;
@@ -171,18 +189,19 @@
 /* --- Action buttons (Cancel + Connect) ----------------------------------- */
 .modal-actions {
     display: flex;
-    gap: 10px;
     margin-top: 4px;
+    gap: 12px; 
+    padding-top: 15px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
 
-    & #connect-submit,
-    & .btn-secondary {
+    & .submit-modal,
+    & .cancel-modal {
         flex: 1;
     }
 }
 
-/* Shared base for both buttons */
-#connect-submit,
-.btn-secondary {
+.submit-modal,
+.cancel-modal {
     padding: 10px;
     border-radius: 8px;
     font-weight: 500;
@@ -192,8 +211,7 @@
                 color 0.15s ease;
 }
 
-/* Primary (green) */
-#connect-submit {
+.submit-modal {
     background-color: rgba(76, 175, 80, 0.15);
     border: 1px solid rgba(76, 175, 80, 0.4);
     color: #4caf50;
@@ -204,8 +222,7 @@
     }
 }
 
-/* Cancel (red) */
-.btn-secondary {
+.cancel-modal {
     background: rgba(239, 68, 68, 0.1);
     border: 1px solid rgba(239, 68, 68, 0.3);
     color: #ef4444;
@@ -218,7 +235,6 @@
 }
 
 /* --- Connect modal ----------------------------------- */
-/* 2 buttons: (100% - 8px padding - 6px * 1 gap) / 2 */
 #connect-type {
     width: calc(50% - 7px);
 
@@ -228,9 +244,10 @@
 }
 
 /* --- Settings modal ----------------------------------- */
-#settings-modal {
-    width: min(1000px, 90vw);  /* never wider than 90% of the viewport */
-    height: min(500px, 85vh);  /* never taller than 85% of the viewport */
+#settings-modal-action {
+    margin-top: auto;
+    justify-content: flex-end;
+    padding: 10px;
 }
 
 .settings-submenu-toggle {
@@ -239,10 +256,10 @@
     margin-inline: auto;
 }
 
-/* 6 buttons: (100% - 8px padding - 6px * 5 gaps) / 6 */
 #settings-type {
     width: calc(16.666% - 6.33px);
-
+    /* 6 buttons: (100% - 8px padding - 6px * 5 gaps) / 6 */
+    
     /* Each step = indicator width + 6px gap.
        "general" is position 0, so it needs no rule */
     .settings-submenu-toggle[data-active="connection"] & {
@@ -275,7 +292,6 @@
 
 
 
-
 .slider-wrapper {
     display: flex;
     align-items: center;
@@ -284,17 +300,58 @@
 }
 
 #blur-slider {
-    flex: 1; /* Biar slider-nya memanjang memenuhi ruang */
+    flex: 1;
     cursor: pointer;
     
-    /* Ini trik paling gampang untuk mewarnai slider sesuai tema */
     accent-color: var(--accent-3); 
 }
 
 #blur-value {
-    font-family: monospace; /* Biar angka lebih rapi */
+    font-family: monospace;
     font-size: 14px;
     color: var(--text-dim);
-    min-width: 40px; /* Biar teks nggak goyang saat angkanya berubah */
+    min-width: 40px;
     text-align: right;
+}
+
+
+
+
+
+
+
+.settings-row {
+    display: flex;
+    flex: 1;
+    gap: 20px;
+    overflow: hidden;
+
+    flex-direction: row;
+    padding: 0;
+}
+
+/* Kolom Kiri (List Settingan) */
+.settings-list {
+    flex: 1;
+    overflow-y: auto;
+    padding-top: 10px;
+    padding-right: 20px;
+    padding-bottom: 20px;
+    padding-left: 20px;
+}
+
+/* Kolom Kanan (Info) */
+.settings-info {
+    width: 300px;
+    flex-shrink: 0;
+    background: rgba(0, 0, 0, 0.2);
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    overflow-y: auto;
+}
+
+@media (max-width: 768px) {
+    .settings-info {
+        display: none;
+    }
 }

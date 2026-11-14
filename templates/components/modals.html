@@ -1,6 +1,6 @@
 <div id="overlay-root">
     <div class="modal-backdrop glass">
-        <div class="modal-panel" id="connect-device-modal" hidden>
+        <div class="modal-panel" id="connect-device-modal">
             <header class="modal-header">
                 Connect Device
                 <svg id="close-connect-device-modal" width="14" height="14">
@@ -34,11 +34,12 @@
                 </div>
 
                 <div class="modal-actions">
-                    <button type="button" id="connect-submit">Connect</button>
-                    <button type="button" id="connect-cancel" class="btn-secondary">Cancel</button>
+                    <button type="button" class="submit-modal" id="connect-submit">Connect</button>
+                    <button type="button" class="cancel-modal" id="connect-cancel">Cancel</button>
                 </div>
             </div>
         </div>
+
 
 
 
@@ -60,47 +61,56 @@
                     <use href="#icon-x"></use>
                 </svg>
             </header>
-            <div class="modal-body" hidden>
-                <div id="general">general</div>
-                <div id="connection" hidden>connection</div>
-                <div id="graphics" hidden>
-                    <label>--Visual Effects--</label>
+            <div class="modal-body settings-row">
+                <div class="settings-list">
+                    <div id="general">general</div>
+                    <div id="connection" hidden>connection</div>
+                    <div id="graphics" hidden>
+                        <h3>Visual Effects</h3>
 
-                    <div>Reduce Motion [ ]</div>
-                    
-                    <div>
-                        <label>Wallpaper FPS</label>
-                        <span id="FPS-value">24FPS</span>
-                    </div>
+                        <div>Reduce Motion [ ]</div>
+                        <div>Cursor Spotlight [ ]</div>
 
-                    <div class="fx">
-                        <button data-mode="full">Full</button>
-                        <button data-mode="saver">Saver</button>
-                        <button data-mode="off">Off</button>
-                        <svg class="info-icon" width="18" height="18">
-                            <use href="#icon-info"></use>
-                        </svg>
-                    </div>
+                        <div class="slider-group">
+                            <label for="blur-slider">Blur Intensity</label>
+                            <svg class="info-icon" width="18" height="18">
+                                <use href="#icon-info"></use>
+                            </svg>
+                            <div class="slider-wrapper">
+                                <input type="range" id="blur-slider" min="0" max="50" value="8" step="1">
+                                <span id="blur-value">14px</span>
+                            </div>
+                        </div>
 
-                    <div class="slider-group">
-                        <label for="blur-slider">Blur Intensity</label>
-                        <svg class="info-icon" width="18" height="18">
-                            <use href="#icon-info"></use>
-                        </svg>
-                        <div class="slider-wrapper">
-                            <input type="range" id="blur-slider" min="0" max="50" value="8" step="1">
-                            <span id="blur-value">14px</span>
+                        <h3>Wallpaper</h3>
+
+                        <div>
+                            <label>Wallpaper FPS</label>
+                            <span id="FPS-value">Variable</span>
+                        </div>
+
+                        <div class="fx">
+                            <button data-mode="full">Full</button>
+                            <button data-mode="saver">Saver</button>
+                            <button data-mode="off">Off</button>
+                            <svg class="info-icon" width="18" height="18">
+                                <use href="#icon-info"></use>
+                            </svg>
                         </div>
                     </div>
-                </div>
 
-                <div id="behavior" hidden>behavior</div>
-                <div id="account" hidden>account</div>
-                <div id="about" hidden>about</div>
+                    <div id="behavior" hidden>behavior</div>
+                    <div id="account" hidden>account</div>
+                    <div id="about" hidden>about</div>
+                </div>
+                <div class="settings-info">
+                    <h3>Information</h3>
+                    <p>Hover over an option to see the details here.</p>
+                </div>
             </div>
-            <div class="modal-actions">
-                <button type="button" id="connect-submit">save</button>
-                <button type="button" id="cancel-settings" class="btn-secondary">Cancel</button>
+            <div class="modal-actions" id="settings-modal-action">
+                <button type="button" class="submit-modal" id="save-settings">save</button>
+                <button type="button" class="cancel-modal" id="cancel-settings">Cancel</button>
             </div>
         </div>
     </div>

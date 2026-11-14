@@ -47,7 +47,8 @@ window.addEventListener("DOMContentLoaded", () => {
     renderDeviceList();
     initSettingsSubmenu();
     document.addEventListener('click', closeDeviceMenu);
-
+    
+    toggleAddSettingsModal();
 
     const defaultTab = document.querySelector('.submenu-btn[data-type="graphics"]');
     if (defaultTab) defaultTab.click();
@@ -62,7 +63,6 @@ window.addEventListener("DOMContentLoaded", () => {
 
         document.documentElement.style.setProperty('--blur', `${val}px`);
     });
-
 });
 
 

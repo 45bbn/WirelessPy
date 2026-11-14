@@ -90,12 +90,16 @@ export function toggleAddDeviceModal() {
     const backdrop = document.querySelector(".modal-backdrop");
     const connectDeviceModal = document.getElementById("connect-device-modal");
 
-    if (backdrop.hidden && backdrop.hidden) {
-        backdrop.hidden = false;
-        connectDeviceModal.hidden = false;
+    const isHidden = !connectDeviceModal.classList.contains("active");
+
+    if (isHidden) {
+        // OPEN MODAL
+        backdrop.classList.add("active");
+        connectDeviceModal.classList.add("active");
     } else {
-        backdrop.hidden = true;
-        connectDeviceModal.hidden = true;
+        // CLOSE MODAL
+        backdrop.classList.remove("active");
+        connectDeviceModal.classList.remove("active");
     }
 }
 
@@ -103,12 +107,14 @@ export function toggleAddSettingsModal() {
     const backdrop = document.querySelector(".modal-backdrop");
     const settingsModal = document.getElementById("settings-modal");
 
-    if (backdrop.hidden && backdrop.hidden) {
-        backdrop.hidden = false;
-        settingsModal.hidden = false;
+    const isHidden = !settingsModal.classList.contains("active");
+
+    if (isHidden) {
+        backdrop.classList.add("active");
+        settingsModal.classList.add("active");
     } else {
-        backdrop.hidden = true;
-        settingsModal.hidden = true;
+        backdrop.classList.remove("active");
+        settingsModal.classList.remove("active");
     }
 }
 
@@ -134,7 +140,7 @@ export function initConnectionType() {
 export function initSettingsSubmenu() {
     const toggle = document.querySelector('.settings-submenu-toggle');
     const buttons = toggle.querySelectorAll('.submenu-btn');
-    const panels = document.querySelectorAll('.modal-body > div');
+    const panels = document.querySelectorAll('.settings-list > div');
 
     buttons.forEach(btn => {
         btn.addEventListener('click', () => {
