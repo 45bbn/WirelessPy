@@ -35,6 +35,6 @@ server_config.json
 templates/example.html
 templates/home.html
 static/assets/wallpaper/*
-!static/assets/wallpaper/wallpaper.txt.gitkeep
+!static/assets/wallpaper/.gitkeep
 notes.txt
 adb_commands.txt
