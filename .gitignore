@@ -29,16 +29,11 @@ Thumbs.db
 test.py
 test2.py
 
-# old files
-main_old.js
-static/js/main_old.js
-static/css/old/
-
 # other
 _img/
 server_config.json
 templates/example.html
 templates/home.html
-static/assets/wallpaper/
+static/assets/wallpaper/*
 notes.txt
 adb_commands.txt
