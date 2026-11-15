@@ -10,7 +10,7 @@ DEFAULT_SERVER_CONFIG = {
     "server": {
         "ip_mode": "manual",  # auto | manual
         "manual_ip": "127.0.0.1",
-        "port": 5000,
+        "port": 8000,
     },
     "development": {
         "debug": False,  # True | False (keep False in production)
