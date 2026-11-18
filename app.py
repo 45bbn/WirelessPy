@@ -6,7 +6,7 @@ import uvicorn
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 
-from config import HOST, PORT, DEBUG
+from config import HOST, PORT, DEBUG, AUTO_RECONNECT
 from core.adb import init_adb, kill_adb
 
 from database.db import init_db
@@ -25,11 +25,11 @@ AlreadyReconnect = False
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     global AlreadyReconnect
-    AutoReconnect = False
     task = None
 
     try:
-        if AutoReconnect and not AlreadyReconnect:
+        if AUTO_RECONNECT and not AlreadyReconnect:
+            print("Reconnecting saved devices")
             AlreadyReconnect = True
             task = asyncio.create_task(init_devices())
 

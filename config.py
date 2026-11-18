@@ -11,6 +11,7 @@ DEFAULT_SERVER_CONFIG = {
         "ip_mode": "manual",  # auto | manual
         "manual_ip": "127.0.0.1",
         "port": 8000,
+        "auto_reconnect": True, # Reconnect to devices on server startup
     },
     "development": {
         "debug": False,  # True | False (keep False in production)
@@ -68,9 +69,7 @@ def init_config() -> dict:
         save_server_config()
         return server_config
 
-    # Merge with defaults so newly added keys always exist
     server_config = deep_merge(DEFAULT_SERVER_CONFIG, loaded)
-    # Write back so the file gets any new default keys
     save_server_config()
     return server_config
 
@@ -87,3 +86,4 @@ CONFIG = init_config()
 HOST = resolve_host(CONFIG)
 PORT = CONFIG["server"]["port"]
 DEBUG = CONFIG["development"]["debug"]
+AUTO_RECONNECT = CONFIG["server"]["auto_reconnect"]
