@@ -88,11 +88,7 @@ For the previous CLI implementation, see the [`main` branch](https://github.com/
   <em>WirelessPy v2 dashboard: module tabs, workspace, connected devices, status bar, and real-time log panel.</em>
 </p>
 
-> **Note:**
-> 
-> The status bar shown in the screenshot is not real-time and is still a placeholder.
-> 
-> The UI is under active development and may differ from the current version.
+> **Note:** The UI is under active development and may differ from the current version.
 
 
 
@@ -249,7 +245,7 @@ http://127.0.0.1:5000
 
 The server address, port, and other settings can be configured in `server_config.json`.
 
-> Configuration options may change while v2 is under development.
+> **Note:** Configuration options may change while v2 is under development.
 
 
 
@@ -507,7 +503,7 @@ The device API is available under `/api/devices`:
 | `POST` | `/api/devices/rename`     | Rename a device     |
 | `POST` | `/api/devices/remove`     | Remove a device     |
 
-> The API is still under development and may change between releases.
+> **Note:** The API is still under development and may change between releases.
 
 During development, FastAPI provides interactive documentation at:
 
@@ -589,7 +585,7 @@ Long-term ideas:
 - Sensor-based video stabilization
 - Additional automation features
 
-> These future plans are experimental and may change significantly.
+> **Note:** These future plans are experimental and may change significantly.
 
 
 
