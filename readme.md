@@ -141,8 +141,8 @@ For the previous CLI implementation, see the [`main` branch](https://github.com/
 - [x] Logout API endpoint & Cookie clearing
 - [x] WebSocket connection protection
 - [x] Login page UI (Glassmorphism design)
-- [ ] Rate limiting for login attempts (V2.x)
-- [ ] User roles (V2.x)
+- [ ] Rate limiting for login attempts (V2.1)
+- [ ] User roles (V2.1)
 
 ### Web Interface
 
@@ -153,8 +153,8 @@ For the previous CLI implementation, see the [`main` branch](https://github.com/
 - [x] Utility sidebar
 - [x] Real-time log panel
 - [x] Login page UI
-- [ ] Improved responsive/mobile UI
-- [ ] UI customization
+- [ ] Improved responsive/mobile UI (2.1)
+- [ ] UI customization (2.1)
 
 ### Backend
 
@@ -165,9 +165,9 @@ For the previous CLI implementation, see the [`main` branch](https://github.com/
 - [x] Modular architecture
 - [x] WebSocket logging
 - [x] API security improvements
-- [ ] Rate limiting
+- [ ] Rate limiting (2.1)
 
-### Android
+### Android (2.1)
 
 - [ ] Device information
 - [ ] Basic device actions
@@ -179,7 +179,7 @@ For the previous CLI implementation, see the [`main` branch](https://github.com/
 - [ ] Shell interface
 - [ ] Battery information
 
-### Planned (2.x)
+### Planned (2.1)
 
 - [ ] Plugin system
 - [ ] Tailscale intergration
@@ -390,8 +390,8 @@ WirelessPy/
 │       ├── main.js           # Dashboard entry point (init and bind)
 │       └── components/       # UI components (one per HTML partial)
 │           ├── modals.js     # Modal dialogs and connect-device form
-│           ├── modules.j     # Module tabs (Android, Windows, Linux)
-│           ├── profile.j     # Profile menu, username, logout
+│           ├── modules.js    # Module tabs (Android, Windows, Linux)
+│           ├── profile.js    # Profile menu, username, logout
 │           ├── settings.js   # Settings modal logic
 │           ├── statusbar.js  # Status bar (uptime, date, device count)
 │           ├── utility.js    # Connected devices list and device menu
