@@ -1,4 +1,4 @@
-import { getCurrentTarget } from "/static/js/ui.js";
+import { getCurrentTarget } from "/static/js/components/utility.js";
 
 export async function changeRes() {
     const serial = document.getElementById("inputSerial").value;

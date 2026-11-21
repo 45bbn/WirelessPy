@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="{{ url_for('static', path='css/components/workspace.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', path='css/components/sidebar.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', path='css/components/footer.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', path='css/components/modal.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', path='css/components/modals.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', path='css/components/console.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', path='css/components/wallpaper.css') }}">
 </head>
@@ -23,7 +23,7 @@
     {% include 'components/icons.html' %}
     {% block content %}{% endblock %}
     <script type="module" src="{{ url_for('static', path='js/main.js') }}"></script>
-    <script type="module" src="{{ url_for('static', path='js/wallpaper.js') }}"></script>
+    <script type="module" src="{{ url_for('static', path='js/components/wallpaper.js') }}"></script>
 </body>
 
 </html>

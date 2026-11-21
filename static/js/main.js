@@ -1,13 +1,14 @@
-import { bind } from "./core.js";
-import { loadModule } from "./api.js";
-import { loadLog, clearlog, connectLogSocket } from "./console.js";
-import {
-    select_platform, show_wireframe, refresh,
-    toggleAddDeviceModal, connect_device,
-    initConnectionType, renderDeviceList, closeDeviceMenu,
-    initServerUptime, initDate, initConnectedDevices, initUser, initProfileMenu, logout,
+import {loadModule} from "./api.js";
+import {bind, refresh, show_wireframe} from "./core.js";
+import {initModuleTabs} from "./components/modules.js"
+import {loadLog, clearlog, connectLogSocket} from "./console.js";
+import {closeDeviceMenu, renderDeviceList} from "./components/utility.js"
+import {initUser, initProfileMenu, logout} from "./components/profile.js"
+import {initServerUptime, initDate, initConnectedDevices} from "./components/statusbar.js"
+import {submitConnectDevice, toggleAddDeviceModal, initConnectionType, 
     toggleAddSettingsModal, initSettingsSubmenu
-} from "./ui.js";
+} from "./components/modals.js"
+import {} from "./components/profile.js"
 
 
 // bind(".module-android", "click", () => loadModule("android"));
@@ -20,7 +21,7 @@ bind("#clear-logs", "click", async () => {
 });
 
 bind(".refresh", "click", refresh)
-bind(".module-btn", "click", select_platform);
+bind(".module-btn", "click", initModuleTabs);
 bind("#logoutBtn", "click", logout())
 
 bind(".settings", "click", toggleAddSettingsModal);
@@ -30,7 +31,7 @@ bind("#close-settings-modal", "click", toggleAddSettingsModal)
 bind(".add-device", "click", toggleAddDeviceModal)
 bind("#close-connect-device-modal", "click", toggleAddDeviceModal)
 bind("#connect-cancel", "click", toggleAddDeviceModal)
-bind("#connect-submit", "click", connect_device)
+bind("#connect-submit", "click", submitConnectDevice)
 
 // autorun function
 window.addEventListener("DOMContentLoaded", () => {
@@ -39,7 +40,7 @@ window.addEventListener("DOMContentLoaded", () => {
     initServerUptime();
     initDate();
     initConnectedDevices();
-    select_platform();
+    initModuleTabs();
     loadModule("android")
     loadLog();
     connectLogSocket();
@@ -47,7 +48,14 @@ window.addEventListener("DOMContentLoaded", () => {
     renderDeviceList();
     initSettingsSubmenu();
     document.addEventListener('click', closeDeviceMenu);
-    
+
+    // dev();
+});
+
+
+
+
+function dev() {
     toggleAddSettingsModal();
 
     const defaultTab = document.querySelector('.submenu-btn[data-type="graphics"]');
@@ -63,7 +71,5 @@ window.addEventListener("DOMContentLoaded", () => {
 
         document.documentElement.style.setProperty('--blur', `${val}px`);
     });
-});
-
-
+};
 

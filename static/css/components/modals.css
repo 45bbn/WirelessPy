@@ -292,6 +292,60 @@
 
 
 
+.setting-selector {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 260px;
+    height: 65px;
+}
+
+.selector-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+}
+
+.setting-value {
+    font-size: 24px;
+    font-weight: 500;
+    color: white;
+}
+
+.underline {
+    display: flex;
+    gap: 4px;
+    width: 150px;
+
+    & span {
+        flex: 1;
+        height: 4px;
+        border-radius: 10px;
+    }
+
+    & .active {
+        background: #ffffff;
+    }
+
+    & .inactive {
+        background: #55565b;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .slider-wrapper {
     display: flex;
     align-items: center;
@@ -315,11 +369,6 @@
 }
 
 
-
-
-
-
-
 .settings-row {
     display: flex;
     flex: 1;
@@ -330,23 +379,43 @@
     padding: 0;
 }
 
-/* Kolom Kiri (List Settingan) */
 .settings-list {
     flex: 1;
     overflow-y: auto;
-    padding-top: 10px;
-    padding-right: 20px;
-    padding-bottom: 20px;
-    padding-left: 20px;
+    padding: 10px 20px 20px 20px;
+
+    /* --- Standard Firefox --- */
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.15) rgba(0, 0, 0, 0.2);
+
+    /* --- WebKit (Chrome, Edge, Safari) --- */
+    &::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: rgba(0, 0, 0, 0.2);
+        border-radius: 8px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.15);
+        border-radius: 8px;
+        transition: background 0.2s;
+
+        &:hover {
+            background: var(--accent-1, --accent-3);
+        }
+    }
 }
 
-/* Kolom Kanan (Info) */
 .settings-info {
     width: 300px;
     flex-shrink: 0;
     background: rgba(0, 0, 0, 0.2);
     border-left: 1px solid rgba(255, 255, 255, 0.1);
     padding: 20px;
+    margin-left: -20px;
     overflow-y: auto;
 }
 
