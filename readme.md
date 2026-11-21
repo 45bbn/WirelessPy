@@ -347,57 +347,63 @@ Frontend UI Update
 
 ```text
 WirelessPy/
-├── app.py                  # FastAPI application entry point
-├── config.py               # Global configuration loader (server_config.json)
-├── requirements.txt        # Python dependencies
+├── app.py                    # FastAPI application entry point
+├── config.py                 # Global configuration loader (server_config.json)
+├── requirements.txt          # Python dependencies
 │
-├── core/                   # Low-level system wrappers (OS/CLI level)
-│   └── adb.py              # ADB command execution and raw wrappers
+├── core/                     # Low-level system wrappers (OS/CLI level)
+│   └── adb.py                # ADB command execution and raw wrappers
 │
-├── database/               # Database layer
-│   └── db.py               # SQLite connection and CRUD operations
+├── database/                 # Database layer
+│   └── db.py                 # SQLite connection and CRUD operations
 │
-├── modules/                # Platform/device modules (plugin-system)
-│   └── android/            # Android module
-│       ├── api.py          # Module-specific API routes
-│       ├── module.json     # Module manifest and metadata
-│       ├── services/       # Module business logic (device, file, etc.)
-│       ├── static/         # Module-specific CSS and JS
-│       └── templates/      # Module-specific HTML templates
+├── modules/                  # Platform/device modules (plugin-system)
+│   └── android/              # Android module
+│       ├── api.py            # Module-specific API routes
+│       ├── module.json       # Module manifest and metadata
+│       ├── services/         # Module business logic (device, file, etc.)
+│       ├── static/           # Module-specific CSS and JS
+│       └── templates/        # Module-specific HTML templates
 │
-├── routes/                 # Global HTTP route handlers
-│   ├── api.py              # Main API endpoints
-│   ├── auth.py             # Authentication endpoints (login, register)
-│   ├── module.py           # Module loader/routing
-│   ├── responses.py        # Standardized JSON response helpers
-│   └── web.py              # Web page rendering routes
+├── routes/                   # Global HTTP route handlers
+│   ├── api.py                # Main API endpoints
+│   ├── auth.py               # Authentication endpoints (login, register)
+│   ├── module.py             # Module loader/routing
+│   ├── responses.py          # Standardized JSON response helpers
+│   └── web.py                # Web page rendering routes
 │
-├── services/               # Shared business logic
-│   ├── auth.py             # Authentication and session management logic
-│   └── device.py           # Core device management logic
+├── services/                 # Shared business logic
+│   ├── auth.py               # Authentication and session management logic
+│   └── device.py             # Core device management logic
 │
-├── static/                 # Global frontend assets
-│   ├── assets/             # Images, icons, and wallpapers
-│   ├── css/                # Stylesheets
-│   │   ├── base/           # Core variables, themes, and layout reset
-│   │   ├── components/     # Reusable UI components (modals, sidebar, etc.)
-│   │   └── pages/          # Page-specific styles (login, dashboard)
-│   └── js/                 # Frontend JavaScript modules
-│       ├── api.js          # Centralized API fetch client
-│       ├── console.js      # Console/logs UI logic
-│       ├── core.js         # Global state and initialization
-│       ├── login.js        # Login page logic
-│       ├── main.js         # Dashboard entry point
-│       ├── ui.js           # DOM manipulation and UI helpers
-│       └── wallpaper.js    # Animated background logic
+├── static/                   # Global frontend assets
+│   ├── assets/               # Images, icons, and wallpapers
+│   ├── css/                  # Stylesheets
+│   │   ├── base/             # Core variables, themes, and layout reset
+│   │   ├── components/       # Reusable UI components (modals, sidebar, etc.)
+│   │   └── pages/            # Page-specific styles (login, dashboard)
+│   └── js/                   # Frontend JavaScript modules
+│       ├── api.js            # Centralized API fetch client
+│       ├── console.js        # Console/logs UI logic
+│       ├── core.js           # Shared helper functions
+│       ├── login.js          # Login page logic
+│       ├── main.js           # Dashboard entry point (init and bind)
+│       └── components/       # UI components (one per HTML partial)
+│           ├── modals.js     # Modal dialogs and connect-device form
+│           ├── modules.j     # Module tabs (Android, Windows, Linux)
+│           ├── profile.j     # Profile menu, username, logout
+│           ├── settings.js   # Settings modal logic
+│           ├── statusbar.js  # Status bar (uptime, date, device count)
+│           ├── utility.js    # Connected devices list and device menu
+│           └── wallpaper.js  # Animated background logic
 │
-├── templates/              # Global HTML templates (Jinja2)
-│   ├── base.html           # Base layout skeleton
-│   ├── index.html          # Dashboard main page
-│   ├── login.html          # Login page
-│   └── components/         # Reusable HTML partials
-│       ├── icons.html      # SVG sprite definitions
-│       ├── modals.html     # All modal dialogs
+├── templates/                # Global HTML templates (Jinja2)
+│   ├── base.html             # Base layout skeleton
+│   ├── index.html            # Dashboard main page
+│   ├── login.html            # Login page
+│   └── components/           # Reusable HTML partials
+│       ├── icons.html        # SVG sprite definitions
+│       ├── modals.html       # All modal dialogs
 │       ├── console.html
 │       ├── sidebar.html
 │       ├── topbar.html
@@ -405,15 +411,15 @@ WirelessPy/
 │       ├── wallpaper.html
 │       └── workspace.html
 │
-├── utils/                  # Utility functions
-│   ├── logger.py           # WebSocket and terminal logging
-│   ├── security.py         # Argon2 password hashing
-│   ├── session.py          # Token generation and hashing
-│   ├── server_utils.py     # Server uptime and system info
-│   └── validator.py        # Input validation helpers
+├── utils/                    # Utility functions
+│   ├── logger.py             # WebSocket and terminal logging
+│   ├── security.py           # Argon2 password hashing
+│   ├── session.py            # Token generation and hashing
+│   ├── server_utils.py       # Server uptime and system info
+│   └── validator.py          # Input validation helpers
 │
-└── instance/               # Runtime data (gitignored)
-    └── wirelesspy.db       # SQLite database file
+└── instance/                 # Runtime data (gitignored)
+    └── wirelesspy.db         # SQLite database file
 ```
 
 
