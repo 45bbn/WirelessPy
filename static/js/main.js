@@ -8,7 +8,7 @@ import {initServerUptime, initDate, initConnectedDevices} from "./components/sta
 import {submitConnectDevice, toggleAddDeviceModal, initConnectionType, 
     toggleAddSettingsModal, initSettingsSubmenu
 } from "./components/modals.js"
-import {} from "./components/profile.js"
+import {} from "./components/settings.js"
 
 
 // bind(".module-android", "click", () => loadModule("android"));
@@ -61,15 +61,15 @@ function dev() {
     const defaultTab = document.querySelector('.submenu-btn[data-type="graphics"]');
     if (defaultTab) defaultTab.click();
 
-    const slider = document.getElementById('blur-slider');
-    const valueText = document.getElementById('blur-value');
+    // const slider = document.getElementById('blur-slider');
+    // const valueText = document.getElementById('blur-value');
 
-    slider.addEventListener('input', (e) => {
-        const val = e.target.value;
+    // slider.addEventListener('input', (e) => {
+    //     const val = e.target.value;
 
-        valueText.textContent = `${val}px`;
+    //     valueText.textContent = `${val}px`;
 
-        document.documentElement.style.setProperty('--blur', `${val}px`);
-    });
+    //     document.documentElement.style.setProperty('--blur', `${val}px`);
+    // });
 };
 
