@@ -137,8 +137,6 @@ For the previous CLI implementation, see the [`main` branch](https://github.com/
 - [x] Logout API endpoint & Cookie clearing
 - [x] WebSocket connection protection
 - [x] Login page UI (Glassmorphism design)
-- [ ] Rate limiting for login attempts (V2.1)
-- [ ] User roles (V2.1)
 
 ### Web Interface
 
@@ -166,6 +164,7 @@ For the previous CLI implementation, see the [`main` branch](https://github.com/
 - [ ] Improved responsive/mobile UI
 - [ ] UI customization
 - [ ] Tailscale intergration
+- [ ] User roles
 
 ### Android (2.2)
 
@@ -408,7 +407,13 @@ WirelessPy/
 │       ├── topbar.html
 │       ├── utility.html
 │       ├── wallpaper.html
-│       └── workspace.html
+│       └── settings/
+│           ├── settings.html
+│           ├── schema.html
+│           ├── storage.html
+│           └── renderers/
+│                 ├── selector.html
+│                 └── slider.html
 │
 ├── utils/                    # Utility functions
 │   ├── logger.py             # WebSocket and terminal logging

@@ -12,6 +12,10 @@
     pointer-events: none;
     background: radial-gradient(360px circle at var(--mx, 50%) var(--my, 50%),
             rgba(102, 104, 245, 0.26), transparent 70%);
+
+    &.hidden {
+        display: none;
+    }
 }
 
 

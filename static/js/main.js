@@ -8,7 +8,6 @@ import {initServerUptime, initDate, initConnectedDevices} from "./components/sta
 import {submitConnectDevice, toggleAddDeviceModal, initConnectionType, 
     toggleAddSettingsModal, initSettingsSubmenu
 } from "./components/modals.js"
-import {} from "./components/settings.js"
 
 
 // bind(".module-android", "click", () => loadModule("android"));
@@ -49,27 +48,32 @@ window.addEventListener("DOMContentLoaded", () => {
     initSettingsSubmenu();
     document.addEventListener('click', closeDeviceMenu);
 
-    // dev();
+    dev()
 });
 
 
 
-
+// Temp code when development
 function dev() {
     toggleAddSettingsModal();
 
     const defaultTab = document.querySelector('.submenu-btn[data-type="graphics"]');
     if (defaultTab) defaultTab.click();
+}
 
-    // const slider = document.getElementById('blur-slider');
-    // const valueText = document.getElementById('blur-value');
+// window.addEventListener("wp:setting-changed", e => {
+//     const { id, value } = e.detail;
+//     console.log(id, value)
 
-    // slider.addEventListener('input', (e) => {
-    //     const val = e.target.value;
+//     switch (id) {
+//         case "render_quality":
+//             quality = Number(value);
+//             console.log(quality)
+//             break;
 
-    //     valueText.textContent = `${val}px`;
-
-    //     document.documentElement.style.setProperty('--blur', `${val}px`);
-    // });
-};
-
+//         case "max_geometry":
+//             maxGeometry = Number(value);
+//             console.log(maxGeometry)
+//             break;
+//     }
+// });

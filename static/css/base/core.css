@@ -44,7 +44,7 @@ body {
     --scrollbar-thumb-color: rgba(255, 255, 255, 0.3);
     --scrollbar-track-color: transparent;
 
-    --blur: 1px;
+    --blur: 16px;
 }
 
 body {
@@ -62,8 +62,8 @@ body {
 }
 
 .glass {
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(var(--blur));
+    -webkit-backdrop-filter: blur(var(--blur));
 }
 
 #bg-video {
