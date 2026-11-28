@@ -149,8 +149,6 @@ For the previous CLI implementation, see the [`main` branch](https://github.com/
 - [x] Utility sidebar
 - [x] Real-time log panel
 - [x] Login page UI
-- [ ] Improved responsive/mobile UI (2.1)
-- [ ] UI customization (2.1)
 
 ### Backend
 
@@ -161,9 +159,15 @@ For the previous CLI implementation, see the [`main` branch](https://github.com/
 - [x] Modular architecture
 - [x] WebSocket logging
 - [x] API security improvements
-- [ ] Rate limiting (2.1)
 
-### Android (2.1)
+### Plugin-System And QoL (2.1)
+- [ ] Plugin system
+- [ ] Rate limiting
+- [ ] Improved responsive/mobile UI
+- [ ] UI customization
+- [ ] Tailscale intergration
+
+### Android (2.2)
 
 - [ ] Device information
 - [ ] Basic device actions
@@ -175,12 +179,11 @@ For the previous CLI implementation, see the [`main` branch](https://github.com/
 - [ ] Shell interface
 - [ ] Battery information
 
-### Planned (2.1)
+### Planned (2.x)
 
-- [ ] Plugin system
-- [ ] Tailscale intergration
 - [ ] Basic file explorer
 - [ ] Basic SSH support
+- [ ] Automation engine
 
 
 
