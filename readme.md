@@ -343,89 +343,113 @@ Frontend UI Update
 
 ## Project Structure
 
+<details open>
+<summary><strong>Show directory descriptions</strong></summary>
+
 ```text
 WirelessPy/
-├── app.py                    # FastAPI application entry point
-├── config.py                 # Global configuration loader (server_config.json)
-├── requirements.txt          # Python dependencies
+├── app.py                         # FastAPI application entry point
+├── config.py                      # Configuration loader
+├── requirements.txt               # Python dependencies
 │
-├── core/                     # Low-level system wrappers (OS/CLI level)
-│   └── adb.py                # ADB command execution and raw wrappers
+├── core/                          # Low-level system interfaces
+│   └── adb.py                     # ADB execution and command wrappers
 │
-├── database/                 # Database layer
-│   └── db.py                 # SQLite connection and CRUD operations
+├── database/                      # Database layer
+│   └── db.py                      # SQLite connection and CRUD operations
 │
-├── modules/                  # Platform/device modules (plugin-system)
-│   └── android/              # Android module
-│       ├── api.py            # Module-specific API routes
-│       ├── module.json       # Module manifest and metadata
-│       ├── services/         # Module business logic (device, file, etc.)
-│       ├── static/           # Module-specific CSS and JS
-│       └── templates/        # Module-specific HTML templates
+├── modules/                       # Platform-specific modules
+│   └── android/                   # Android device module
+│       ├── api.py                 # Module API routes
+│       ├── module.json            # Module manifest and metadata
+│       ├── services/              # Module business logic
+│       ├── static/                # Module-specific frontend assets
+│       └── templates/             # Module-specific HTML templates
 │
-├── routes/                   # Global HTTP route handlers
-│   ├── api.py                # Main API endpoints
-│   ├── auth.py               # Authentication endpoints (login, register)
-│   ├── module.py             # Module loader/routing
-│   ├── responses.py          # Standardized JSON response helpers
-│   └── web.py                # Web page rendering routes
+├── routes/                        # Global HTTP routes
+│   ├── api.py                     # Main API endpoints
+│   ├── auth.py                    # Authentication endpoints
+│   ├── module.py                  # Module loading and routing
+│   ├── responses.py               # Standardized API responses
+│   └── web.py                     # Web page rendering
 │
-├── services/                 # Shared business logic
-│   ├── auth.py               # Authentication and session management logic
-│   └── device.py             # Core device management logic
+├── services/                      # Shared application logic
+│   ├── auth.py                    # Authentication and session management
+│   └── device.py                  # Device management
 │
-├── static/                   # Global frontend assets
-│   ├── assets/               # Images, icons, and wallpapers
-│   ├── css/                  # Stylesheets
-│   │   ├── base/             # Core variables, themes, and layout reset
-│   │   ├── components/       # Reusable UI components (modals, sidebar, etc.)
-│   │   └── pages/            # Page-specific styles (login, dashboard)
-│   └── js/                   # Frontend JavaScript modules
-│       ├── api.js            # Centralized API fetch client
-│       ├── console.js        # Console/logs UI logic
-│       ├── core.js           # Shared helper functions
-│       ├── login.js          # Login page logic
-│       ├── main.js           # Dashboard entry point (init and bind)
-│       └── components/       # UI components (one per HTML partial)
-│           ├── modals.js     # Modal dialogs and connect-device form
-│           ├── modules.js    # Module tabs (Android, Windows, Linux)
-│           ├── profile.js    # Profile menu, username, logout
-│           ├── settings.js   # Settings modal logic
-│           ├── statusbar.js  # Status bar (uptime, date, device count)
-│           ├── utility.js    # Connected devices list and device menu
-│           └── wallpaper.js  # Animated background logic
+├── static/                        # Global frontend assets
+│   ├── assets/                    # Images, icons, and wallpapers
+│   │   ├── icons/
+│   │   └── wallpaper/
+│   │
+│   ├── css/                       # Stylesheets
+│   │   ├── base/                  # Core styles, themes, and layout
+│   │   │   ├── core.css
+│   │   │   ├── layout.css
+│   │   │   └── theme.css
+│   │   │
+│   │   ├── components/            # Reusable component styles
+│   │   │   ├── console.css
+│   │   │   ├── footer.css
+│   │   │   ├── modals.css
+│   │   │   ├── sidebar.css
+│   │   │   ├── topbar.css
+│   │   │   ├── wallpaper.css
+│   │   │   └── workspace.css
+│   │   │
+│   │   └── pages/                 # Page-specific styles
+│   │       └── login.css
+│   │
+│   └── js/                        # Frontend JavaScript
+│       ├── api.js                 # Centralized API client
+│       ├── console.js             # Console and logging UI
+│       ├── core.js                # Shared frontend utilities
+│       ├── login.js               # Login page logic
+│       ├── main.js                # Dashboard initialization
+│       │
+│       └── components/            # Frontend components
+│           ├── modals.js          # Modal dialogs and device forms
+│           ├── modules.js         # Platform/module navigation
+│           ├── profile.js         # Profile menu and logout
+│           ├── settings.js        # Settings modal controller
+│           ├── statusbar.js       # Status bar information
+│           ├── utility.js         # Device list and device actions
+│           ├── wallpaper.js       # Wallpaper rendering
+│           │
+│           └── settings/           # Settings subsystem
+│               ├── settings.js     # Settings initialization
+│               ├── schema.js       # Settings definitions
+│               ├── storage.js      # Persistence and validation
+│               │
+│               └── renderers/      # Settings UI renderers
+│                   ├── selector.js # Selector renderer
+│                   └── slider.js   # Slider renderer
 │
-├── templates/                # Global HTML templates (Jinja2)
-│   ├── base.html             # Base layout skeleton
-│   ├── index.html            # Dashboard main page
-│   ├── login.html            # Login page
-│   └── components/           # Reusable HTML partials
-│       ├── icons.html        # SVG sprite definitions
-│       ├── modals.html       # All modal dialogs
-│       ├── console.html
-│       ├── sidebar.html
-│       ├── topbar.html
-│       ├── utility.html
-│       ├── wallpaper.html
-│       └── settings/
-│           ├── settings.html
-│           ├── schema.html
-│           ├── storage.html
-│           └── renderers/
-│                 ├── selector.html
-│                 └── slider.html
+├── templates/                      # Global Jinja2 templates
+│   ├── base.html                   # Base page layout
+│   ├── index.html                  # Dashboard
+│   ├── login.html                  # Login page
+│   │
+│   └── components/                 # Reusable HTML partials
+│       ├── icons.html              # SVG icon definitions
+│       ├── modals.html             # Modal markup
+│       ├── console.html            # Console interface
+│       ├── sidebar.html            # Sidebar navigation
+│       ├── topbar.html             # Top navigation bar
+│       ├── utility.html            # Device utility interface
+│       └── wallpaper.html          # Wallpaper container
 │
-├── utils/                    # Utility functions
-│   ├── logger.py             # WebSocket and terminal logging
-│   ├── security.py           # Argon2 password hashing
-│   ├── session.py            # Token generation and hashing
-│   ├── server_utils.py       # Server uptime and system info
-│   └── validator.py          # Input validation helpers
+├── utils/                          # Shared utility functions
+│   ├── logger.py                   # Logging and WebSocket output
+│   ├── security.py                 # Password hashing (Argon2)
+│   ├── session.py                  # Session token generation
+│   ├── server_utils.py             # Server information and uptime
+│   └── validator.py                # Input validation
 │
-└── instance/                 # Runtime data (gitignored)
-    └── wirelesspy.db         # SQLite database file
+└── instance/                       # Local runtime data (gitignored)
+    └── wirelesspy.db               # SQLite database
 ```
-
+</details>
 
 
 ## Module Architecture
